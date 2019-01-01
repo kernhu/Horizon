@@ -30,7 +30,7 @@ public class CoreConfig {
 
     private Theme mTheme;
 
-    private List<String> mFilterList;
+    private String[] mFilterList;
 
     public boolean isSavePassword() {
         return mSavePassword;
@@ -104,11 +104,11 @@ public class CoreConfig {
         return this;
     }
 
-    public List<String> getFilterList() {
+    public String[] getFilterList() {
         return mFilterList;
     }
 
-    public CoreConfig setFilterList(List<String> filterList) {
+    public CoreConfig setFilterList(String[] filterList) {
         mFilterList = filterList;
         return this;
     }
