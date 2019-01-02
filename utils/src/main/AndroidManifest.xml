@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="cn.walkpast.utils">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".permission.PermissionHelpActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/TransparentDialog"></activity>
+
+    </application>
+
+</manifest>

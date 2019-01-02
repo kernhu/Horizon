@@ -1,4 +1,4 @@
-package cn.walkpast.core;
+package cn.walkpast.core.config;
 
 import cn.walkpast.core.constant.NetworkType;
 
