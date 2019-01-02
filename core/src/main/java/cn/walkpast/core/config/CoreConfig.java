@@ -1,6 +1,4 @@
-package cn.walkpast.core;
-
-import java.util.List;
+package cn.walkpast.core.config;
 
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
@@ -14,6 +12,8 @@ import cn.walkpast.core.constant.Theme;
 
 public class CoreConfig {
 
+    private CoreConfig mCoreConfig;
+
     private boolean mSavePassword;
 
     private boolean mPatternlessEnable;
@@ -21,6 +21,8 @@ public class CoreConfig {
     private boolean mWakeupEnable;
 
     private boolean mHardwareAccelerated;
+
+    private boolean mLocalizable;
 
     private int mFontSize;
 
@@ -31,6 +33,16 @@ public class CoreConfig {
     private Theme mTheme;
 
     private String[] mFilterList;
+
+    private String mErrorPage;
+
+//    public static CoreConfig getInstance() {
+//        if (mCoreConfig == null) {
+//            mCoreConfig = new CoreConfig();
+//        }
+//        return mCoreConfig;
+//    }
+
 
     public boolean isSavePassword() {
         return mSavePassword;
@@ -65,6 +77,15 @@ public class CoreConfig {
 
     public CoreConfig setHardwareAccelerated(boolean hardwareAccelerated) {
         mHardwareAccelerated = hardwareAccelerated;
+        return this;
+    }
+
+    public boolean isLocalizable() {
+        return mLocalizable;
+    }
+
+    public CoreConfig setLocalizable(boolean localizable) {
+        mLocalizable = localizable;
         return this;
     }
 
@@ -110,6 +131,15 @@ public class CoreConfig {
 
     public CoreConfig setFilterList(String[] filterList) {
         mFilterList = filterList;
+        return this;
+    }
+
+    public String getErrorPage() {
+        return mErrorPage;
+    }
+
+    public CoreConfig setErrorPage(String errorPage) {
+        mErrorPage = errorPage;
         return this;
     }
 

@@ -3,9 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Horizon.iml" filepath="$PROJECT_DIR$/Horizon.iml" />
+      <module fileurl="file://D:\BrowserProject\Horizon\Horizon.iml" filepath="D:\BrowserProject\Horizon\Horizon.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\BrowserProject\Horizon\app\app.iml" filepath="D:\BrowserProject\Horizon\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://D:\BrowserProject\Horizon\core\core.iml" filepath="D:\BrowserProject\Horizon\core\core.iml" />
       <module fileurl="file://$PROJECT_DIR$/download/download.iml" filepath="$PROJECT_DIR$/download/download.iml" />
+      <module fileurl="file://D:\BrowserProject\Horizon\download\download.iml" filepath="D:\BrowserProject\Horizon\download\download.iml" />
+      <module fileurl="file://$PROJECT_DIR$/indicator/indicator.iml" filepath="$PROJECT_DIR$/indicator/indicator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/utils/utils.iml" filepath="$PROJECT_DIR$/utils/utils.iml" />
     </modules>
   </component>
 </project>

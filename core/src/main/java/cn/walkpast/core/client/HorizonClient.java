@@ -1,4 +1,4 @@
-package cn.walkpast.core;
+package cn.walkpast.core.client;
 
 import android.graphics.Bitmap;
 import android.webkit.WebView;

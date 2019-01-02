@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--禁用点击缩放-->
+    <meta content="width=device-width, initial-scale=0.4, maximum-scale=0.4, user-scalable=0;"
+          name="viewport"/>
+    <title>出错了！</title>
+    <!--居中设置-->
+    <style type="text/css">
+        body, html {
+            height: 100%;
+            width: 100%;
+        }
+        .parent {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="parent" id="parent">
+    <div class="child">
+        <div align="center">
+            <img src="ic_web_error.png">
+        </div>
+        <br>
+        <div align="center">
+            <a style=font-size:40px> 出错了,请重试... </a>
+        </div>
+    </div>
+</div>
+<!--设置点击事件跳转-->
+<script type="text/javascript">
+    document.getElementById('parent').addEventListener('click', function() {
+        location.href='//horizon/error_page'
+    })
+
+</script>
+</body>
+</html>

@@ -9,11 +9,13 @@ import android.widget.FrameLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.walkpast.core.CoreConfig;
-import cn.walkpast.core.DownloadConfig;
+import cn.walkpast.core.config.CoreConfig;
+import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.Horizon;
-import cn.walkpast.core.HorizonClient;
+import cn.walkpast.core.client.HorizonClient;
+import cn.walkpast.core.config.ProgressConfig;
 import cn.walkpast.core.constant.NetworkType;
+import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 import cn.walkpast.horizon.R;
@@ -37,9 +39,14 @@ public class NormalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_normal);
         ButterKnife.bind(this);
 
-
         Horizon.getInstance()
                 .setActivity(this)
+                .setProgressConfig(new ProgressConfig(this)
+                        .setTheme(getResources().getColor(R.color.colorAccent))
+                        .setHeight(10F)
+                        .setProgressStyle(ProgressStyle.STYLE_HORIZONTAL_TOP)
+                        .build()
+                )
                 .setCoreConfig(new CoreConfig()
                         .setFontSize(16)
                         .setHardwareAccelerated(true)
@@ -47,14 +54,16 @@ public class NormalActivity extends AppCompatActivity {
                         .setSavePassword(true)
                         .setWakeupEnable(true)
                         .setAdblockPlusEnable(true)
+                        .setLocalizable(true)
                         .setTheme(Theme.THEME_LIGHT)
                         .setFilterList(new String[]{"www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com"})
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
+                        .setErrorPage("")
                         .build()
                 )
                 .setDownloadConfig(new DownloadConfig()
                         .setStoragePath("download")
-                        .setNetworkType(NetworkType.TYPE_BOTH_4G_WIFI)
+                        .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
                         .build()
                 )
                 .setHorizonClient(mHorizonClient)
@@ -62,7 +71,6 @@ public class NormalActivity extends AppCompatActivity {
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://www.baidu.com")
                 .load();
-
     }
 
     @Override

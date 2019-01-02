@@ -4,6 +4,11 @@ import android.app.Activity;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
+import cn.walkpast.core.client.HorizonClient;
+import cn.walkpast.core.config.CoreConfig;
+import cn.walkpast.core.config.DownloadConfig;
+import cn.walkpast.core.config.ProgressConfig;
+
 /**
  * author: Kern Hu
  * email: sky580@126.com
@@ -17,6 +22,7 @@ public class Horizon implements ILifecycle {
     private Activity mActivity;
     private CoreConfig mCoreConfig;
     private DownloadConfig mDownloadConfig;
+    private ProgressConfig mProgressConfig;
     private HorizonClient mHorizonClient;
     private WebView mWebView;
     private ViewGroup mViewContainer;
@@ -46,6 +52,15 @@ public class Horizon implements ILifecycle {
 
     public Horizon setDownloadConfig(DownloadConfig downloadConfig) {
         mDownloadConfig = downloadConfig;
+        return this;
+    }
+
+    public ProgressConfig getProgressConfig() {
+        return mProgressConfig;
+    }
+
+    public Horizon setProgressConfig(ProgressConfig progressConfig) {
+        mProgressConfig = progressConfig;
         return this;
     }
 
@@ -86,6 +101,14 @@ public class Horizon implements ILifecycle {
     }
 
     public Horizon load() {
+
+
+//        DefaultWebSettings.getInstance()
+//                .setConfig(getCoreConfig())
+//                .setWebView(getWebView())
+//                .build();
+
+
 
         return this;
     }
