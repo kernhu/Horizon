@@ -3,6 +3,7 @@ package cn.walkpast.core.wakeup;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.text.TextUtils;
+import android.webkit.WebView;
 
 import cn.walkpast.core.R;
 import cn.walkpast.core.dialog.CommonDialog;
@@ -17,6 +18,7 @@ import cn.walkpast.core.dialog.CommonDialog;
 public class WakeupHelper {
 
     private Activity mActivity;
+    private String mScheme;
     private WakeupManager mWakeupManager;
 
     public Activity getActivity() {
@@ -28,29 +30,63 @@ public class WakeupHelper {
     }
 
 
-    public void wakeup() {
-
-
+    public String getScheme() {
+        return mScheme;
     }
 
+    public WakeupHelper setScheme(String scheme) {
+        mScheme = scheme;
+        return this;
+    }
+
+    public boolean wakeup() {
+
+        if (getScheme().startsWith(WebView.SCHEME_TEL)) {
+
+            callTel(getScheme());
+
+        } else if (getScheme().startsWith("sms:")) {
+
+            sendSMS(getScheme());
+
+        } else if (getScheme().startsWith(WebView.SCHEME_MAILTO)) {
+
+            sendEmail(getScheme());
+
+        } else if (getScheme().startsWith(WebView.SCHEME_GEO)) {
+
+            sendGEO(getScheme());
+            return true;
+
+        } else if (getScheme().startsWith("maps:")) {
+
+            sendMaps(getScheme());
+            return true;
+
+        } else {
+
+            deeplink(getScheme());
+            return true;
+        }
+        return false;
+    }
 
     /**
-     * @param requestor
-     * @param target
+     * @param scheme
      */
-    private void sendMaps(String requestor, final String target) {
+    private void sendMaps(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
                 .setTitle(mActivity.getString(R.string.wakeup_title))
-                .setMessage(String.format(mActivity.getString(R.string.call_maps_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setMessage(String.format(mActivity.getString(R.string.call_maps_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
                 .setPositiveListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        mWakeupManager.commonLink(target);
+                        mWakeupManager.commonLink(scheme);
 
                     }
                 })
@@ -61,22 +97,21 @@ public class WakeupHelper {
 
 
     /**
-     * @param requestor
-     * @param target
+     * @param scheme
      */
-    private void sendGEO(String requestor, final String target) {
+    private void sendGEO(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
                 .setTitle(mActivity.getString(R.string.wakeup_title))
-                .setMessage(String.format(mActivity.getString(R.string.request_geo_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setMessage(String.format(mActivity.getString(R.string.request_geo_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
                 .setPositiveListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        mWakeupManager.commonLink(target);
+                        mWakeupManager.commonLink(scheme);
 
                     }
                 })
@@ -86,48 +121,22 @@ public class WakeupHelper {
     }
 
     /**
-     * @param requestor
-     * @param target
+     * @param scheme
+     * @param scheme
      */
-    private void sendEmail(String requestor, final String target) {
+    private void sendEmail(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
                 .setTitle(mActivity.getString(R.string.wakeup_title))
-                .setMessage(String.format(mActivity.getString(R.string.send_email_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setMessage(String.format(mActivity.getString(R.string.send_email_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
                 .setPositiveListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        mWakeupManager.commonLink(target);
-
-                    }
-                })
-                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
-                .show();
-
-    }
-
-
-    /**
-     * @param requestor
-     * @param target
-     */
-    private void sendSMS(String requestor, final String target) {
-
-        mWakeupManager = new WakeupManager(getActivity());
-
-        CommonDialog.getInstance()
-                .setTitle(mActivity.getString(R.string.wakeup_title))
-                .setMessage(String.format(mActivity.getString(R.string.send_sms_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
-                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
-                .setPositiveListener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        mWakeupManager.commonLink(target);
+                        mWakeupManager.commonLink(scheme);
 
                     }
                 })
@@ -138,22 +147,48 @@ public class WakeupHelper {
 
 
     /**
-     * @param requestor
-     * @param target
+     * @param scheme
+     * @param scheme
      */
-    private void callTel(String requestor, final String target) {
+    private void sendSMS(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
                 .setTitle(mActivity.getString(R.string.wakeup_title))
-                .setMessage(String.format(mActivity.getString(R.string.call_tel_message),  mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setMessage(String.format(mActivity.getString(R.string.send_sms_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
                 .setPositiveListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        mWakeupManager.commonLink(target);
+                        mWakeupManager.commonLink(scheme);
+
+                    }
+                })
+                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
+                .show();
+
+    }
+
+
+    /**
+     * @param scheme
+     * @param scheme
+     */
+    private void callTel(final String scheme) {
+
+        mWakeupManager = new WakeupManager(getActivity());
+
+        CommonDialog.getInstance()
+                .setTitle(mActivity.getString(R.string.wakeup_title))
+                .setMessage(String.format(mActivity.getString(R.string.call_tel_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
+                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
+                .setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mWakeupManager.commonLink(scheme);
 
                     }
                 })
@@ -168,7 +203,7 @@ public class WakeupHelper {
     /**
      * @param deeplink
      */
-    private void authorizeDeeplink(String deeplink) {
+    private void deeplink(String deeplink) {
 
         mWakeupManager = new WakeupManager(getActivity());
         String target = mWakeupManager.getDeeplinkTarget(deeplink);
