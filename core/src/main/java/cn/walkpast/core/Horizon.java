@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
+import com.orhanobut.logger.Logger;
+
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
@@ -104,7 +106,15 @@ public class Horizon implements ILifecycle {
     public Horizon load() {
 
         //Ⅰ
-        getWebView().loadUrl(getOriginalUrl());
+        if (getWebView() == null) {
+            mWebView = new WebView(getActivity());
+        }
+        try {
+            getWebView().loadUrl(getOriginalUrl());
+        } catch (Exception e) {
+            Logger.e("horizon error: webview is exception");
+        }
+
         //Ⅱ
         DefaultWebSettings.getInstance()
                 .setConfig(getCoreConfig())
