@@ -3,6 +3,7 @@ package cn.walkpast.core;
 import android.app.Activity;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
@@ -102,13 +103,18 @@ public class Horizon implements ILifecycle {
 
     public Horizon load() {
 
-
-//        DefaultWebSettings.getInstance()
-//                .setConfig(getCoreConfig())
-//                .setWebView(getWebView())
-//                .build();
-
-
+        //Ⅰ
+        getWebView().loadUrl(getOriginalUrl());
+        //Ⅱ
+        DefaultWebSettings.getInstance()
+                .setConfig(getCoreConfig())
+                .setWebView(getWebView())
+                .build();
+        //Ⅲ
+        getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        getViewContainer().addView(getWebView());
+        //Ⅳ
+        getViewContainer().addView(mProgressConfig.getIndicator());
 
         return this;
     }

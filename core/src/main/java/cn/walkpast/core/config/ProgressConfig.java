@@ -1,13 +1,10 @@
 package cn.walkpast.core.config;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.widget.ProgressBar;
 
-import cn.walkpast.core.R;
 import cn.walkpast.core.constant.ProgressStyle;
-import cn.walkpast.indicator.CircularLimeIndicator;
-import cn.walkpast.indicator.SmoothLimeIndicator;
+import cn.walkpast.core.indicator.ProgressIndicator;
 
 /**
  * Author: Kern
@@ -19,7 +16,7 @@ public class ProgressConfig {
 
     private Activity mActivity;
     private int mTheme;
-    private float mHeight;
+    private int mHeight;
     private ProgressStyle mProgressStyle;
 
 
@@ -45,11 +42,11 @@ public class ProgressConfig {
         return this;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return mHeight;
     }
 
-    public ProgressConfig setHeight(float height) {
+    public ProgressConfig setHeight(int height) {
         mHeight = height;
         return this;
     }
@@ -66,35 +63,18 @@ public class ProgressConfig {
 
     public ProgressConfig build() {
 
-        mIndicator = createIndicator();
-        mIndicator.setMinimumHeight((int) getHeight());
+        mProgressBar = ProgressIndicator.getInstance()
+                .setConfig(this)
+                .createIndicator();
 
         return this;
     }
 
-    private ProgressBar mIndicator;
+    private ProgressBar mProgressBar;
 
     public ProgressBar getIndicator() {
-        return mIndicator;
-    }
-
-    public ProgressBar createIndicator() {
-
-        ProgressBar mProgressBar = null;
-        switch (getProgressStyle()) {
-            case STYLE_HORIZONTAL_TOP:
-
-                mProgressBar = new SmoothLimeIndicator(getActivity());
-                ((SmoothLimeIndicator) mProgressBar).applyStyle(R.style.OrdinaryIndicator);
-
-                break;
-            case STYLE_CIRCLE_GRAVITY:
-
-                mProgressBar = new CircularLimeIndicator(getActivity());
-                ((CircularLimeIndicator) mProgressBar).setBackgroundColor(Color.YELLOW);
-
-                break;
-        }
         return mProgressBar;
     }
+
+
 }
