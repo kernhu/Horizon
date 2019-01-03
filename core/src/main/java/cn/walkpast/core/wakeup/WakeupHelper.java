@@ -1,9 +1,8 @@
 package cn.walkpast.core.wakeup;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.widget.DatePicker;
+import android.text.TextUtils;
 
 import cn.walkpast.core.R;
 import cn.walkpast.core.dialog.CommonDialog;
@@ -18,7 +17,7 @@ import cn.walkpast.core.dialog.CommonDialog;
 public class WakeupHelper {
 
     private Activity mActivity;
-
+    private WakeupManager mWakeupManager;
 
     public Activity getActivity() {
         return mActivity;
@@ -29,32 +28,165 @@ public class WakeupHelper {
     }
 
 
-
-    public void wakeup(){
-
+    public void wakeup() {
 
 
     }
 
-    public void authorize(String requestor, String target) {
 
+    /**
+     * @param requestor
+     * @param target
+     */
+    private void sendMaps(String requestor, final String target) {
+
+        mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
                 .setTitle(mActivity.getString(R.string.wakeup_title))
-                .setMessage(String.format(mActivity.getString(R.string.wakeup_message), requestor, target))
+                .setMessage(String.format(mActivity.getString(R.string.call_maps_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
                 .setPositiveListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        wakeup();
+                        mWakeupManager.commonLink(target);
 
                     }
                 })
                 .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
                 .show();
 
+    }
 
+
+    /**
+     * @param requestor
+     * @param target
+     */
+    private void sendGEO(String requestor, final String target) {
+
+        mWakeupManager = new WakeupManager(getActivity());
+
+        CommonDialog.getInstance()
+                .setTitle(mActivity.getString(R.string.wakeup_title))
+                .setMessage(String.format(mActivity.getString(R.string.request_geo_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
+                .setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mWakeupManager.commonLink(target);
+
+                    }
+                })
+                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
+                .show();
+
+    }
+
+    /**
+     * @param requestor
+     * @param target
+     */
+    private void sendEmail(String requestor, final String target) {
+
+        mWakeupManager = new WakeupManager(getActivity());
+
+        CommonDialog.getInstance()
+                .setTitle(mActivity.getString(R.string.wakeup_title))
+                .setMessage(String.format(mActivity.getString(R.string.send_email_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
+                .setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mWakeupManager.commonLink(target);
+
+                    }
+                })
+                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
+                .show();
+
+    }
+
+
+    /**
+     * @param requestor
+     * @param target
+     */
+    private void sendSMS(String requestor, final String target) {
+
+        mWakeupManager = new WakeupManager(getActivity());
+
+        CommonDialog.getInstance()
+                .setTitle(mActivity.getString(R.string.wakeup_title))
+                .setMessage(String.format(mActivity.getString(R.string.send_sms_message), mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
+                .setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mWakeupManager.commonLink(target);
+
+                    }
+                })
+                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
+                .show();
+
+    }
+
+
+    /**
+     * @param requestor
+     * @param target
+     */
+    private void callTel(String requestor, final String target) {
+
+        mWakeupManager = new WakeupManager(getActivity());
+
+        CommonDialog.getInstance()
+                .setTitle(mActivity.getString(R.string.wakeup_title))
+                .setMessage(String.format(mActivity.getString(R.string.call_tel_message),  mWakeupManager.getUri(requestor), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
+                .setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mWakeupManager.commonLink(target);
+
+                    }
+                })
+                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
+                .show();
+
+    }
+
+
+    /********************************************************************************/
+
+    /**
+     * @param deeplink
+     */
+    private void authorizeDeeplink(String deeplink) {
+
+        mWakeupManager = new WakeupManager(getActivity());
+        String target = mWakeupManager.getDeeplinkTarget(deeplink);
+
+        CommonDialog.getInstance()
+                .setTitle(mActivity.getString(R.string.wakeup_title))
+                .setMessage(String.format(mActivity.getString(R.string.deeplink_message), mWakeupManager.getUri(deeplink), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
+                .setPositiveListener(new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        mWakeupManager.deeplink();
+
+                    }
+                })
+                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
+                .show();
     }
 
 }

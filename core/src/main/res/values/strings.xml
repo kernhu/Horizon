@@ -2,6 +2,12 @@
     <string name="app_name">core</string>
     <string name="wakeup_allow">允许</string>
     <string name="wakeup_refuse">拒绝</string>
-    <string name="wakeup_title">wake up 提示</string>
-    <string name="wakeup_message">%s请求唤醒%s应用,是否允许？</string>
+    <string name="wakeup_title">提示</string>
+    <string name="deeplink_message">%s请求唤醒%s应用,是否允许？</string>
+    <string name="call_tel_message">%s请求拨号%s,是否允许？</string>
+    <string name="send_sms_message">%s请求发送短信%s,是否允许？</string>
+    <string name="send_email_message">%s请求发送邮件%s,是否允许？</string>
+    <string name="request_geo_message">%s请求获取位置%s,是否允许？</string>
+    <string name="call_maps_message">%s请求获取地图位置%s,是否允许？</string>
+    <string name="wakeup_unkonw">未知</string>
 </resources>

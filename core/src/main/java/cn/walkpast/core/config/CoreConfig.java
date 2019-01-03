@@ -24,6 +24,8 @@ public class CoreConfig {
 
     private boolean mLocalizable;
 
+    private boolean mThemeEnable;
+
     private int mFontSize;
 
     private boolean mAdblockPlusEnable;
@@ -86,6 +88,15 @@ public class CoreConfig {
 
     public CoreConfig setLocalizable(boolean localizable) {
         mLocalizable = localizable;
+        return this;
+    }
+
+    public boolean isThemeEnable() {
+        return mThemeEnable;
+    }
+
+    public CoreConfig setThemeEnable(boolean themeEnable) {
+        mThemeEnable = themeEnable;
         return this;
     }
 

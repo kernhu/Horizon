@@ -55,6 +55,7 @@ public class NormalActivity extends AppCompatActivity {
                         .setWakeupEnable(true)
                         .setAdblockPlusEnable(true)
                         .setLocalizable(true)
+                        .setThemeEnable(true)
                         .setTheme(Theme.THEME_LIGHT)
                         .setFilterList(new String[]{"www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com"})
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
