@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">core</string>
+    <string name="wakeup_allow">允许</string>
+    <string name="wakeup_refuse">拒绝</string>
+    <string name="wakeup_title">wake up 提示</string>
+    <string name="wakeup_message">%s请求唤醒%s应用,是否允许？</string>
 </resources>

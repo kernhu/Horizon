@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
+import cn.walkpast.core.DefaultWebSettings;
+
 /**
  * Author: Kern
  * Time: 2019/1/2 20:59
@@ -20,6 +22,12 @@ public class CommonDialog {
     private String negativeBtn;
     private DialogInterface.OnClickListener positiveListener;
     private DialogInterface.OnClickListener negativeListener;
+
+
+    public static CommonDialog getInstance() {
+
+        return new CommonDialog();
+    }
 
 
     public Activity getActivity() {
