@@ -2,6 +2,7 @@ package cn.walkpast.horizon;
 
 import android.app.Application;
 
+import cn.walkpast.core.config.HorizonConfig;
 import cn.walkpast.utils.HorizonUtils;
 
 /**
@@ -16,7 +17,12 @@ public class ApplBase extends Application {
     public void onCreate() {
         super.onCreate();
 
-        //初始化工具类
-        HorizonUtils.init(this);
+
+        HorizonConfig.getInstance()
+                .setApplication(this)
+                .setToastBgc(R.color.ToastBgc)
+                .setToastMsgColor(R.color.TextWhite)
+                .build();
+
     }
 }
