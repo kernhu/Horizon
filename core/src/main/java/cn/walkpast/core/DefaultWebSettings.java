@@ -7,11 +7,10 @@ import android.webkit.CookieManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.orhanobut.logger.Logger;
-
 import cn.walkpast.core.config.CacheConfig;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.WebSettingConfig;
+import cn.walkpast.utils.LogUtils;
 import cn.walkpast.utils.NetworkUtils;
 
 /**
@@ -22,6 +21,7 @@ import cn.walkpast.utils.NetworkUtils;
 
 public class DefaultWebSettings {
 
+    private static String TAG = "DefaultWebSettings";
     private WebView mWebView;
     private CoreConfig mConfig;
     private WebSettings mWebSettings;
@@ -160,7 +160,7 @@ public class DefaultWebSettings {
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
-        Logger.d("UA--->>>" + settings.getUserAgentString());
+        LogUtils.d(TAG, "UA--->>>" + settings.getUserAgentString());
 
         return settings;
     }

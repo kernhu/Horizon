@@ -7,7 +7,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.orhanobut.logger.Logger;
+import cn.walkpast.utils.LogUtils;
 
 /**
  * Author: Kern
@@ -17,6 +17,7 @@ import com.orhanobut.logger.Logger;
 
 public class WakeupManager {
 
+    private static final String TAG="WakeupManager";
     private Activity mActivity;
     private Intent mIntent;
 
@@ -72,7 +73,7 @@ public class WakeupManager {
                 }
             } catch (Throwable ignore) {
                 ignore.printStackTrace();
-                Logger.e("error", "callLookup-Throwable=" + ignore.toString());
+                LogUtils.e(TAG, "callLookup-Throwable=" + ignore.toString());
             }
         }
         return null;

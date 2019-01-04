@@ -5,12 +5,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
-import com.orhanobut.logger.Logger;
-
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
+import cn.walkpast.utils.LogUtils;
 
 /**
  * author: Kern Hu
@@ -21,6 +20,7 @@ import cn.walkpast.core.config.ProgressConfig;
 
 public class Horizon implements ILifecycle {
 
+    private static String TAG = "Horizon";
     private static Horizon mHorizon;
     private Activity mActivity;
     private CoreConfig mCoreConfig;
@@ -112,7 +112,7 @@ public class Horizon implements ILifecycle {
         try {
             getWebView().loadUrl(getOriginalUrl());
         } catch (Exception e) {
-            Logger.e("horizon error: webview is exception");
+            LogUtils.e(TAG, "horizon error: webview is exception");
         }
 
         //Ⅱ

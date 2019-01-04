@@ -1,5 +1,6 @@
 package cn.walkpast.core;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -31,11 +32,21 @@ public class HorizonWebChromeClient extends WebChromeClient {
         mHorizon = horizon;
     }
 
+    @SuppressLint("NewApi")
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
         super.onProgressChanged(view, newProgress);
-
         mHorizon.getHorizonClient().onProgressChanged(view, newProgress);
+
+        if (newProgress < 100) {
+            if (mHorizon.getProgressConfig().getIndicator().getVisibility() == View.GONE) {
+                mHorizon.getProgressConfig().getIndicator().setVisibility(View.VISIBLE);
+            }
+            mHorizon.getProgressConfig().getIndicator().setProgress(newProgress, true);
+        } else {
+            mHorizon.getProgressConfig().getIndicator().setVisibility(View.GONE);
+        }
+
     }
 
     @Override
