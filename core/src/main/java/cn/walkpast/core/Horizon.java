@@ -126,6 +126,15 @@ public class Horizon implements ILifecycle {
         //Ⅳ
         getViewContainer().addView(mProgressConfig.getIndicator());
 
+
+        getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
+
+        getWebView().setWebViewClient(new HorizonWebViewClient(this));
+
+        getWebView().setDownloadListener(new HorizonDownloadFileListener(this));
+
+        getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
+
         return this;
     }
 

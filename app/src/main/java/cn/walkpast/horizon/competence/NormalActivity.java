@@ -9,10 +9,10 @@ import android.widget.FrameLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.walkpast.core.config.CoreConfig;
-import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.Horizon;
 import cn.walkpast.core.client.HorizonClient;
+import cn.walkpast.core.config.CoreConfig;
+import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
 import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.constant.ProgressStyle;
@@ -70,7 +70,7 @@ public class NormalActivity extends AppCompatActivity {
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("https://www.baidu.com")
+                .setOriginalUrl("https://www.hao123.com/")
                 .load();
     }
 
@@ -106,8 +106,8 @@ public class NormalActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onPageStarted(WebView view, String url) {
-            super.onPageStarted(view, url);
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
         }
 
         @Override
@@ -136,8 +136,8 @@ public class NormalActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onDownload(String url, String contentDisposition, String mimetype, long contentLength) {
-            super.onDownload(url, contentDisposition, mimetype, contentLength);
+        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+            super.onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
 
         }
     };

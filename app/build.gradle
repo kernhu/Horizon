@@ -41,5 +41,5 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
 
     implementation project(':core')
-    implementation project(':download')
+
 }
