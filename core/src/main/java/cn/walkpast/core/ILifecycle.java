@@ -1,5 +1,7 @@
 package cn.walkpast.core;
 
+import android.view.KeyEvent;
+
 /**
  * author: Kern Hu
  * email: sky580@126.com
@@ -16,5 +18,7 @@ public interface ILifecycle {
     void onStop();
 
     void onDestroy();
+
+    boolean onKeyDown(int keyCode, KeyEvent event);
 
 }

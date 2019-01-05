@@ -15,10 +15,10 @@ import cn.walkpast.core.indicator.ProgressIndicator;
 public class ProgressConfig {
 
     private Activity mActivity;
-    private int mTheme;
-    private int mHeight;
-    private ProgressStyle mProgressStyle;
-
+    private int mBackgroundColor = 0xffFFFFFF;
+    private int mProgressColor = 0xff00BE7E;
+    private int mHeight = 7;
+    private ProgressStyle mProgressStyle = ProgressStyle.STYLE_HORIZONTAL_TOP;
 
     public ProgressConfig(Activity activity) {
         mActivity = activity;
@@ -33,12 +33,21 @@ public class ProgressConfig {
         return this;
     }
 
-    public int getTheme() {
-        return mTheme;
+    public int getBackgroundColor() {
+        return mBackgroundColor;
     }
 
-    public ProgressConfig setTheme(int theme) {
-        mTheme = theme;
+    public ProgressConfig setBackgroundColor(int backgroundColor) {
+        mBackgroundColor = backgroundColor;
+        return this;
+    }
+
+    public int getProgressColor() {
+        return mProgressColor;
+    }
+
+    public ProgressConfig setProgressColor(int progressColor) {
+        mProgressColor = progressColor;
         return this;
     }
 

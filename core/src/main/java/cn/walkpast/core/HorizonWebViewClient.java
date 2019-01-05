@@ -12,6 +12,8 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import cn.walkpast.utils.LogUtils;
+
 /**
  * Author: Kern
  * Time: 2019/1/4 11:17
@@ -30,19 +32,24 @@ public class HorizonWebViewClient extends WebViewClient {
     @SuppressLint("NewApi")
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+        LogUtils.e("horizon_sos", "shouldOverrideUrlLoading111111------" + request.getUrl().toString());
         return shouldOverrideUrlLoading(view, request.getUrl().toString());
     }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-        return mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, url);
+        mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, url);
+        LogUtils.e("horizon_sos", "shouldOverrideUrlLoading22222-----" + url);
+
+        return DefaultShouldOverrideUrlLoading.shouldOverrideUrlLoading(mHorizon.getActivity(), url);
     }
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
-
+        LogUtils.e("horizon_sos", "onPageStarted-----" + url);
         mHorizon.getHorizonClient().onPageStarted(view, url, favicon);
     }
 
@@ -50,7 +57,7 @@ public class HorizonWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-
+        LogUtils.e("horizon_sos", "onPageFinished-----" + url);
         mHorizon.getHorizonClient().onPageFinished(view, url);
     }
 

@@ -1,7 +1,5 @@
 package cn.walkpast.download;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -22,8 +20,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import cn.walkpast.utils.permission.PermissionUtil;
-import cn.walkpast.utils.permission.callback.PermissionResultCallBack;
+import cn.walkpast.utils.ToastUtils;
 
 /**
  * Author: Kern
@@ -62,33 +59,7 @@ public class DownLoadService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        //权限申请一次
-        PermissionUtil
-                .getInstance()
-                .request((Activity) getBaseContext(),
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NOTIFICATION_POLICY},
-                        new PermissionResultCallBack() {
-                            @Override
-                            public void onPermissionGranted() {
-
-                            }
-
-                            @Override
-                            public void onPermissionGranted(String... permissions) {
-                            }
-
-                            @Override
-                            public void onPermissionDenied(String... permissions) {
-
-                                return;
-                            }
-
-                            @Override
-                            public void onRationalShow(String... permissions) {
-
-                            }
-                        });
-
+        ToastUtils.showShort(getApplication().getResources().getString(R.string.download_hint));
 
         url = intent.getStringExtra(KEY_URL);
         filename = intent.getStringExtra(KEY_FILENAME);

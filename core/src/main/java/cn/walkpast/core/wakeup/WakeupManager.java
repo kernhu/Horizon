@@ -17,7 +17,7 @@ import cn.walkpast.utils.LogUtils;
 
 public class WakeupManager {
 
-    private static final String TAG="WakeupManager";
+    private static final String TAG = "WakeupManager";
     private Activity mActivity;
     private Intent mIntent;
 
@@ -79,12 +79,16 @@ public class WakeupManager {
         return null;
     }
 
-    public void deeplink() {
+    public boolean deeplink() {
+        try {
 
-        if (mIntent != null) {
             mActivity.startActivity(mIntent);
-        }
 
+            return true;
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 
 }

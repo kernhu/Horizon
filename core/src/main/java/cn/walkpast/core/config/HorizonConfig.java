@@ -3,6 +3,7 @@ package cn.walkpast.core.config;
 import android.app.Application;
 
 import cn.walkpast.utils.HorizonUtils;
+import cn.walkpast.utils.LogUtils;
 import cn.walkpast.utils.ToastUtils;
 
 /**
@@ -20,6 +21,7 @@ public class HorizonConfig {
     private Application mApplication;
     private int mToastBgc;
     private int mToastMsgColor;
+    private boolean mLogSwitch;
 
 
     public static HorizonConfig getInstance() {
@@ -27,9 +29,7 @@ public class HorizonConfig {
         if (mHorizonConfig == null) {
             mHorizonConfig = new HorizonConfig();
         }
-
         return mHorizonConfig;
-
     }
 
     public Application getApplication() {
@@ -59,12 +59,24 @@ public class HorizonConfig {
         return this;
     }
 
-    public void build(){
+    public boolean isLogSwitch() {
+        return mLogSwitch;
+    }
 
+    public HorizonConfig setLogSwitch(boolean logSwitch) {
+        mLogSwitch = logSwitch;
+        return this;
+    }
+
+    public void build() {
 
         //初始化工具类
         HorizonUtils.init(getApplication());
+        //Toast配置
         ToastUtils.setBgColor(getToastBgc());
         ToastUtils.setBgColor(getToastMsgColor());
+        //Log日志输出开光
+        LogUtils.getConfig().setLogSwitch(isLogSwitch());
+
     }
 }

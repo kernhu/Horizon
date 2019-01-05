@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">download</string>
+    <string name="download_hint">已添加下载队列</string>
 </resources>

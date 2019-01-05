@@ -123,7 +123,7 @@ public class DefaultWebSettings {
         settings.setDefaultFontSize(getConfig().getFontSize());
         //settings.setTextZoom(getConfig().getFontSize());
         settings.setMinimumFontSize(8);//min font size
-        settings.setGeolocationEnabled(true);
+        settings.setGeolocationEnabled(mConfig.isGeolocationEnalbe());
         //
         String dir = CacheConfig.getCachePath(getWebView().getContext());
         //setting database
@@ -156,8 +156,7 @@ public class DefaultWebSettings {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // Remote Web Debugging is always enabled, where available.
-            WebView.setWebContentsDebuggingEnabled(true);
+            WebView.setWebContentsDebuggingEnabled(mConfig.isWebContentsDebuggingEnabled());
         }
 
         LogUtils.d(TAG, "UA--->>>" + settings.getUserAgentString());

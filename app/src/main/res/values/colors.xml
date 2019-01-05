@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="ToastBgc">#55686767</color>
     <color name="TextWhite">#FFFFFF</color>
+
+    <color name="ProgressColor">#00BE7E</color>
+    <color name="ProgressBackground">#FFFFFF</color>
+
+
 </resources>

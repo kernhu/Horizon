@@ -1,8 +1,14 @@
 package cn.walkpast.core.theme;
 
+import android.util.Base64;
 import android.webkit.WebView;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import cn.walkpast.core.R;
 import cn.walkpast.core.constant.Theme;
+import cn.walkpast.utils.HorizonUtils;
 
 /**
  * Author: Kern
@@ -14,13 +20,14 @@ public class ThemeHelper implements ITheme {
 
     private static ThemeHelper mThemeHelper;
 
-    public ThemeHelper getInstance() {
+    public static ThemeHelper getInstance() {
 
         if (mThemeHelper == null) {
             mThemeHelper = new ThemeHelper();
         }
         return mThemeHelper;
     }
+
 
     @Override
     public boolean injectLight(WebView view) {
@@ -41,27 +48,28 @@ public class ThemeHelper implements ITheme {
      */
     private boolean injectJs(WebView webView, Theme theme) {
 
-        switch (theme) {
+        webView.loadUrl("javascript:(function() {" + "var parent = document.getElementsByTagName('head').item(0);" + "var style = document.createElement('style');" + "style.type = 'text/css';" + "style.innerHTML = window.atob('" + getCode(theme) + "');" + "parent.appendChild(style)" + "})();");
 
-            case THEME_LIGHT:
-
-                //API19，android4.4
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    webView.evaluateJavascript("document.body.style.backgroundColor=\"white\";document.body.style.color=\"black\";", null);
-                } else {
-                    webView.loadUrl("javascript:document.body.style.backgroundColor=\"#white\";document.body.style.color=\"black\";");
-                }
-                return true;
-
-            case THEME_DARK:
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                    webView.evaluateJavascript("document.body.style.backgroundColor=\"black\";document.body.style.color=\"white\";", null);
-                } else {
-                    webView.loadUrl("javascript:document.body.style.backgroundColor=\"#black\";document.body.style.color=\"white\";");
-                }
-                return true;
-        }
         return false;
+    }
+
+
+    private String getCode(Theme theme) {
+
+        InputStream is = HorizonUtils.getApp().getResources().openRawResource(theme == Theme.THEME_DARK ? R.raw.theme_dark : R.raw.theme_light);
+        byte[] buffer = new byte[0];
+        try {
+            buffer = new byte[is.available()];
+            is.read(buffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return Base64.encodeToString(buffer, Base64.NO_WRAP);
     }
 }

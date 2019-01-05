@@ -1,5 +1,6 @@
 package cn.walkpast.core.wakeup;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.text.TextUtils;
@@ -17,16 +18,30 @@ import cn.walkpast.core.dialog.CommonDialog;
 
 public class WakeupHelper {
 
+
+    private static WakeupHelper mWakeupHelper;
     private Activity mActivity;
     private String mScheme;
     private WakeupManager mWakeupManager;
+
+    private boolean mSuccess = false;
+
+
+    public static WakeupHelper getInstance() {
+
+        if (mWakeupHelper == null) {
+            mWakeupHelper = new WakeupHelper();
+        }
+        return mWakeupHelper;
+    }
 
     public Activity getActivity() {
         return mActivity;
     }
 
-    public void setActivity(Activity activity) {
+    public WakeupHelper setActivity(Activity activity) {
         mActivity = activity;
+        return this;
     }
 
 
@@ -43,42 +58,40 @@ public class WakeupHelper {
 
         if (getScheme().startsWith(WebView.SCHEME_TEL)) {
 
-            callTel(getScheme());
+            return callTel(getScheme());
 
         } else if (getScheme().startsWith("sms:")) {
 
-            sendSMS(getScheme());
+            return sendSMS(getScheme());
 
         } else if (getScheme().startsWith(WebView.SCHEME_MAILTO)) {
 
-            sendEmail(getScheme());
+            return sendEmail(getScheme());
 
         } else if (getScheme().startsWith(WebView.SCHEME_GEO)) {
 
-            sendGEO(getScheme());
-            return true;
+            return sendGEO(getScheme());
 
         } else if (getScheme().startsWith("maps:")) {
 
-            sendMaps(getScheme());
-            return true;
+            return sendMaps(getScheme());
 
         } else {
 
-            deeplink(getScheme());
-            return true;
+            return deeplink(getScheme());
+
         }
-        return false;
     }
 
     /**
      * @param scheme
      */
-    private void sendMaps(final String scheme) {
+    private boolean sendMaps(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
+                .setActivity(getActivity())
                 .setTitle(mActivity.getString(R.string.wakeup_title))
                 .setMessage(String.format(mActivity.getString(R.string.call_maps_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
@@ -92,18 +105,19 @@ public class WakeupHelper {
                 })
                 .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
                 .show();
-
+        return true;
     }
 
 
     /**
      * @param scheme
      */
-    private void sendGEO(final String scheme) {
+    private boolean sendGEO(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
+                .setActivity(getActivity())
                 .setTitle(mActivity.getString(R.string.wakeup_title))
                 .setMessage(String.format(mActivity.getString(R.string.request_geo_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
@@ -117,32 +131,33 @@ public class WakeupHelper {
                 })
                 .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
                 .show();
-
+        return true;
     }
 
     /**
      * @param scheme
      * @param scheme
      */
-    private void sendEmail(final String scheme) {
+    @SuppressLint("StringFormatMatches")
+    private boolean sendEmail(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
+                .setActivity(getActivity())
                 .setTitle(mActivity.getString(R.string.wakeup_title))
                 .setMessage(String.format(mActivity.getString(R.string.send_email_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
                 .setPositiveListener(new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                         mWakeupManager.commonLink(scheme);
-
                     }
                 })
                 .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
                 .show();
 
+        return true;
     }
 
 
@@ -150,11 +165,13 @@ public class WakeupHelper {
      * @param scheme
      * @param scheme
      */
-    private void sendSMS(final String scheme) {
+    @SuppressLint("StringFormatMatches")
+    private boolean sendSMS(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
+                .setActivity(getActivity())
                 .setTitle(mActivity.getString(R.string.wakeup_title))
                 .setMessage(String.format(mActivity.getString(R.string.send_sms_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
@@ -168,7 +185,7 @@ public class WakeupHelper {
                 })
                 .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
                 .show();
-
+        return true;
     }
 
 
@@ -176,11 +193,13 @@ public class WakeupHelper {
      * @param scheme
      * @param scheme
      */
-    private void callTel(final String scheme) {
+    @SuppressLint("StringFormatMatches")
+    private boolean callTel(final String scheme) {
 
         mWakeupManager = new WakeupManager(getActivity());
 
         CommonDialog.getInstance()
+                .setActivity(getActivity())
                 .setTitle(mActivity.getString(R.string.wakeup_title))
                 .setMessage(String.format(mActivity.getString(R.string.call_tel_message), mWakeupManager.getUri(scheme), TextUtils.isEmpty(scheme) ? mActivity.getString(R.string.wakeup_unkonw) : scheme))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
@@ -194,7 +213,7 @@ public class WakeupHelper {
                 })
                 .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
                 .show();
-
+        return true;
     }
 
 
@@ -203,12 +222,17 @@ public class WakeupHelper {
     /**
      * @param deeplink
      */
-    private void deeplink(String deeplink) {
+    private boolean deeplink(String deeplink) {
+
 
         mWakeupManager = new WakeupManager(getActivity());
         String target = mWakeupManager.getDeeplinkTarget(deeplink);
+        if (target == null) {
+            return false;
+        }
 
         CommonDialog.getInstance()
+                .setActivity(getActivity())
                 .setTitle(mActivity.getString(R.string.wakeup_title))
                 .setMessage(String.format(mActivity.getString(R.string.deeplink_message), mWakeupManager.getUri(deeplink), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
                 .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
@@ -216,12 +240,14 @@ public class WakeupHelper {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        mWakeupManager.deeplink();
+                        mSuccess = mWakeupManager.deeplink();
 
                     }
                 })
                 .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
                 .show();
+
+        return true;
     }
 
 }

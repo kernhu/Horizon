@@ -13,6 +13,11 @@ import android.support.v7.app.AlertDialog;
 
 public class CommonDialog {
 
+    private static AlertDialog.Builder mBuilder;
+    private static AlertDialog mAlertDialog;
+
+    private static CommonDialog mCommonDialog;
+
     private Activity activity;
     private String title;
     private String message;
@@ -24,7 +29,10 @@ public class CommonDialog {
 
     public static CommonDialog getInstance() {
 
-        return new CommonDialog();
+        if (mCommonDialog == null) {
+            mCommonDialog = new CommonDialog();
+        }
+        return mCommonDialog;
     }
 
 
@@ -100,13 +108,16 @@ public class CommonDialog {
 
     public void showDialog(Context context, String title, String message, String positiveBtn, String negativeBtn, DialogInterface.OnClickListener positiveListener, final DialogInterface.OnClickListener negativeListener) {
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.setPositiveButton(positiveBtn,
+        if (mBuilder == null) {
+            mBuilder = new AlertDialog.Builder(context);
+        }
+
+        mBuilder.setTitle(title);
+        mBuilder.setMessage(message);
+        mBuilder.setPositiveButton(positiveBtn,
                 positiveListener);
 
-        builder.setNegativeButton(negativeBtn,
+        mBuilder.setNegativeButton(negativeBtn,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -116,6 +127,10 @@ public class CommonDialog {
                         }
                     }
                 });
-        builder.show();
+        mAlertDialog = mBuilder.create();
+        if (!mAlertDialog.isShowing()) {
+            mAlertDialog.show();
+        }
+
     }
 }

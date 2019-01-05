@@ -11,7 +11,7 @@ import android.view.View;
 
 public class HardwareUtils {
 
-    public void setupHwAcceleration(View web, boolean hardware) {
+    public static void setupHwAcceleration(View web, boolean hardware) {
 
         if (web == null) return;
         if (hardware) {

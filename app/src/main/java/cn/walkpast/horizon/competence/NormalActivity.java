@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
@@ -18,6 +19,7 @@ import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
+import cn.walkpast.horizon.BuildConfig;
 import cn.walkpast.horizon.R;
 
 /**
@@ -42,7 +44,8 @@ public class NormalActivity extends AppCompatActivity {
         Horizon.getInstance()
                 .setActivity(this)
                 .setProgressConfig(new ProgressConfig(this)
-                        .setTheme(getResources().getColor(R.color.colorAccent))
+                        .setBackgroundColor(getResources().getColor(R.color.ProgressBackground))
+                        .setProgressColor(getResources().getColor(R.color.ProgressColor))
                         .setHeight(getResources().getDimensionPixelSize(R.dimen.IndicatorHorizontal))
                         .setProgressStyle(ProgressStyle.STYLE_HORIZONTAL_TOP)
                         .build()
@@ -54,10 +57,11 @@ public class NormalActivity extends AppCompatActivity {
                         .setSavePassword(true)
                         .setWakeupEnable(true)
                         .setAdblockPlusEnable(true)
-                        .setLocalizable(true)
+                        .setGeolocationEnalbe(true)
                         .setThemeEnable(true)
+                        .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList(new String[]{"www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com"})
+                        .setFilterList("www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .setErrorPage("")
                         .build()
@@ -96,6 +100,12 @@ public class NormalActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Horizon.getInstance().onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Horizon.getInstance().onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode, event);
     }
 
     HorizonClient mHorizonClient = new HorizonClient() {

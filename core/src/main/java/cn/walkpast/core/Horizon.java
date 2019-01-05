@@ -1,11 +1,16 @@
 package cn.walkpast.core;
 
 import android.app.Activity;
+import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
+import java.io.File;
+
 import cn.walkpast.core.client.HorizonClient;
+import cn.walkpast.core.config.CacheConfig;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
@@ -18,7 +23,7 @@ import cn.walkpast.utils.LogUtils;
  * describe: This is...
  */
 
-public class Horizon implements ILifecycle {
+public class Horizon implements ILifecycle, View.OnKeyListener {
 
     private static String TAG = "Horizon";
     private static Horizon mHorizon;
@@ -135,6 +140,8 @@ public class Horizon implements ILifecycle {
 
         getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
 
+        getWebView().setOnKeyListener(this);
+
         return this;
     }
 
@@ -180,17 +187,47 @@ public class Horizon implements ILifecycle {
             mWebView.clearAnimation();
             mWebView.clearDisappearingChildren();
         }
+        getActivity().deleteDatabase("webview.db");
+        getActivity().deleteDatabase("webviewCache.db");
+        getActivity().deleteDatabase("horizon_core_cache.db");
 
+        String mWebviewCacheDir = CacheConfig.getCachePath(getActivity());
+        if (new File(mWebviewCacheDir).exists()) {
+            getActivity().deleteFile(mWebviewCacheDir);
+        }
+        System.gc();
+        System.runFinalization();
     }
 
     @Override
     public void onDestroy() {
-
+        if (mWebView != null) {
+            mWebView.destroy();
+        }
         mCoreConfig = null;
         mDownloadConfig = null;
         mHorizonClient = null;
         mViewContainer = null;
         mWebView = null;
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        //mWebView.onKeyDown(keyCode, event);
+        return false;
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && getWebView().canGoBack()) {
+                getWebView().goBack();
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -14,21 +14,23 @@ public class CoreConfig {
 
     private CoreConfig mCoreConfig;
 
-    private boolean mSavePassword;
+    private boolean mSavePassword = true;
 
-    private boolean mPatternlessEnable;
+    private boolean mPatternlessEnable = false;
 
-    private boolean mWakeupEnable;
+    private boolean mWakeupEnable = true;
 
-    private boolean mHardwareAccelerated;
+    private boolean mHardwareAccelerated = true;
 
-    private boolean mLocalizable;
+    private boolean mGeolocationEnalbe = true;
 
     private boolean mThemeEnable;
 
     private int mFontSize;
 
     private boolean mAdblockPlusEnable;
+
+    private boolean mWebContentsDebuggingEnabled;
 
     private Strategy mStrategy;
 
@@ -82,12 +84,12 @@ public class CoreConfig {
         return this;
     }
 
-    public boolean isLocalizable() {
-        return mLocalizable;
+    public boolean isGeolocationEnalbe() {
+        return mGeolocationEnalbe;
     }
 
-    public CoreConfig setLocalizable(boolean localizable) {
-        mLocalizable = localizable;
+    public CoreConfig setGeolocationEnalbe(boolean localizable) {
+        mGeolocationEnalbe = localizable;
         return this;
     }
 
@@ -127,6 +129,15 @@ public class CoreConfig {
         return this;
     }
 
+    public boolean isWebContentsDebuggingEnabled() {
+        return mWebContentsDebuggingEnabled;
+    }
+
+    public CoreConfig setWebContentsDebuggingEnabled(boolean webContentsDebuggingEnabled) {
+        mWebContentsDebuggingEnabled = webContentsDebuggingEnabled;
+        return this;
+    }
+
     public Theme getTheme() {
         return mTheme;
     }
@@ -140,7 +151,7 @@ public class CoreConfig {
         return mFilterList;
     }
 
-    public CoreConfig setFilterList(String[] filterList) {
+    public CoreConfig setFilterList(String... filterList) {
         mFilterList = filterList;
         return this;
     }
