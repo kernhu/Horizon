@@ -18,7 +18,7 @@ import cn.walkpast.core.dialog.CommonDialog;
 
 public class WakeupHelper {
 
-
+    public static boolean isWakeupDialogShowing = false;
     private static WakeupHelper mWakeupHelper;
     private Activity mActivity;
     private String mScheme;
@@ -224,28 +224,36 @@ public class WakeupHelper {
      */
     private boolean deeplink(String deeplink) {
 
-        mWakeupManager = new WakeupManager(getActivity());
-        String target = mWakeupManager.getDeeplinkTarget(deeplink);
-        if (target == null) {
-            return true;
+        if (!WakeupHelper.isWakeupDialogShowing) {
+            WakeupHelper.isWakeupDialogShowing=true;
+            mWakeupManager = new WakeupManager(getActivity());
+            String target = mWakeupManager.getDeeplinkTarget(deeplink);
+            if (target == null) {
+                return true;
+            }
+
+            CommonDialog.getInstance()
+                    .setActivity(getActivity())
+                    .setTitle(mActivity.getString(R.string.wakeup_title))
+                    .setMessage(String.format(mActivity.getString(R.string.deeplink_message), mWakeupManager.getUri(deeplink), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
+                    .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
+                    .setPositiveListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            WakeupHelper.isWakeupDialogShowing=false;
+                            mSuccess = mWakeupManager.deeplink();
+
+                        }
+                    })
+                    .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
+                    .setNegativeListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            WakeupHelper.isWakeupDialogShowing=false;
+                        }
+                    })
+                    .show();
         }
-
-        CommonDialog.getInstance()
-                .setActivity(getActivity())
-                .setTitle(mActivity.getString(R.string.wakeup_title))
-                .setMessage(String.format(mActivity.getString(R.string.deeplink_message), mWakeupManager.getUri(deeplink), TextUtils.isEmpty(target) ? mActivity.getString(R.string.wakeup_unkonw) : target))
-                .setPositiveBtn(mActivity.getString(R.string.wakeup_allow))
-                .setPositiveListener(new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        mSuccess = mWakeupManager.deeplink();
-
-                    }
-                })
-                .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))
-                .show();
-
         return true;
     }
 

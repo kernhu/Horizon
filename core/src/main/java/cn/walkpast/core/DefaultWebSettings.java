@@ -99,7 +99,7 @@ public class DefaultWebSettings {
         settings.setDatabaseEnabled(true);
         settings.setAppCacheEnabled(true);
         settings.setLoadsImagesAutomatically(true);
-        if (NetworkUtils.isConnected(getWebView().getContext())) {
+        if (NetworkUtils.isConnected()) {
             settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         } else {
             settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);

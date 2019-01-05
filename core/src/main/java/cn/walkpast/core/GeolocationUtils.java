@@ -13,6 +13,8 @@ import android.provider.Settings;
 
 public class GeolocationUtils {
 
+    public static boolean isGeolocationDialogShowing = false;
+
     /**
      * GPS是否打开
      *

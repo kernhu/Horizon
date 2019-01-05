@@ -14,12 +14,14 @@ import cn.walkpast.horizon.HorizonBaseActivity;
 import cn.walkpast.horizon.R;
 
 /**
- * Author: Kern
- * Time: 2019/1/5 17:27
- * Description: This is..
+ * author: Kern Hu
+ * email: sky580@126.com
+ * data_time: 2019/1/6 1:50 AM
+ * describe: This is...
  */
 
-public class VideoPlayActivity extends HorizonBaseActivity {
+public class MapActivity extends HorizonBaseActivity {
+
 
     private static final String TAG = "VideoPlayActivity";
 
@@ -33,12 +35,11 @@ public class VideoPlayActivity extends HorizonBaseActivity {
         setContentView(R.layout.activity_normal);
         ButterKnife.bind(this);
 
-
         getHorizon()
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("http://m.iqiyi.com/v_19rqp72x94.html")
+                .setOriginalUrl("https://map.baidu.com/mobile/webapp/index/index/?third_party=hao123")
                 .load();
 
     }
@@ -88,4 +89,5 @@ public class VideoPlayActivity extends HorizonBaseActivity {
 
         }
     };
+
 }

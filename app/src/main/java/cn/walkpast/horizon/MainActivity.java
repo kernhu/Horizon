@@ -16,7 +16,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
+import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
+import cn.walkpast.horizon.competence.RedirectedActivity;
 import cn.walkpast.horizon.competence.VideoPlayActivity;
 import cn.walkpast.horizon.listener.RecyclerItemClickListener;
 
@@ -50,12 +52,29 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
         mCompetenceAdapter = new CompetenceAdapter(this, this);
         List<String> mData = new ArrayList<>();
-        mData.add("网页加载");
-        mData.add("重定向加载");
+        mData.add("普通网页加载");
+        mData.add("重定向网页加载");
         mData.add("视频播放");
-        mData.add("SSL安全认证");
-        mData.add("唤醒拉活");
+        mData.add("地图定位");
+        mData.add("图片长按保存");
         mData.add("文件下载");
+        mData.add("文件上传");
+        mData.add("相机调用");
+        mData.add("deeplink拉活");
+        mData.add("打电话/发短信/发邮件");
+        mData.add("支付宝/微信支付");
+        mData.add("js实现夜间模式");
+        mData.add("js回调");
+        mData.add("无图模式");
+        mData.add("字体大小调节");
+        mData.add("广告url拦截");
+        mData.add("js去广告");
+        mData.add("基础功能（前进/后退/刷新）");
+        mData.add("获取网页快照");
+        mData.add("加载策略对比体验");
+        mData.add("加载进度条样式");
+        mData.add("Cookies清除");
+        mData.add("关于Horizon");
         mCompetenceAdapter.updata(mData);
         mRecyclerView.setAdapter(mCompetenceAdapter);
 
@@ -71,29 +90,28 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
                 mIntent = new Intent(this, NormalActivity.class);
 
                 break;
-
             case 1:
+
+                mIntent = new Intent(this, RedirectedActivity.class);
 
 
                 break;
-
             case 2:
 
                 mIntent = new Intent(this, VideoPlayActivity.class);
 
                 break;
-
             case 3:
 
+                mIntent = new Intent(this, MapActivity.class);
 
 
                 break;
-
-            case 4:
-
-
-
-                break;
+//
+//            case 4:
+//
+//
+//                break;
         }
 
         startActivity(mIntent);

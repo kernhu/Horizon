@@ -3,6 +3,8 @@ package cn.walkpast.core;
 import android.view.View;
 import android.webkit.WebView;
 
+import cn.walkpast.core.wakeup.WakeupHelper;
+
 /**
  * Author: Kern
  * Time: 2019/1/4 13:46
@@ -38,6 +40,11 @@ public class HorizonOnLongClickListener implements View.OnLongClickListener {
 
                 String telNum = result.getExtra();
                 //TelCallManager.showCallTelDialog(v.getContext(), telNum);
+                WakeupHelper
+                        .getInstance()
+                        .setActivity(mHorizon.getActivity())
+                        .setScheme(telNum)
+                        .wakeup();
 
                 break;
 

@@ -119,27 +119,17 @@ public class Horizon implements ILifecycle, View.OnKeyListener {
         } catch (Exception e) {
             LogUtils.e(TAG, "horizon error: webview is exception");
         }
-
-        //Ⅱ
         DefaultWebSettings.getInstance()
                 .setConfig(getCoreConfig())
                 .setWebView(getWebView())
                 .build();
-        //Ⅲ
         getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         getViewContainer().addView(getWebView());
-        //Ⅳ
         getViewContainer().addView(mProgressConfig.getIndicator());
-
-
         getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
-
         getWebView().setWebViewClient(new HorizonWebViewClient(this));
-
         getWebView().setDownloadListener(new HorizonDownloadFileListener(this));
-
         getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
-
         getWebView().setOnKeyListener(this);
 
         return this;

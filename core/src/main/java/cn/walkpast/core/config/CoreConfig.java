@@ -24,17 +24,17 @@ public class CoreConfig {
 
     private boolean mGeolocationEnalbe = true;
 
-    private boolean mThemeEnable;
+    private boolean mThemeEnable=false;
 
-    private int mFontSize;
+    private int mFontSize = 16;
 
-    private boolean mAdblockPlusEnable;
+    private boolean mAdblockPlusEnable=false;
 
-    private boolean mWebContentsDebuggingEnabled;
+    private boolean mWebContentsDebuggingEnabled=false;
 
-    private Strategy mStrategy;
+    private Strategy mStrategy=Strategy.CORE_BOTH_TEXT_IMAGE;
 
-    private Theme mTheme;
+    private Theme mTheme=Theme.THEME_LIGHT;
 
     private String[] mFilterList;
 

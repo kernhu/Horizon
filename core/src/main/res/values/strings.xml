@@ -16,5 +16,9 @@
     <string name="geolocation_refuse">拒绝</string>
     <string name="geolocation_title">提示</string>
     <string name="geolocation_message">%s 请求获取你当前的位置,是否允许？</string>
+    <string name="download_tips">提示</string>
+    <string name="download_message">当前为移动网络环境，确定要下载吗？</string>
+    <string name="download_sure">确定</string>
+    <string name="download_cancel">取消</string>
 
 </resources>

@@ -11,8 +11,8 @@ import cn.walkpast.core.constant.NetworkType;
 
 public class DownloadConfig {
 
-    private String mStoragePath;
-    private NetworkType mNetworkType;
+    private String mStoragePath = "/horizon/download/";
+    private NetworkType mNetworkType=NetworkType.TYPE_JUST_WIFI;
 
 
     public String getStoragePath() {

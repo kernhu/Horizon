@@ -42,7 +42,7 @@ public class HorizonWebChromeClient extends WebChromeClient {
     @SuppressLint("NewApi")
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
-        LogUtils.e("horizon_sos", "onProgressChanged------" + newProgress);
+        LogUtils.d("horizon_sos", "onProgressChanged------" + newProgress);
         if (newProgress == 100) {
             mHorizon.getProgressConfig().getIndicator().setVisibility(View.GONE);
 
@@ -90,21 +90,21 @@ public class HorizonWebChromeClient extends WebChromeClient {
     @Override
     public void onReceivedTitle(WebView view, String title) {
         super.onReceivedTitle(view, title);
-        LogUtils.e("horizon_sos", "onReceivedTitle------" + title);
+        LogUtils.d("horizon_sos", "onReceivedTitle------" + title);
         mHorizon.getHorizonClient().onReceiveTitle(view, title);
     }
 
     @Override
     public void onReceivedIcon(WebView view, Bitmap icon) {
         super.onReceivedIcon(view, icon);
-        LogUtils.e("horizon_sos", "onReceivedIcon------" + (icon == null));
+        LogUtils.d("horizon_sos", "onReceivedIcon------" + (icon == null));
         mHorizon.getHorizonClient().onReceivedIcon(view, icon);
     }
 
     @Override
     public void onReceivedTouchIconUrl(WebView view, String url, boolean precomposed) {
         super.onReceivedTouchIconUrl(view, url, precomposed);
-        LogUtils.e("horizon_sos", "onReceivedTouchIconUrl------" + "precomposed=" + precomposed + "URL==" + url);
+        LogUtils.d("horizon_sos", "onReceivedTouchIconUrl------" + "precomposed=" + precomposed + "URL==" + url);
         mHorizon.getHorizonClient().onReceivedTouchIconUrl(view, url, precomposed);
     }
 
@@ -216,24 +216,34 @@ public class HorizonWebChromeClient extends WebChromeClient {
                                 }
                             });
 
-            CommonDialog.getInstance()
-                    .setActivity(mHorizon.getActivity())
-                    .setTitle(mHorizon.getActivity().getString(R.string.geolocation_title))
-                    .setMessage(String.format(mHorizon.getActivity().getString(R.string.geolocation_message), Uri.parse(origin).getHost()))
-                    .setNegativeBtn(mHorizon.getActivity().getString(R.string.geolocation_refuse))
-                    .setPositiveBtn(mHorizon.getActivity().getString(R.string.geolocation_allow))
-                    .setPositiveListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            if (GeolocationUtils.isSystemLocationEnable(mHorizon.getActivity())) {
-                                callback.invoke(origin, true, false);
-                            } else {
-                                GeolocationUtils.actionLocation(mHorizon.getActivity());
+            if (!GeolocationUtils.isGeolocationDialogShowing) {
+                GeolocationUtils.isGeolocationDialogShowing = true;
+                CommonDialog.getInstance()
+                        .setActivity(mHorizon.getActivity())
+                        .setTitle(mHorizon.getActivity().getString(R.string.geolocation_title))
+                        .setMessage(String.format(mHorizon.getActivity().getString(R.string.geolocation_message), Uri.parse(origin).getHost()))
+                        .setNegativeBtn(mHorizon.getActivity().getString(R.string.geolocation_refuse))
+                        .setPositiveBtn(mHorizon.getActivity().getString(R.string.geolocation_allow))
+                        .setPositiveListener(new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                GeolocationUtils.isGeolocationDialogShowing = false;
+                                if (GeolocationUtils.isSystemLocationEnable(mHorizon.getActivity())) {
+                                    callback.invoke(origin, true, false);
+                                } else {
+                                    GeolocationUtils.actionLocation(mHorizon.getActivity());
+                                }
                             }
-                        }
-                    })
-                    .show();
+                        })
+                        .setNegativeListener(new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                GeolocationUtils.isGeolocationDialogShowing = false;
+                            }
+                        })
+                        .show();
+
+            }
         }
 
         super.onGeolocationPermissionsShowPrompt(origin, callback);

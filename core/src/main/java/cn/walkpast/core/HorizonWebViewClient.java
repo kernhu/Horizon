@@ -33,7 +33,7 @@ public class HorizonWebViewClient extends WebViewClient {
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
 
-        LogUtils.e("horizon_sos", "shouldOverrideUrlLoading111111------" + request.getUrl().toString());
+        LogUtils.d("horizon_sos", "shouldOverrideUrlLoading111111------" + request.getUrl().toString());
         return shouldOverrideUrlLoading(view, request.getUrl().toString());
     }
 
@@ -41,7 +41,7 @@ public class HorizonWebViewClient extends WebViewClient {
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
         mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, url);
-        LogUtils.e("horizon_sos", "shouldOverrideUrlLoading22222-----" + url);
+        LogUtils.d("horizon_sos", "shouldOverrideUrlLoading22222-----" + url);
 
         return DefaultShouldOverrideUrlLoading.shouldOverrideUrlLoading(mHorizon.getActivity(), url);
     }
@@ -49,7 +49,7 @@ public class HorizonWebViewClient extends WebViewClient {
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
-        LogUtils.e("horizon_sos", "onPageStarted-----" + url);
+        LogUtils.d("horizon_sos", "onPageStarted-----" + url);
         mHorizon.getHorizonClient().onPageStarted(view, url, favicon);
     }
 
@@ -57,7 +57,7 @@ public class HorizonWebViewClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-        LogUtils.e("horizon_sos", "onPageFinished-----" + url);
+        LogUtils.d("horizon_sos", "onPageFinished-----" + url);
         mHorizon.getHorizonClient().onPageFinished(view, url);
     }
 
