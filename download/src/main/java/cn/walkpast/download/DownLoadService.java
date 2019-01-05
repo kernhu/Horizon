@@ -30,13 +30,15 @@ import cn.walkpast.utils.ToastUtils;
 
 public class DownLoadService extends Service {
 
+    public static final String KEY_DOWNLOAD_PATH = "download_path";
     public static final String KEY_URL = "download_url";
     public static final String KEY_FILENAME = "download_filename";
+
     private DownloadManager manager;
     private DownloadCompleteReceiver receiver;
     private String url;
     private String filename;
-    private String DOWNLOADPATH = "/auxiliaryapp/download/";
+    private String DOWNLOADPATH = "/horizon/download/";
 
     private void initDownManager() {
         manager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -63,6 +65,8 @@ public class DownLoadService extends Service {
 
         url = intent.getStringExtra(KEY_URL);
         filename = intent.getStringExtra(KEY_FILENAME);
+        DOWNLOADPATH = intent.getStringExtra(KEY_DOWNLOAD_PATH);
+        DOWNLOADPATH = DOWNLOADPATH == null ? "/horizon/download/" : DOWNLOADPATH;
         filename = TextUtils.isEmpty(filename) ? "app.apk" : filename;
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + DOWNLOADPATH + filename;
         File file = new File(path);

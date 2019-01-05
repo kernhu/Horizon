@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
 import cn.walkpast.horizon.competence.NormalActivity;
+import cn.walkpast.horizon.competence.VideoPlayActivity;
 import cn.walkpast.horizon.listener.RecyclerItemClickListener;
 
 /**
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
     private CompetenceAdapter mCompetenceAdapter;
 
+    private Intent mIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,8 +64,38 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     @Override
     public void onItemClick(View view, int position) {
 
-        Intent mIntent = new Intent(this, NormalActivity.class);
-        startActivity(mIntent);
+        switch (position) {
 
+            case 0:
+
+                mIntent = new Intent(this, NormalActivity.class);
+
+                break;
+
+            case 1:
+
+
+                break;
+
+            case 2:
+
+                mIntent = new Intent(this, VideoPlayActivity.class);
+
+                break;
+
+            case 3:
+
+
+
+                break;
+
+            case 4:
+
+
+
+                break;
+        }
+
+        startActivity(mIntent);
     }
 }

@@ -224,11 +224,10 @@ public class WakeupHelper {
      */
     private boolean deeplink(String deeplink) {
 
-
         mWakeupManager = new WakeupManager(getActivity());
         String target = mWakeupManager.getDeeplinkTarget(deeplink);
         if (target == null) {
-            return false;
+            return true;
         }
 
         CommonDialog.getInstance()
