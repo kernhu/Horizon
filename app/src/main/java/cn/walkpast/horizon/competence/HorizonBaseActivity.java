@@ -9,6 +9,7 @@ import cn.walkpast.core.Horizon;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
+import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
@@ -32,14 +33,15 @@ public class HorizonBaseActivity extends AppCompatActivity {
 
         mHorizon = Horizon.getInstance()
                 .setActivity(this)
-                .setProgressConfig(new ProgressConfig(this)
+                .setProgressConfig(ProgressConfig.getInstance()
+                        .setActivity(this)
                         .setBackgroundColor(getResources().getColor(R.color.ProgressBackground))
                         .setProgressColor(getResources().getColor(R.color.ProgressColor))
                         .setHeight(getResources().getDimensionPixelSize(R.dimen.IndicatorHorizontal))
                         .setProgressStyle(ProgressStyle.STYLE_HORIZONTAL_TOP)
                         .build()
                 )
-                .setCoreConfig(new CoreConfig()
+                .setCoreConfig(CoreConfig.getInstance()
                         .setFontSize(16)
                         .setHardwareAccelerated(true)
                         .setPatternlessEnable(false)
@@ -50,7 +52,7 @@ public class HorizonBaseActivity extends AppCompatActivity {
                         .setThemeEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList("www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
+                        .setFilterList(FilterType.TYPE_MATCH_HOST, "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .setErrorPage("")
                         .build()

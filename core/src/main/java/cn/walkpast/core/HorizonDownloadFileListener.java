@@ -32,6 +32,9 @@ public class HorizonDownloadFileListener implements DownloadListener {
 
         mHorizon.getHorizonClient().onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
 
+        if(mHorizon.getDownloadConfig()==null){
+            return;
+        }
         //权限申请一次
         PermissionUtil
                 .getInstance()

@@ -15,6 +15,11 @@ public class DownloadConfig {
     private NetworkType mNetworkType=NetworkType.TYPE_JUST_WIFI;
 
 
+    public static DownloadConfig getInstance() {
+
+        return new DownloadConfig();
+    }
+
     public String getStoragePath() {
         return mStoragePath;
     }

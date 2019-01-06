@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import cn.walkpast.download.mime.MimeTools;
 import cn.walkpast.utils.NetworkUtils;
 import cn.walkpast.utils.ToastUtils;
 
@@ -42,7 +43,7 @@ public class DownLoadService extends Service {
     private String url;
     private String filename;
     private String mimetype;
-    private String DOWNLOADPATH = "/horizon/download/";
+    private String DOWNLOADPATH = "/download/";
 
     private void initDownManager() {
         manager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -57,7 +58,7 @@ public class DownLoadService extends Service {
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         String mimeString = (!TextUtils.isEmpty(mimetype)) ? mimetype : mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(url));
         down.setMimeType(mimeString);
-        Log.e("sos", "mimeString===" + mimeString);
+        Log.e("sos", "mimeString===" + mimeString + ";;filename=" + filename);
         //设置通知栏标题
         down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
         down.setTitle("下载");
@@ -76,9 +77,10 @@ public class DownLoadService extends Service {
         url = intent.getStringExtra(KEY_URL);
         filename = intent.getStringExtra(KEY_FILENAME);
         mimetype = intent.getStringExtra(KEY_MIME_TYPE);
-        DOWNLOADPATH = intent.getStringExtra(KEY_DOWNLOAD_PATH);
-        DOWNLOADPATH = DOWNLOADPATH == null ? "/horizon/download/" : DOWNLOADPATH;
-        filename = TextUtils.isEmpty(filename) ? String.valueOf(System.currentTimeMillis()) : filename;
+//        DOWNLOADPATH = intent.getStringExtra(KEY_DOWNLOAD_PATH);
+//        DOWNLOADPATH = DOWNLOADPATH == null ? "/horizon/download/" : DOWNLOADPATH;
+        //filename = TextUtils.isEmpty(filename) ? String.valueOf(System.currentTimeMillis()) : filename;
+        filename = TextUtils.isEmpty(filename) ? "app.apk" : filename;
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + DOWNLOADPATH + filename;
         Log.e("sos", "filename===" + filename);
         File file = new File(path);
@@ -90,14 +92,6 @@ public class DownLoadService extends Service {
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("sos", "Exception=" + e.toString());
-//            try {
-//                Uri uri = Uri.parse("market://details?id=" + getPackageName());
-//                Intent intent0 = new Intent(Intent.ACTION_VIEW, uri);
-//                intent0.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent0);
-//            } catch (Exception ex) {
-//                Toast.makeText(getApplicationContext(), "下载失败", Toast.LENGTH_SHORT).show();
-//            }
         }
         return Service.START_NOT_STICKY;
     }
@@ -124,9 +118,7 @@ public class DownLoadService extends Service {
                 if (manager.getUriForDownloadedFile(downId) != null) {
                     installAPK(context, getRealFilePath(context, manager.getUriForDownloadedFile(downId)));
                 } else {
-
                     ToastUtils.showShort(getBaseContext().getResources().getString(R.string.download_failed));
-
                 }
                 DownLoadService.this.stopSelf();
             }
@@ -137,9 +129,7 @@ public class DownLoadService extends Service {
             if (file.exists()) {
                 openFile(file, context);
             } else {
-
                 ToastUtils.showShort(getBaseContext().getResources().getString(R.string.download_failed));
-
             }
         }
     }
@@ -183,9 +173,7 @@ public class DownLoadService extends Service {
             var1.startActivity(var2);
         } catch (Exception var5) {
             var5.printStackTrace();
-
             ToastUtils.showShort(getBaseContext().getResources().getString(R.string.download_open_mode_error));
-
         }
     }
 

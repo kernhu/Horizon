@@ -17,6 +17,8 @@ import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
 import cn.walkpast.core.constant.EventPoint;
+import cn.walkpast.core.constant.Strategy;
+import cn.walkpast.core.constant.Theme;
 import cn.walkpast.utils.LogUtils;
 
 /**
@@ -33,8 +35,8 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private GestureDetector mGestureDetector;
     private Activity mActivity;
     private CoreConfig mCoreConfig;
-    private DownloadConfig mDownloadConfig;
-    private ProgressConfig mProgressConfig;
+    private DownloadConfig mDownloadConfig = null;
+    private ProgressConfig mProgressConfig = null;
     private HorizonClient mHorizonClient;
     private WebView mWebView;
     private ViewGroup mViewContainer;
@@ -127,14 +129,22 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         }
 
         DefaultWebSettings.getInstance()
-                .setConfig(getCoreConfig())
+                .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig()
+                        .build())
                 .setWebView(getWebView())
                 .build();
 
         getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+
+        if(getViewContainer()==null){
+
+            throw new NullPointerException("ViewContainer can't be null,because horizon need a view container for adding webview.");
+        }
         getViewContainer().addView(getWebView());
 
-        getViewContainer().addView(mProgressConfig.getIndicator());
+        if (mProgressConfig != null) {
+            getViewContainer().addView(mProgressConfig.getIndicator());
+        }
 
         getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
 
@@ -155,10 +165,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     /*******************************************/
     public static Horizon getInstance() {
 
-        if (mHorizon == null) {
-            mHorizon = new Horizon();
-        }
-        return mHorizon;
+        return new Horizon();
     }
 
     /*****************************************/

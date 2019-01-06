@@ -16,6 +16,7 @@ import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
+import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
@@ -51,14 +52,15 @@ public class NormalActivity extends AppCompatActivity {
 
         Horizon.getInstance()
                 .setActivity(this)
-                .setProgressConfig(new ProgressConfig(this)
+                .setProgressConfig(ProgressConfig.getInstance()
+                        .setActivity(this)
                         .setBackgroundColor(getResources().getColor(R.color.ProgressBackground))
                         .setProgressColor(getResources().getColor(R.color.ProgressColor))
                         .setHeight(getResources().getDimensionPixelSize(R.dimen.IndicatorHorizontal))
                         .setProgressStyle(ProgressStyle.STYLE_HORIZONTAL_TOP)
                         .build()
                 )
-                .setCoreConfig(new CoreConfig()
+                .setCoreConfig(CoreConfig.getInstance()
                         .setFontSize(16)
                         .setHardwareAccelerated(true)
                         .setPatternlessEnable(false)
@@ -69,12 +71,12 @@ public class NormalActivity extends AppCompatActivity {
                         .setThemeEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList("www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
+                        .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .setErrorPage("")
                         .build()
                 )
-                .setDownloadConfig(new DownloadConfig()
+                .setDownloadConfig(DownloadConfig.getInstance()
                         .setStoragePath("download")
                         .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
                         .build()
@@ -89,30 +91,30 @@ public class NormalActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        Horizon.getInstance().onPause();
+       // Horizon.getInstance().onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Horizon.getInstance().onResume();
+        //Horizon.getInstance().onResume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Horizon.getInstance().onStop();
+        ///Horizon.getInstance().onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Horizon.getInstance().onDestroy();
+        // Horizon.getInstance().onDestroy();
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Horizon.getInstance().onKeyDown(keyCode, event);
+        //Horizon.getInstance().onKeyDown(keyCode, event);
         return super.onKeyDown(keyCode, event);
     }
 

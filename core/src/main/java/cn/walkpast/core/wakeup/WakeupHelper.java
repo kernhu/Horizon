@@ -18,6 +18,14 @@ import cn.walkpast.core.dialog.CommonDialog;
 
 public class WakeupHelper {
 
+
+    private static final String PAYMENT_WEIXIN = "weixin://";
+
+    private static final String PAYMENT_ALIPAY = "alipays://";
+
+    private static final String PAYMENT_MQQAPI = "mqqapi://";
+
+
     public static boolean isWakeupDialogShowing = false;
     private static WakeupHelper mWakeupHelper;
     private Activity mActivity;
@@ -75,6 +83,12 @@ public class WakeupHelper {
         } else if (getScheme().startsWith("maps:")) {
 
             return sendMaps(getScheme());
+
+        } else if (getScheme().startsWith(PAYMENT_WEIXIN)
+                || getScheme().startsWith(PAYMENT_ALIPAY)
+                || getScheme().startsWith(PAYMENT_MQQAPI)) {
+
+            return payment(getScheme());
 
         } else {
 
@@ -217,6 +231,11 @@ public class WakeupHelper {
     }
 
 
+    private boolean payment(String scheme){
+
+      return   mWakeupManager.commonLink(scheme);
+    }
+
     /********************************************************************************/
 
     /**
@@ -225,7 +244,7 @@ public class WakeupHelper {
     private boolean deeplink(String deeplink) {
 
         if (!WakeupHelper.isWakeupDialogShowing) {
-            WakeupHelper.isWakeupDialogShowing=true;
+            WakeupHelper.isWakeupDialogShowing = true;
             mWakeupManager = new WakeupManager(getActivity());
             String target = mWakeupManager.getDeeplinkTarget(deeplink);
             if (target == null) {
@@ -240,7 +259,7 @@ public class WakeupHelper {
                     .setPositiveListener(new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            WakeupHelper.isWakeupDialogShowing=false;
+                            WakeupHelper.isWakeupDialogShowing = false;
                             mSuccess = mWakeupManager.deeplink();
 
                         }
@@ -249,7 +268,7 @@ public class WakeupHelper {
                     .setNegativeListener(new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            WakeupHelper.isWakeupDialogShowing=false;
+                            WakeupHelper.isWakeupDialogShowing = false;
                         }
                     })
                     .show();

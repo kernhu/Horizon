@@ -20,9 +20,11 @@ public class ProgressConfig {
     private int mHeight = 7;
     private ProgressStyle mProgressStyle = ProgressStyle.STYLE_HORIZONTAL_TOP;
 
-    public ProgressConfig(Activity activity) {
-        mActivity = activity;
+    public static ProgressConfig getInstance() {
+
+        return new ProgressConfig();
     }
+
 
     public Activity getActivity() {
         return mActivity;

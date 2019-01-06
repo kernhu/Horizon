@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:name="cn.walkpast.horizon.app.ApplBase"
         android:allowBackup="true"
@@ -31,6 +30,7 @@
             android:name=".competence.NormalActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">>
         </activity>
+
         <activity
             android:name=".competence.RedirectedActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
@@ -45,6 +45,18 @@
             android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
         <activity
             android:name=".competence.FileDownloadActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".competence.DeeplinkActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".competence.PaymentActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+
+        <activity
+            android:name=".competence.PatternlessActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
 
         <service android:name="cn.walkpast.download.DownLoadService"></service>
