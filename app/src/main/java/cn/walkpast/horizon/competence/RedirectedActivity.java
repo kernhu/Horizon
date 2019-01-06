@@ -23,7 +23,7 @@ import cn.walkpast.horizon.R;
 public class RedirectedActivity extends HorizonBaseActivity {
 
 
-    private static final String TAG = "VideoPlayActivity";
+    private static final String TAG = "RedirectedActivity";
 
     @BindView(R.id.frame_container)
     public FrameLayout mFrameContainer;

@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
+import cn.walkpast.horizon.competence.ImageDownloadActivity;
 import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
 import cn.walkpast.horizon.competence.RedirectedActivity;
@@ -107,11 +108,13 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
 
                 break;
-//
-//            case 4:
-//
-//
-//                break;
+
+            case 4:
+
+                mIntent = new Intent(this, ImageDownloadActivity.class);
+
+
+                break;
         }
 
         startActivity(mIntent);

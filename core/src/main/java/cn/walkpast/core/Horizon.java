@@ -1,7 +1,9 @@
 package cn.walkpast.core;
 
 import android.app.Activity;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -14,6 +16,7 @@ import cn.walkpast.core.config.CacheConfig;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
+import cn.walkpast.core.constant.EventPoint;
 import cn.walkpast.utils.LogUtils;
 
 /**
@@ -23,10 +26,11 @@ import cn.walkpast.utils.LogUtils;
  * describe: This is...
  */
 
-public class Horizon implements ILifecycle, View.OnKeyListener {
+public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchListener {
 
     private static String TAG = "Horizon";
     private static Horizon mHorizon;
+    private GestureDetector mGestureDetector;
     private Activity mActivity;
     private CoreConfig mCoreConfig;
     private DownloadConfig mDownloadConfig;
@@ -114,23 +118,35 @@ public class Horizon implements ILifecycle, View.OnKeyListener {
         if (getWebView() == null) {
             mWebView = new WebView(getActivity());
         }
+
         try {
             getWebView().loadUrl(getOriginalUrl());
         } catch (Exception e) {
             LogUtils.e(TAG, "horizon error: webview is exception");
         }
+
         DefaultWebSettings.getInstance()
                 .setConfig(getCoreConfig())
                 .setWebView(getWebView())
                 .build();
+
         getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         getViewContainer().addView(getWebView());
+
         getViewContainer().addView(mProgressConfig.getIndicator());
+
         getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
+
         getWebView().setWebViewClient(new HorizonWebViewClient(this));
+
         getWebView().setDownloadListener(new HorizonDownloadFileListener(this));
+
         getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
+
         getWebView().setOnKeyListener(this);
+
+        getWebView().setOnTouchListener(this);
+        mGestureDetector = new GestureDetector(getActivity(), mSimpleOnGestureListener);
 
         return this;
     }
@@ -220,4 +236,21 @@ public class Horizon implements ILifecycle, View.OnKeyListener {
         }
         return false;
     }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        return mGestureDetector.onTouchEvent(event);
+    }
+
+    GestureDetector.SimpleOnGestureListener mSimpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            super.onLongPress(e);
+
+            EventPoint.downX = (int) e.getX();
+            EventPoint.downY = (int) e.getY();
+        }
+    };
 }

@@ -31,6 +31,7 @@
         <activity android:name=".competence.RedirectedActivity"></activity>
         <activity android:name=".competence.VideoPlayActivity"></activity>
         <activity android:name=".competence.MapActivity"></activity>
+        <activity android:name=".competence.ImageDownloadActivity"></activity>
 
         <service android:name="cn.walkpast.download.DownLoadService"></service>
 
