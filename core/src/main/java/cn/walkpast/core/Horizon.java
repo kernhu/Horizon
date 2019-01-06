@@ -112,6 +112,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return this;
     }
 
+    /*****************************************/
     public Horizon load() {
 
         //Ⅰ
@@ -237,6 +238,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return false;
     }
 
+    /*****************************************/
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -253,4 +255,5 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
             EventPoint.downY = (int) e.getY();
         }
     };
+    /*****************************************/
 }

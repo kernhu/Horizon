@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
+import cn.walkpast.horizon.competence.FileDownloadActivity;
 import cn.walkpast.horizon.competence.ImageDownloadActivity;
 import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
@@ -106,17 +107,20 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
                 mIntent = new Intent(this, MapActivity.class);
 
-
                 break;
-
             case 4:
 
                 mIntent = new Intent(this, ImageDownloadActivity.class);
 
+                break;
+            case 5:
+
+                mIntent = new Intent(this, FileDownloadActivity.class);
 
                 break;
         }
 
+        mIntent.putExtra("title", mCompetenceAdapter.getCurrentItem(position));
         startActivity(mIntent);
     }
 }

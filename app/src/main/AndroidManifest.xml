@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="cn.walkpast.horizon">
+    package="cn.walkpast.horizon">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_GPS"/>
-    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS"/>
-    <uses-permission android:name="android.permission.ACCESS_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
     <application
-        android:name="cn.walkpast.horizon.ApplBase"
+        android:name="cn.walkpast.horizon.app.ApplBase"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,16 +22,30 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".competence.NormalActivity"></activity>
-        <activity android:name=".competence.RedirectedActivity"></activity>
-        <activity android:name=".competence.VideoPlayActivity"></activity>
-        <activity android:name=".competence.MapActivity"></activity>
-        <activity android:name=".competence.ImageDownloadActivity"></activity>
+        <activity
+            android:name=".competence.NormalActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar">>
+        </activity>
+        <activity
+            android:name=".competence.RedirectedActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+        <activity
+            android:name=".competence.VideoPlayActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+        <activity
+            android:name=".competence.MapActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+        <activity
+            android:name=".competence.ImageDownloadActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
+        <activity
+            android:name=".competence.FileDownloadActivity"
+            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
 
         <service android:name="cn.walkpast.download.DownLoadService"></service>
 
@@ -47,7 +61,7 @@
             <!--resource：中的@xml/provider_paths是我们接下来要添加的文件-->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
     </application>

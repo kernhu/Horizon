@@ -64,6 +64,12 @@ public class CompetenceAdapter extends RecyclerView.Adapter<CompetenceAdapter.Vi
         notifyDataSetChanged();
     }
 
+    public String getCurrentItem(int position) {
+
+        return mDatas.get(position);
+
+    }
+
     @Override
     public void onClick(View v) {
 

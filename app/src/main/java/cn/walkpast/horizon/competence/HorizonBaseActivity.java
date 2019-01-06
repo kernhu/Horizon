@@ -1,4 +1,4 @@
-package cn.walkpast.horizon;
+package cn.walkpast.horizon.competence;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,8 @@ import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
+import cn.walkpast.horizon.BuildConfig;
+import cn.walkpast.horizon.R;
 
 /**
  * Author: Kern
@@ -52,13 +54,7 @@ public class HorizonBaseActivity extends AppCompatActivity {
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .setErrorPage("")
                         .build()
-                )
-                .setDownloadConfig(new DownloadConfig()
-                        .setStoragePath("download")
-                        .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
-                        .build()
-                )
-                .setWebView(new WebView(this));
+                );
     }
 
 

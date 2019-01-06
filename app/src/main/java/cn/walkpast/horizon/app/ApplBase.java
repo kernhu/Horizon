@@ -1,8 +1,10 @@
-package cn.walkpast.horizon;
+package cn.walkpast.horizon.app;
 
 import android.app.Application;
 
 import cn.walkpast.core.config.HorizonConfig;
+import cn.walkpast.horizon.BuildConfig;
+import cn.walkpast.horizon.R;
 
 /**
  * Author: Kern

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FF595959</color>
+    <color name="colorPrimaryDark">#FF595959</color>
     <color name="colorAccent">#FF4081</color>
     <color name="ToastBgc">#55686767</color>
     <color name="TextWhite">#FFFFFF</color>
+    <color name="TextGray">#FFEDEDED</color>
 
     <color name="ProgressColor">#00BE7E</color>
     <color name="ProgressBackground">#FFFFFF</color>

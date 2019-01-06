@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,10 @@ import cn.walkpast.horizon.R;
 
 public class NormalActivity extends AppCompatActivity {
 
+    @BindView(R.id.title)
+    public TextView mTitle;
+    @BindView(R.id.subheading)
+    public TextView mSubheading;
     @BindView(R.id.frame_container)
     public FrameLayout mFrameContainer;
 
@@ -40,6 +45,9 @@ public class NormalActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_normal);
         ButterKnife.bind(this);
+
+        mTitle.setText(getIntent().getStringExtra("title"));
+
 
         Horizon.getInstance()
                 .setActivity(this)
@@ -110,25 +118,6 @@ public class NormalActivity extends AppCompatActivity {
 
     HorizonClient mHorizonClient = new HorizonClient() {
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return super.shouldOverrideUrlLoading(view, url);
-        }
-
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            super.onPageStarted(view, url, favicon);
-        }
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
-        }
-
-        @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-            super.onProgressChanged(view, newProgress);
-        }
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
@@ -138,17 +127,10 @@ public class NormalActivity extends AppCompatActivity {
         @Override
         public void onReceiveTitle(WebView view, String title) {
             super.onReceiveTitle(view, title);
-        }
 
-        @Override
-        public boolean onJSCallback(String scheme) {
-            return super.onJSCallback(scheme);
-        }
-
-        @Override
-        public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-            super.onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
+            mSubheading.setText(title);
 
         }
+
     };
 }
