@@ -18,12 +18,11 @@ public class ApplBase extends Application {
     public void onCreate() {
         super.onCreate();
 
-        HorizonConfig.getInstance()
-                .setApplication(this)
+        HorizonConfig.with(this)
                 .setToastBgc(R.color.ToastBgc)
-                .setToastMsgColor(R.color.TextWhite)
+                .setToastMsgColor(R.color.ToastTextColor)
                 .setLogSwitch(BuildConfig.DEBUG)
-                .build();
+                .config();
 
     }
 }

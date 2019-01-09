@@ -50,17 +50,17 @@ public class NormalActivity extends AppCompatActivity {
         mTitle.setText(getIntent().getStringExtra("title"));
 
 
-        Horizon.getInstance()
-                .setActivity(this)
-                .setProgressConfig(ProgressConfig.getInstance()
-                        .setActivity(this)
-                        .setBackgroundColor(getResources().getColor(R.color.ProgressBackground))
-                        .setProgressColor(getResources().getColor(R.color.ProgressColor))
-                        .setHeight(getResources().getDimensionPixelSize(R.dimen.IndicatorHorizontal))
+        Horizon.with(this)
+                .setProgressConfig(ProgressConfig
+                        .with(this)
+                        .setBackgroundColor(R.color.ProgressBackground)
+                        .setProgressColor(R.color.ProgressColor)
+                        .setHeight(R.dimen.IndicatorHorizontal)
                         .setProgressStyle(ProgressStyle.STYLE_HORIZONTAL_TOP)
-                        .build()
+                        .config()
                 )
-                .setCoreConfig(CoreConfig.getInstance()
+                .setCoreConfig(CoreConfig
+                        .with(this)
                         .setFontSize(16)
                         .setHardwareAccelerated(true)
                         .setPatternlessEnable(false)
@@ -74,12 +74,13 @@ public class NormalActivity extends AppCompatActivity {
                         .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .setErrorPage("")
-                        .build()
+                        .config()
                 )
-                .setDownloadConfig(DownloadConfig.getInstance()
+                .setDownloadConfig(DownloadConfig
+                        .with(this)
                         .setStoragePath("download")
                         .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
-                        .build()
+                        .config()
                 )
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
@@ -91,7 +92,7 @@ public class NormalActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-       // Horizon.getInstance().onPause();
+        // Horizon.getInstance().onPause();
     }
 
     @Override
@@ -110,6 +111,11 @@ public class NormalActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Horizon.getInstance().onDestroy();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
     }
 
     @Override

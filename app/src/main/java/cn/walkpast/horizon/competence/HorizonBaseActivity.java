@@ -31,17 +31,16 @@ public class HorizonBaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mHorizon = Horizon.getInstance()
+        mHorizon = Horizon.with(this)
                 .setActivity(this)
-                .setProgressConfig(ProgressConfig.getInstance()
-                        .setActivity(this)
-                        .setBackgroundColor(getResources().getColor(R.color.ProgressBackground))
-                        .setProgressColor(getResources().getColor(R.color.ProgressColor))
-                        .setHeight(getResources().getDimensionPixelSize(R.dimen.IndicatorHorizontal))
+                .setProgressConfig(ProgressConfig.with(this)
+                        .setBackgroundColor(R.color.ProgressBackground)
+                        .setProgressColor(R.color.ProgressColor)
+                        .setHeight(R.dimen.IndicatorHorizontal)
                         .setProgressStyle(ProgressStyle.STYLE_HORIZONTAL_TOP)
-                        .build()
+                        .config()
                 )
-                .setCoreConfig(CoreConfig.getInstance()
+                .setCoreConfig(CoreConfig.with(this)
                         .setFontSize(16)
                         .setHardwareAccelerated(true)
                         .setPatternlessEnable(false)
@@ -55,7 +54,7 @@ public class HorizonBaseActivity extends AppCompatActivity {
                         .setFilterList(FilterType.TYPE_MATCH_HOST, "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .setErrorPage("")
-                        .build()
+                        .config()
                 );
     }
 

@@ -1,6 +1,12 @@
 package cn.walkpast.core;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -31,24 +37,69 @@ import cn.walkpast.utils.LogUtils;
 public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchListener {
 
     private static String TAG = "Horizon";
-    private static Horizon mHorizon;
-    private GestureDetector mGestureDetector;
+
+
     private Activity mActivity;
-    private CoreConfig mCoreConfig;
+    private Context mContext;
+    private Fragment mFragment;
+
+    private CoreConfig mCoreConfig = null;
     private DownloadConfig mDownloadConfig = null;
     private ProgressConfig mProgressConfig = null;
+
     private HorizonClient mHorizonClient;
+
     private WebView mWebView;
     private ViewGroup mViewContainer;
+
     private String mOriginalUrl;
+
+
+    private GestureDetector mGestureDetector;
+
+    private boolean mInitiated = false;
+
+
+    public Horizon(Activity activity) {
+        mActivity = activity;
+    }
+
+    public Horizon(Context context) {
+        mContext = context;
+    }
+
+    public Horizon(Fragment fragment) {
+        mFragment = fragment;
+    }
+
+    /*******************************************/
+    public static Horizon with(Activity activity) {
+
+        return new Horizon(activity);
+    }
+
+    public static Horizon with(Context context) {
+
+        return new Horizon(context);
+    }
+
+    public static Horizon with(Fragment fragment) {
+
+        return new Horizon(fragment);
+    }
+
 
     public Activity getActivity() {
         return mActivity;
     }
 
-    public Horizon setActivity(Activity activity) {
-        mActivity = activity;
-        return this;
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    public Fragment getFragment() {
+        return mFragment;
     }
 
     public CoreConfig getCoreConfig() {
@@ -105,68 +156,66 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return this;
     }
 
-    public String getOriginalUrl() {
-        return mOriginalUrl;
-    }
-
     public Horizon setOriginalUrl(String originalUrl) {
         mOriginalUrl = originalUrl;
         return this;
     }
 
+    public String getOriginalUr() {
+        return mOriginalUrl;
+    }
+
     /*****************************************/
+
     public Horizon load() {
 
-        //Ⅰ
-        if (getWebView() == null) {
-            mWebView = new WebView(getActivity());
-        }
+        if (!mInitiated) {
+            //Ⅰ
+            if (getWebView() == null) {
+                mWebView = new WebView(getActivity());
+            }
+            DefaultWebSettings.getInstance()
+                    .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig(getActivity())
+                            .config())
+                    .setWebView(getWebView())
+                    .build();
 
-        try {
-            getWebView().loadUrl(getOriginalUrl());
-        } catch (Exception e) {
-            LogUtils.e(TAG, "horizon error: webview is exception");
-        }
+            getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
+            getWebView().setWebViewClient(new HorizonWebViewClient(this));
 
-        DefaultWebSettings.getInstance()
-                .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig()
-                        .build())
-                .setWebView(getWebView())
-                .build();
+            loadUrl(getOriginalUr());
 
-        getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+            getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+            if (getViewContainer() == null) {
+                throw new NullPointerException("ViewContainer can't be null,because horizon need a view container for adding webview.");
+            }
 
-        if(getViewContainer()==null){
-
-            throw new NullPointerException("ViewContainer can't be null,because horizon need a view container for adding webview.");
-        }
-        getViewContainer().addView(getWebView());
-
-        if (mProgressConfig != null) {
+            getViewContainer().addView(getWebView());
+            getWebView().setDownloadListener(new HorizonDownloadFileListener(this));
+            getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
+            getWebView().setOnKeyListener(this);
+            getWebView().setOnTouchListener(this);
+            mGestureDetector = new GestureDetector(getActivity(), mSimpleOnGestureListener);
             getViewContainer().addView(mProgressConfig.getIndicator());
+
+            mInitiated = true;
         }
-
-        getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
-
-        getWebView().setWebViewClient(new HorizonWebViewClient(this));
-
-        getWebView().setDownloadListener(new HorizonDownloadFileListener(this));
-
-        getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
-
-        getWebView().setOnKeyListener(this);
-
-        getWebView().setOnTouchListener(this);
-        mGestureDetector = new GestureDetector(getActivity(), mSimpleOnGestureListener);
 
         return this;
     }
 
-    /*******************************************/
-    public static Horizon getInstance() {
-
-        return new Horizon();
+    public void loadUrl(String loadUrl) {
+        if (!TextUtils.isEmpty(loadUrl)) {
+            if (getWebView() != null) {
+                try {
+                    getWebView().loadUrl(loadUrl);
+                } catch (Exception e) {
+                    LogUtils.e(TAG, "horizon error: webview is exception-->>:" + e.toString());
+                }
+            }
+        }
     }
+
 
     /*****************************************/
     @Override
@@ -223,6 +272,11 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         mHorizonClient = null;
         mViewContainer = null;
         mWebView = null;
+
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
 
     }
 

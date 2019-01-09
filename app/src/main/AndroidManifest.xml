@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -26,40 +26,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".competence.NormalActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar">>
-        </activity>
+        <activity android:name=".competence.NormalActivity"></activity>
+        <activity android:name=".competence.RedirectedActivity"></activity>
+        <activity android:name=".competence.VideoPlayActivity"></activity>
+        <activity android:name=".competence.MapActivity"></activity>
+        <activity android:name=".competence.ImageDownloadActivity"></activity>
+        <activity android:name=".competence.FileDownloadActivity"></activity>
+        <activity android:name=".competence.DeeplinkActivity"></activity>
+        <activity android:name=".competence.PaymentActivity"></activity>
+        <activity android:name=".competence.PatternlessActivity"></activity>
 
-        <activity
-            android:name=".competence.RedirectedActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-        <activity
-            android:name=".competence.VideoPlayActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-        <activity
-            android:name=".competence.MapActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-        <activity
-            android:name=".competence.ImageDownloadActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-        <activity
-            android:name=".competence.FileDownloadActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
 
-        <activity
-            android:name=".competence.DeeplinkActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-
-        <activity
-            android:name=".competence.PaymentActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-
-        <activity
-            android:name=".competence.PatternlessActivity"
-            android:theme="@style/Theme.Design.Light.NoActionBar"></activity>
-
-        <service android:name="cn.walkpast.download.DownLoadService"></service>
+        <service android:name="cn.walkpast.download.DownLoadService"
+            android:process=":horizon_download"></service>
 
         <!-- FileProvider配置访问路径，适配7.0及其以上 -->
         <provider

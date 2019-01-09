@@ -46,8 +46,7 @@ public class DeeplinkActivity extends HorizonBaseActivity {
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl(url)
-                .load();
+                .loadUrl(url);
 
     }
 

@@ -44,10 +44,10 @@ public class FileDownloadActivity extends HorizonBaseActivity {
 
 
         getHorizon()
-                .setDownloadConfig(new DownloadConfig()
+                .setDownloadConfig(DownloadConfig.with(this)
                         .setStoragePath("download")
                         .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
-                        .build()
+                        .config()
                 )
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)

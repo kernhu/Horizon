@@ -1,5 +1,7 @@
 package cn.walkpast.core.config;
 
+import android.app.Activity;
+
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
@@ -12,6 +14,8 @@ import cn.walkpast.core.constant.Theme;
  */
 
 public class CoreConfig {
+
+    private Activity mActivity;
 
     private boolean mSavePassword = true;
 
@@ -41,11 +45,19 @@ public class CoreConfig {
 
     private String mErrorPage;
 
-    public static CoreConfig getInstance() {
-
-        return new CoreConfig();
+    public CoreConfig(Activity activity) {
+        mActivity = activity;
     }
 
+    public static CoreConfig with(Activity activity) {
+
+        return new CoreConfig(activity);
+    }
+
+
+    public Activity getActivity() {
+        return mActivity;
+    }
 
     public boolean isSavePassword() {
         return mSavePassword;
@@ -169,7 +181,7 @@ public class CoreConfig {
         return this;
     }
 
-    public CoreConfig build() {
+    public CoreConfig config() {
 
         return this;
     }
