@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         mCompetenceAdapter.updata(mData);
         mRecyclerView.setAdapter(mCompetenceAdapter);
 
+
     }
 
     @Override

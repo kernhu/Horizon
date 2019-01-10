@@ -4,6 +4,13 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+/**
+ * 获取系统时间
+ * */
+def releaseTime() {
+    return new Date().format("yyyyMMddhhmmss", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
@@ -17,6 +24,73 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /**
+     * 签名文件
+     * */
+    signingConfigs {
+        /*测试*/
+        debug {
+            keyAlias 'HorizonDebug'
+            keyPassword 'HORIZON'
+            storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_debug.jks')
+            storePassword 'HORIZON'
+        }
+        /*正式*/
+        release {
+            keyAlias 'HorizonRelease'
+            keyPassword 'HORIZON2019'
+            storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_release.jks')
+            storePassword 'HORIZON2019'
+        }
+    }
+    /**
+     * 渠道设置
+     * */
+    flavorDimensions 'default'
+    productFlavors {
+        official { dimension "default" }
+    }
+    /**
+     * 对应友盟渠道号
+     * */
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+    /**
+     * 输出配置
+     * */
+    buildTypes {
+        /*测式配置输出*/
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "horizon_v${variant.versionName}_${variant.flavorName}_${releaseTime()}.apk"
+                }
+            }
+        }
+        /*正式配置输出*/
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "horizon_v${variant.versionName}_${variant.buildType.name}_${variant.flavorName}_${releaseTime()}.apk"
+                }
+            }
         }
     }
 }
@@ -37,8 +111,9 @@ dependencies {
     //注解
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    //log
-    implementation 'com.orhanobut:logger:2.2.0'
+
+    //bugly
+    compile 'com.tencent.bugly:crashreport:latest.release'
 
     implementation project(':core')
 
