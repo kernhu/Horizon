@@ -3,25 +3,25 @@ It's a
 
 ![](https://raw.githubusercontent.com/KernHu/Horizon/master/app/src/main/res/mipmap-xxxhdpi/logo_larger.png)  
 
-##  I: Introduce
+#  I: Introduce
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-##  Ⅱ: Download
+#  Ⅱ: Download
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-##  Ⅲ: Usage
+#  Ⅲ: Usage
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-##  Ⅳ: Document
+#  Ⅳ: Document
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-##  Ⅴ: About US
+#  Ⅴ: About US
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-##  Ⅵ: Update Notes
+#  Ⅵ: Update Notes
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-##  Ⅶ: License
+#  Ⅶ: License
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 
