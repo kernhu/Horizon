@@ -1,5 +1,7 @@
 package cn.walkpast.core.config;
 
+import android.app.Activity;
+
 import cn.walkpast.core.constant.NetworkType;
 
 /**
@@ -11,9 +13,22 @@ import cn.walkpast.core.constant.NetworkType;
 
 public class DownloadConfig {
 
+    private Activity mActivity;
     private String mStoragePath = "/horizon/download/";
-    private NetworkType mNetworkType=NetworkType.TYPE_JUST_WIFI;
+    private NetworkType mNetworkType = NetworkType.TYPE_JUST_WIFI;
 
+    public DownloadConfig(Activity activity) {
+        mActivity = activity;
+    }
+
+    public static DownloadConfig with(Activity activity) {
+
+        return new DownloadConfig(activity);
+    }
+
+    public Activity getActivity() {
+        return mActivity;
+    }
 
     public String getStoragePath() {
         return mStoragePath;
@@ -33,7 +48,7 @@ public class DownloadConfig {
         return this;
     }
 
-    public DownloadConfig build() {
+    public DownloadConfig config() {
 
         return this;
     }

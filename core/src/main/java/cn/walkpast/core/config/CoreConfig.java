@@ -1,5 +1,8 @@
 package cn.walkpast.core.config;
 
+import android.app.Activity;
+
+import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 
@@ -12,7 +15,7 @@ import cn.walkpast.core.constant.Theme;
 
 public class CoreConfig {
 
-    private CoreConfig mCoreConfig;
+    private Activity mActivity;
 
     private boolean mSavePassword = true;
 
@@ -24,29 +27,37 @@ public class CoreConfig {
 
     private boolean mGeolocationEnalbe = true;
 
-    private boolean mThemeEnable=false;
+    private boolean mThemeEnable = false;
 
     private int mFontSize = 16;
 
-    private boolean mAdblockPlusEnable=false;
+    private boolean mAdblockPlusEnable = false;
 
-    private boolean mWebContentsDebuggingEnabled=false;
+    private boolean mWebContentsDebuggingEnabled = false;
 
-    private Strategy mStrategy=Strategy.CORE_BOTH_TEXT_IMAGE;
+    private Strategy mStrategy = Strategy.CORE_BOTH_TEXT_IMAGE;
 
-    private Theme mTheme=Theme.THEME_LIGHT;
+    private Theme mTheme = Theme.THEME_LIGHT;
+
+    private FilterType mFilterType = FilterType.TYPE_MATCH_HOST;
 
     private String[] mFilterList;
 
     private String mErrorPage;
 
-//    public static CoreConfig getInstance() {
-//        if (mCoreConfig == null) {
-//            mCoreConfig = new CoreConfig();
-//        }
-//        return mCoreConfig;
-//    }
+    public CoreConfig(Activity activity) {
+        mActivity = activity;
+    }
 
+    public static CoreConfig with(Activity activity) {
+
+        return new CoreConfig(activity);
+    }
+
+
+    public Activity getActivity() {
+        return mActivity;
+    }
 
     public boolean isSavePassword() {
         return mSavePassword;
@@ -151,9 +162,14 @@ public class CoreConfig {
         return mFilterList;
     }
 
-    public CoreConfig setFilterList(String... filterList) {
+    public CoreConfig setFilterList(FilterType type, String... filterList) {
+        mFilterType = type;
         mFilterList = filterList;
         return this;
+    }
+
+    public FilterType getFilterType() {
+        return mFilterType;
     }
 
     public String getErrorPage() {
@@ -165,7 +181,7 @@ public class CoreConfig {
         return this;
     }
 
-    public CoreConfig build() {
+    public CoreConfig config() {
 
         return this;
     }

@@ -3,7 +3,6 @@ package cn.walkpast.horizon.competence;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -16,14 +15,14 @@ import cn.walkpast.horizon.R;
 /**
  * author: Kern Hu
  * email: sky580@126.com
- * data_time: 2019/1/6 1:50 AM
+ * data_time: 2019/1/6 5:17 PM
  * describe: This is...
  */
 
-public class MapActivity extends HorizonBaseActivity {
+public class PaymentActivity extends HorizonBaseActivity {
 
 
-    private static final String TAG = "MapActivity";
+    private static final String TAG = "ImageDownloadActivity";
 
     @BindView(R.id.title)
     public TextView mTitle;
@@ -45,7 +44,7 @@ public class MapActivity extends HorizonBaseActivity {
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("https://map.baidu.com/mobile/webapp/index/index/?third_party=hao123")
+                .setOriginalUrl("https://m.image.so.com/i?src=onebox_entity&q=%E6%9E%97%E5%85%81%E5%84%BF")
                 .load();
 
     }

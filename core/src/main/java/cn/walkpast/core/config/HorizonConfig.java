@@ -24,10 +24,14 @@ public class HorizonConfig {
     private boolean mLogSwitch;
 
 
-    public static HorizonConfig getInstance() {
+    public HorizonConfig(Application application) {
+        mApplication = application;
+    }
+
+    public static HorizonConfig with(Application application) {
 
         if (mHorizonConfig == null) {
-            mHorizonConfig = new HorizonConfig();
+            mHorizonConfig = new HorizonConfig(application);
         }
         return mHorizonConfig;
     }
@@ -36,10 +40,6 @@ public class HorizonConfig {
         return mApplication;
     }
 
-    public HorizonConfig setApplication(Application application) {
-        mApplication = application;
-        return this;
-    }
 
     public int getToastBgc() {
         return mToastBgc;
@@ -68,13 +68,13 @@ public class HorizonConfig {
         return this;
     }
 
-    public void build() {
+    public void config() {
 
         //初始化工具类
         HorizonUtils.init(getApplication());
         //Toast配置
-        ToastUtils.setBgColor(getToastBgc());
-        ToastUtils.setBgColor(getToastMsgColor());
+        ToastUtils.setBgColor(getApplication().getResources().getColor(getToastBgc()));
+        ToastUtils.setMsgColor(getApplication().getResources().getColor(getToastMsgColor()));
         //Log日志输出开光
         LogUtils.getConfig().setLogSwitch(isLogSwitch());
 

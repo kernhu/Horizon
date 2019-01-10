@@ -11,6 +11,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.core.client.HorizonClient;
+import cn.walkpast.core.config.DownloadConfig;
+import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.horizon.R;
 
 /**
@@ -20,10 +22,10 @@ import cn.walkpast.horizon.R;
  * describe: This is...
  */
 
-public class MapActivity extends HorizonBaseActivity {
+public class FileDownloadActivity extends HorizonBaseActivity {
 
 
-    private static final String TAG = "MapActivity";
+    private static final String TAG = "FileDownloadActivity";
 
     @BindView(R.id.title)
     public TextView mTitle;
@@ -42,10 +44,15 @@ public class MapActivity extends HorizonBaseActivity {
 
 
         getHorizon()
+                .setDownloadConfig(DownloadConfig.with(this)
+                        .setStoragePath("download")
+                        .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
+                        .config()
+                )
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("https://map.baidu.com/mobile/webapp/index/index/?third_party=hao123")
+                .setOriginalUrl("http://app.so.com/")
                 .load();
 
     }

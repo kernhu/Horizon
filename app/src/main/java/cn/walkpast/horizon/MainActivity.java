@@ -16,9 +16,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
+import cn.walkpast.horizon.competence.DeeplinkActivity;
+import cn.walkpast.horizon.competence.FileDownloadActivity;
+import cn.walkpast.horizon.competence.ImageDownloadActivity;
 import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
+import cn.walkpast.horizon.competence.PatternlessActivity;
+import cn.walkpast.horizon.competence.PaymentActivity;
 import cn.walkpast.horizon.competence.RedirectedActivity;
+import cn.walkpast.horizon.competence.ThemeSwitchActivity;
 import cn.walkpast.horizon.competence.VideoPlayActivity;
 import cn.walkpast.horizon.listener.RecyclerItemClickListener;
 
@@ -58,11 +64,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         mData.add("地图定位");
         mData.add("图片长按保存");
         mData.add("文件下载");
-        mData.add("文件上传");
-        mData.add("相机调用");
+        //mData.add("文件上传");
+        //mData.add("相机调用");
         mData.add("deeplink拉活");
         mData.add("打电话/发短信/发邮件");
-        mData.add("支付宝/微信支付");
+        mData.add("支付宝/微信/财付通支付");
         mData.add("js实现夜间模式");
         mData.add("js回调");
         mData.add("无图模式");
@@ -83,37 +89,72 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     @Override
     public void onItemClick(View view, int position) {
 
-        switch (position) {
+        switch (mCompetenceAdapter.getCurrentItem(position)) {
 
-            case 0:
+            case "普通网页加载":
 
                 mIntent = new Intent(this, NormalActivity.class);
 
                 break;
-            case 1:
+            case "重定向网页加载":
 
                 mIntent = new Intent(this, RedirectedActivity.class);
 
 
                 break;
-            case 2:
+            case "视频播放":
 
                 mIntent = new Intent(this, VideoPlayActivity.class);
 
                 break;
-            case 3:
+            case "地图定位":
 
                 mIntent = new Intent(this, MapActivity.class);
 
+                break;
+            case "图片长按保存":
+
+                mIntent = new Intent(this, ImageDownloadActivity.class);
 
                 break;
-//
-//            case 4:
-//
-//
-//                break;
+            case "文件下载":
+
+                mIntent = new Intent(this, FileDownloadActivity.class);
+
+                break;
+
+            case "deeplink拉活":
+
+                mIntent = new Intent(this, DeeplinkActivity.class);
+
+                break;
+
+            case "支付宝/微信/财付通支付":
+
+                mIntent = new Intent(this, PaymentActivity.class);
+
+                break;
+
+
+            case "js实现夜间模式":
+
+                mIntent = new Intent(this, ThemeSwitchActivity.class);
+
+                break;
+
+
+            case "无图模式":
+
+                mIntent = new Intent(this, PatternlessActivity.class);
+
+                break;
+        }
+        if (mIntent != null) {
+
+            mIntent.putExtra("title", mCompetenceAdapter.getCurrentItem(position));
+            startActivity(mIntent);
+
         }
 
-        startActivity(mIntent);
     }
 }

@@ -20,6 +20,10 @@ public class ProgressConfig {
     private int mHeight = 7;
     private ProgressStyle mProgressStyle = ProgressStyle.STYLE_HORIZONTAL_TOP;
 
+    public static ProgressConfig with(Activity activity) {
+        return new ProgressConfig(activity);
+    }
+
     public ProgressConfig(Activity activity) {
         mActivity = activity;
     }
@@ -28,17 +32,13 @@ public class ProgressConfig {
         return mActivity;
     }
 
-    public ProgressConfig setActivity(Activity activity) {
-        mActivity = activity;
-        return this;
-    }
 
     public int getBackgroundColor() {
         return mBackgroundColor;
     }
 
     public ProgressConfig setBackgroundColor(int backgroundColor) {
-        mBackgroundColor = backgroundColor;
+        mBackgroundColor = getActivity().getResources().getColor(backgroundColor);
         return this;
     }
 
@@ -47,7 +47,7 @@ public class ProgressConfig {
     }
 
     public ProgressConfig setProgressColor(int progressColor) {
-        mProgressColor = progressColor;
+        mProgressColor = getActivity().getResources().getColor(progressColor);
         return this;
     }
 
@@ -56,7 +56,7 @@ public class ProgressConfig {
     }
 
     public ProgressConfig setHeight(int height) {
-        mHeight = height;
+        mHeight = getActivity().getResources().getDimensionPixelSize(height);
         return this;
     }
 
@@ -70,7 +70,7 @@ public class ProgressConfig {
     }
 
 
-    public ProgressConfig build() {
+    public ProgressConfig config() {
 
         mProgressBar = ProgressIndicator.getInstance()
                 .setConfig(this)

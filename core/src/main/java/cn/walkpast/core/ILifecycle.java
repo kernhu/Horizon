@@ -19,6 +19,8 @@ public interface ILifecycle {
 
     void onDestroy();
 
+    void onTrimMemory(int level);
+
     boolean onKeyDown(int keyCode, KeyEvent event);
 
 }

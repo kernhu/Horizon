@@ -20,10 +20,10 @@ import cn.walkpast.horizon.R;
  * describe: This is...
  */
 
-public class MapActivity extends HorizonBaseActivity {
+public class ImageDownloadActivity extends HorizonBaseActivity {
 
 
-    private static final String TAG = "MapActivity";
+    private static final String TAG = "ImageDownloadActivity";
 
     @BindView(R.id.title)
     public TextView mTitle;
@@ -45,7 +45,7 @@ public class MapActivity extends HorizonBaseActivity {
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("https://map.baidu.com/mobile/webapp/index/index/?third_party=hao123")
+                .setOriginalUrl("https://m.image.so.com/i?src=onebox_entity&q=%E6%9E%97%E5%85%81%E5%84%BF")
                 .load();
 
     }
