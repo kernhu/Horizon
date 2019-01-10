@@ -1,7 +1,7 @@
 # Horizon 基于webview封装
 It's a
 
-![](https://github.com/KernHu/Horizon/raw/master/app/src/main/res/mipmap-xxxhdpi/logo_larger.gif)  
+![](https://raw.githubusercontent.com/KernHu/Horizon/master/app/src/main/res/mipmap-xxxhdpi/logo_larger.png)  
 
 ##  I: Introduce
 ### 1.XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
