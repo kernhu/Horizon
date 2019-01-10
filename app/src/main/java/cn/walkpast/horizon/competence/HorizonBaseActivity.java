@@ -3,14 +3,11 @@ package cn.walkpast.horizon.competence;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.webkit.WebView;
 
 import cn.walkpast.core.Horizon;
 import cn.walkpast.core.config.CoreConfig;
-import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.config.ProgressConfig;
 import cn.walkpast.core.constant.FilterType;
-import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
@@ -32,7 +29,6 @@ public class HorizonBaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mHorizon = Horizon.with(this)
-                .setActivity(this)
                 .setProgressConfig(ProgressConfig.with(this)
                         .setBackgroundColor(R.color.ProgressBackground)
                         .setProgressColor(R.color.ProgressColor)
