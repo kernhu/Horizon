@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         mData.add("关于Horizon");
         mCompetenceAdapter.updata(mData);
         mRecyclerView.setAdapter(mCompetenceAdapter);
-
-
     }
 
     @Override
