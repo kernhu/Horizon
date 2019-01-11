@@ -39,7 +39,6 @@
         <activity android:name=".competence.PaymentActivity"></activity>
         <activity android:name=".competence.PatternlessActivity"></activity>
 
-
         <service android:name="cn.walkpast.download.DownLoadService"
             android:process=":horizon_download"></service>
 
