@@ -35,14 +35,16 @@ android {
         debug {
             keyAlias 'HorizonDebug'
             keyPassword 'HORIZON'
-            storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_debug.jks')
+            storeFile file('/Users/kern/AndroidStudioProjects/Horizon/app/keystore/horizon_debug.jks')
+            //storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_debug.jks')
             storePassword 'HORIZON'
         }
         /*正式*/
         release {
             keyAlias 'HorizonRelease'
             keyPassword 'HORIZON2019'
-            storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_release.jks')
+            storeFile file('/Users/kern/AndroidStudioProjects/Horizon/app/keystore/horizon_release.jks')
+            //storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_release.jks')
             storePassword 'HORIZON2019'
         }
     }
