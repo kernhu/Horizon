@@ -14,5 +14,5 @@ public interface ProgressFactory {
 
     void setVisible();
 
-    void setInvisible();
+    void setGone();
 }

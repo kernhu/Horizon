@@ -31,7 +31,7 @@ public class CircularProgressFactory implements ProgressFactory {
     }
 
     @Override
-    public void setInvisible() {
+    public void setGone() {
 
     }
 }

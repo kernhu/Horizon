@@ -31,7 +31,7 @@ public class HorizontalProgressFactory implements ProgressFactory {
     }
 
     @Override
-    public void setInvisible() {
+    public void setGone() {
 
 
     }
