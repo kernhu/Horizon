@@ -16,6 +16,8 @@ import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CacheConfig;
@@ -39,6 +41,8 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private static String TAG = "Horizon";
 
 
+    private Map<Object, Horizon> mHorizonMap = new HashMap<>();
+
     private Activity mActivity;
     private Context mContext;
     private Fragment mFragment;
@@ -54,22 +58,24 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
 
     private String mOriginalUrl;
 
-
     private GestureDetector mGestureDetector;
 
     private boolean mInitiated = false;
 
-
     public Horizon(Activity activity) {
         mActivity = activity;
+        mHorizonMap.put(activity, this);
     }
 
     public Horizon(Context context) {
+
         mContext = context;
+        mHorizonMap.put(context, this);
     }
 
     public Horizon(Fragment fragment) {
         mFragment = fragment;
+        mHorizonMap.put(fragment, this);
     }
 
     /*******************************************/
