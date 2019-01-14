@@ -16,6 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
+import cn.walkpast.horizon.competence.BasicFunActivity;
 import cn.walkpast.horizon.competence.DeeplinkActivity;
 import cn.walkpast.horizon.competence.FileDownloadActivity;
 import cn.walkpast.horizon.competence.ImageDownloadActivity;
@@ -23,9 +24,7 @@ import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
 import cn.walkpast.horizon.competence.PatternlessActivity;
 import cn.walkpast.horizon.competence.PaymentActivity;
-import cn.walkpast.horizon.competence.RedirectedActivity;
 import cn.walkpast.horizon.competence.ThemeSwitchActivity;
-import cn.walkpast.horizon.competence.VideoPlayActivity;
 import cn.walkpast.horizon.listener.RecyclerItemClickListener;
 
 /**
@@ -58,28 +57,22 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
         mCompetenceAdapter = new CompetenceAdapter(this, this);
         List<String> mData = new ArrayList<>();
-        mData.add("普通网页加载");
-        mData.add("重定向网页加载");
-        mData.add("视频播放");
-        mData.add("地图定位");
-        mData.add("图片长按保存");
-        mData.add("文件下载");
-        //mData.add("文件上传");
-        //mData.add("相机调用");
-        mData.add("deeplink拉活");
-        mData.add("打电话/发短信/发邮件");
-        mData.add("支付宝/微信/财付通支付");
-        mData.add("js实现夜间模式");
-        mData.add("js回调");
-        mData.add("无图模式");
-        mData.add("字体大小调节");
-        mData.add("广告url拦截");
-        mData.add("js去广告");
-        mData.add("基础功能（前进/后退/刷新）");
-        mData.add("获取网页快照");
-        mData.add("加载策略对比体验");
-        mData.add("加载进度条样式");
-        mData.add("Cookies清除");
+        mData.add("Activity中基础功能 演示");
+        mData.add("Fragment中基础功能 演示");
+        mData.add("地图定位 演示");
+        mData.add("文件下载 演示");
+        mData.add("文件上传 演示");
+        mData.add("相机调用 演示");
+        mData.add("打电话/发短信/发邮件 演示");
+        mData.add("支付宝/微信/财付通支付 演示");
+        mData.add("js实现夜间模式切换 演示");
+        mData.add("js回调 演示");
+        mData.add("广告url拦截 演示");
+        mData.add("js去广告 演示");
+        mData.add("获取网页快照 演示");
+        mData.add("加载策略对比体验 演示");
+        mData.add("加载进度条样式 演示");
+//        mData.add("Cookies清除");
         mData.add("关于Horizon");
         mCompetenceAdapter.updata(mData);
         mRecyclerView.setAdapter(mCompetenceAdapter);
@@ -90,35 +83,34 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
         switch (mCompetenceAdapter.getCurrentItem(position)) {
 
-            case "普通网页加载":
+            case "Activity中基础功能 演示":
+
+                mIntent = new Intent(this, BasicFunActivity.class);
+
+                break;
+            case "Fragment中基础功能 演示":
 
                 mIntent = new Intent(this, NormalActivity.class);
 
                 break;
-            case "重定向网页加载":
-
-                mIntent = new Intent(this, RedirectedActivity.class);
-
-
-                break;
-            case "视频播放":
-
-                mIntent = new Intent(this, VideoPlayActivity.class);
-
-                break;
-            case "地图定位":
+            case "地图定位 演示":
 
                 mIntent = new Intent(this, MapActivity.class);
 
                 break;
-            case "图片长按保存":
+            case "文件下载 演示":
+
+                mIntent = new Intent(this, FileDownloadActivity.class);
+
+                break;
+            case "打电话/发短信/发邮件 演示":
 
                 mIntent = new Intent(this, ImageDownloadActivity.class);
 
                 break;
-            case "文件下载":
+            case "支付宝/微信/财付通支付 演示":
 
-                mIntent = new Intent(this, FileDownloadActivity.class);
+
 
                 break;
 
@@ -145,6 +137,11 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
             case "无图模式":
 
                 mIntent = new Intent(this, PatternlessActivity.class);
+
+                break;
+                case "关于Horizon":
+
+                mIntent = new Intent(this, AboutUsActivity.class);
 
                 break;
         }

@@ -4,13 +4,15 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.walkpast.core.Horizon;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
@@ -23,31 +25,33 @@ import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 import cn.walkpast.horizon.BuildConfig;
 import cn.walkpast.horizon.R;
+import cn.walkpast.horizon.widget.PopupWindowTools;
 
 /**
- * author: Kern Hu
- * email: sky580@126.com
- * data_time: 2019/1/1 4:49 PM
- * describe: This is...
+ * Author: Kern
+ * Time: 2019/1/14 14:20
+ * Description: This is..
  */
 
-public class NormalActivity extends AppCompatActivity {
+public class BasicFunActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.title)
-    public TextView mTitle;
-    @BindView(R.id.subheading)
-    public TextView mSubheading;
-    @BindView(R.id.frame_container)
-    public FrameLayout mFrameContainer;
+
+    @BindView(R.id.basic_fun_icon)
+    public ImageView mBfIcon;
+    @BindView(R.id.basic_fun_title)
+    public TextView mBfTitle;
+    @BindView(R.id.basic_fun_menu)
+    public ImageView mBfMenu;
+    @BindView(R.id.basic_fun_container)
+    public FrameLayout mBfContainer;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.activity_basic_fun);
         ButterKnife.bind(this);
-
-        mTitle.setText(getIntent().getStringExtra("title"));
 
 
         Horizon.with(this)
@@ -83,63 +87,47 @@ public class NormalActivity extends AppCompatActivity {
                         .config()
                 )
                 .setHorizonClient(mHorizonClient)
-                .setViewContainer(mFrameContainer)
+                .setViewContainer(mBfContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://www.hao123.com/")
                 .load();
 
+
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        // Horizon.getInstance().onPause();
-    }
 
+    @OnClick(R.id.basic_fun_menu)
     @Override
-    protected void onResume() {
-        super.onResume();
-        //Horizon.getInstance().onResume();
-    }
+    public void onClick(View v) {
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        ///Horizon.getInstance().onStop();
-    }
+        PopupWindowTools
+                .getInstance()
+                .setActivity(this)
+                .setTargetView(mBfMenu)
+                .setItems("刷新", "前进", "后退", "无图模式", "有图模式")
+                .setItemClickListener(new PopupWindowTools.PopupWindowItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Horizon.getInstance().onDestroy();
-    }
-
-    @Override
-    public void onTrimMemory(int level) {
-        super.onTrimMemory(level);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //Horizon.getInstance().onKeyDown(keyCode, event);
-        return super.onKeyDown(keyCode, event);
+                    }
+                })
+                .show();
     }
 
     HorizonClient mHorizonClient = new HorizonClient() {
 
-
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
             super.onReceivedIcon(view, icon);
+
+            mBfIcon.setImageBitmap(icon);
         }
 
         @Override
         public void onReceiveTitle(WebView view, String title) {
             super.onReceiveTitle(view, title);
 
-            mSubheading.setText(title);
-
+            mBfTitle.setText(title);
         }
-
     };
 }
