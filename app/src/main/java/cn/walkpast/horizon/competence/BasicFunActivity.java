@@ -17,7 +17,7 @@ import cn.walkpast.core.Horizon;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
-import cn.walkpast.core.config.ProgressConfig;
+import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.constant.ProgressStyle;

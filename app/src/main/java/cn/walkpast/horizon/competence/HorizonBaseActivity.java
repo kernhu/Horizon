@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import cn.walkpast.core.Horizon;
 import cn.walkpast.core.config.CoreConfig;
-import cn.walkpast.core.config.ProgressConfig;
+import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;

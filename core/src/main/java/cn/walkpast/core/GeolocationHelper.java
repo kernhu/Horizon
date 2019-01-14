@@ -11,7 +11,7 @@ import android.provider.Settings;
  * Description: This is..
  */
 
-public class GeolocationUtils {
+public class GeolocationHelper {
 
     public static boolean isGeolocationDialogShowing = false;
 

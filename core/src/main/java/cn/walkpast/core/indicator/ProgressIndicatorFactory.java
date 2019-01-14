@@ -2,34 +2,37 @@ package cn.walkpast.core.indicator;
 
 import android.widget.ProgressBar;
 
-import cn.walkpast.core.config.ProgressConfig;
-
 /**
  * Author: Kern
  * Time: 2019/1/3 11:38
  * Description: This is..
  */
 
-public class ProgressIndicator {
+public class ProgressIndicatorFactory {
 
     private ProgressConfig mConfig;
     private Indicator mIndicator;
 
-    public static ProgressIndicator getInstance() {
+    public static ProgressIndicatorFactory getInstance() {
 
-        return new ProgressIndicator();
+        return new ProgressIndicatorFactory();
     }
 
     public ProgressConfig getConfig() {
         return mConfig;
     }
 
-    public ProgressIndicator setConfig(ProgressConfig config) {
+    public ProgressIndicatorFactory setConfig(ProgressConfig config) {
         mConfig = config;
         return this;
     }
 
     public ProgressBar createIndicator() {
+
+        if (getConfig() == null) {
+
+            return null;
+        }
 
         switch (getConfig().getProgressStyle()) {
 

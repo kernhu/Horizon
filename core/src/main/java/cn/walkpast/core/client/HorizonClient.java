@@ -159,4 +159,10 @@ public class HorizonClient {
         return false;
     }
 
+
+    public void onCaptured(Bitmap bitmap) {
+
+
+    }
+
 }

@@ -31,7 +31,7 @@ import cn.walkpast.utils.permission.callback.PermissionResultCallBack;
  * Description: This is..
  */
 
-public class HorizonWebChromeClient extends WebChromeClient {
+public class HorizonWebChromeClient extends WebChromeClient implements CaptureHelper.OnCaptureListener {
 
     private Horizon mHorizon;
 
@@ -47,7 +47,7 @@ public class HorizonWebChromeClient extends WebChromeClient {
             mHorizon.getProgressConfig().getIndicator().setVisibility(View.GONE);
 
             if (mHorizon.getCoreConfig().isHardwareAccelerated()) {
-                HardwareUtils.setupHwAcceleration(view, false);
+                HardwareHelper.setupHwAcceleration(view, false);
             }
 
             if (mHorizon.getCoreConfig().getStrategy() == Strategy.CORE_PRIORITY_TEXT_IMAGE) {
@@ -61,7 +61,7 @@ public class HorizonWebChromeClient extends WebChromeClient {
 
 
             if (mHorizon.getCoreConfig().isHardwareAccelerated()) {
-                HardwareUtils.setupHwAcceleration(view, true);
+                HardwareHelper.setupHwAcceleration(view, true);
             }
 
 
@@ -83,9 +83,29 @@ public class HorizonWebChromeClient extends WebChromeClient {
             view.getSettings().setBlockNetworkImage(true);
         }
 
+        if (mHorizon.getCoreConfig().isCaptureEnable()) {
+
+            if (newProgress == 10) {
+
+                CaptureHelper
+                        .getInstance()
+                        .setWebView(view)
+                        .setCaptureListener(this)
+                        .capture();
+            } else {
+                CaptureHelper
+                        .getInstance()
+                        .setWebView(view)
+                        .setCaptureListener(this)
+                        .capture();
+            }
+
+        }
+
         super.onProgressChanged(view, newProgress);
         mHorizon.getHorizonClient().onProgressChanged(view, newProgress);
     }
+
 
     @Override
     public void onReceivedTitle(WebView view, String title) {
@@ -216,8 +236,8 @@ public class HorizonWebChromeClient extends WebChromeClient {
                                 }
                             });
 
-            if (!GeolocationUtils.isGeolocationDialogShowing) {
-                GeolocationUtils.isGeolocationDialogShowing = true;
+            if (!GeolocationHelper.isGeolocationDialogShowing) {
+                GeolocationHelper.isGeolocationDialogShowing = true;
                 CommonDialog.getInstance()
                         .setActivity(mHorizon.getActivity())
                         .setTitle(mHorizon.getActivity().getString(R.string.geolocation_title))
@@ -227,18 +247,18 @@ public class HorizonWebChromeClient extends WebChromeClient {
                         .setPositiveListener(new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                GeolocationUtils.isGeolocationDialogShowing = false;
-                                if (GeolocationUtils.isSystemLocationEnable(mHorizon.getActivity())) {
+                                GeolocationHelper.isGeolocationDialogShowing = false;
+                                if (GeolocationHelper.isSystemLocationEnable(mHorizon.getActivity())) {
                                     callback.invoke(origin, true, false);
                                 } else {
-                                    GeolocationUtils.actionLocation(mHorizon.getActivity());
+                                    GeolocationHelper.actionLocation(mHorizon.getActivity());
                                 }
                             }
                         })
                         .setNegativeListener(new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                GeolocationUtils.isGeolocationDialogShowing = false;
+                                GeolocationHelper.isGeolocationDialogShowing = false;
                             }
                         })
                         .show();
@@ -287,5 +307,11 @@ public class HorizonWebChromeClient extends WebChromeClient {
     public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
 
         return mHorizon.getHorizonClient().onConsoleMessage(consoleMessage);
+    }
+
+    @Override
+    public void onCapture(Bitmap bitmap) {
+
+        mHorizon.getHorizonClient().onCaptured(bitmap);
     }
 }

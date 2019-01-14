@@ -1,10 +1,9 @@
-package cn.walkpast.core.config;
+package cn.walkpast.core.indicator;
 
 import android.app.Activity;
 import android.widget.ProgressBar;
 
 import cn.walkpast.core.constant.ProgressStyle;
-import cn.walkpast.core.indicator.ProgressIndicator;
 
 /**
  * Author: Kern
@@ -72,7 +71,7 @@ public class ProgressConfig {
 
     public ProgressConfig config() {
 
-        mProgressBar = ProgressIndicator.getInstance()
+        mProgressBar = ProgressIndicatorFactory.getInstance()
                 .setConfig(this)
                 .createIndicator();
 

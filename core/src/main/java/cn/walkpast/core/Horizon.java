@@ -1,10 +1,7 @@
 package cn.walkpast.core;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.GestureDetector;
@@ -23,10 +20,8 @@ import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CacheConfig;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
-import cn.walkpast.core.config.ProgressConfig;
+import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.EventPoint;
-import cn.walkpast.core.constant.Strategy;
-import cn.walkpast.core.constant.Theme;
 import cn.walkpast.utils.LogUtils;
 
 /**

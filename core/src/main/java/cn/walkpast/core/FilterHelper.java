@@ -11,7 +11,7 @@ import cn.walkpast.core.constant.FilterType;
  * describe: This is...
  */
 
-public class FilterTool {
+public class FilterHelper {
 
 
     public static boolean isNeedFilter(FilterType type, String[] filterList, String targetUrl) {

@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import cn.walkpast.core.config.ProgressConfig;
-
 /**
  * Author: Kern
  * Time: 2019/1/11 20:38

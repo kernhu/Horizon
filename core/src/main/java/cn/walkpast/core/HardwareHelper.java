@@ -9,7 +9,7 @@ import android.view.View;
  * Description: This is..
  */
 
-public class HardwareUtils {
+public class HardwareHelper {
 
     public static void setupHwAcceleration(View web, boolean hardware) {
 

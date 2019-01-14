@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
@@ -112,7 +111,7 @@ public class HorizonWebViewClient extends WebViewClient {
 
         mHorizon.getHorizonClient().shouldInterceptRequest(view, url);
         if (mHorizon.getCoreConfig().getFilterList() == null
-                || !FilterTool.isNeedFilter(mHorizon.getCoreConfig().getFilterType(), mHorizon.getCoreConfig().getFilterList(), url)) {
+                || !FilterHelper.isNeedFilter(mHorizon.getCoreConfig().getFilterType(), mHorizon.getCoreConfig().getFilterList(), url)) {
             return super.shouldInterceptRequest(view, url);
         } else {
             return new WebResourceResponse(null, null, null);
