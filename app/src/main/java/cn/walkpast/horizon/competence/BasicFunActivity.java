@@ -73,6 +73,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setAdblockPlusEnable(true)
                         .setGeolocationEnalbe(true)
                         .setThemeEnable(true)
+                        .setCaptureEnable(false)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
                         .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")

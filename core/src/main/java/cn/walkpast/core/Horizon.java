@@ -35,7 +35,6 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
 
     private static String TAG = "Horizon";
 
-
     private Map<Object, Horizon> mHorizonMap = new HashMap<>();
 
     private Activity mActivity;
