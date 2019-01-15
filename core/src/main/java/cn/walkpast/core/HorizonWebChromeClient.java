@@ -16,11 +16,13 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebStorage;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 import cn.walkpast.core.dialog.CommonDialog;
 import cn.walkpast.core.theme.ThemeHelper;
+import cn.walkpast.core.video.VideoPlayer;
 import cn.walkpast.utils.LogUtils;
 import cn.walkpast.utils.permission.PermissionUtil;
 import cn.walkpast.utils.permission.callback.PermissionResultCallBack;
@@ -147,13 +149,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
 
     @Override
-    public void onHideCustomView() {
-        super.onHideCustomView();
-
-        mHorizon.getHorizonClient().onHideCustomView();
-    }
-
-    @Override
     public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
         super.onShowCustomView(view, requestedOrientation, callback);
 
@@ -203,6 +198,44 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
         mHorizon.getHorizonClient().onCloseWindow(window);
     }
+
+    /*******************************************************************************************
+     * video play
+     * @return
+     */
+    @Override
+    public View getVideoLoadingProgressView() {
+
+        FrameLayout frameLayout = new FrameLayout(mHorizon.getActivity());
+        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        return frameLayout;
+    }
+
+    @Override
+    public void onShowCustomView(View view, CustomViewCallback callback) {
+        super.onShowCustomView(view, callback);
+
+        VideoPlayer
+                .getInstance()
+                .setActivity(mHorizon.getActivity())
+                .showCustomView(view,callback);
+
+    }
+
+    @Override
+    public void onHideCustomView() {
+        super.onHideCustomView();
+
+        VideoPlayer
+                .getInstance()
+                .hideCustomView();
+
+        mHorizon.getHorizonClient().onHideCustomView();
+    }
+
+
+    /*************************************************************************************/
+
 
     @Override
     public void onGeolocationPermissionsShowPrompt(final String origin, final GeolocationPermissions.Callback callback) {

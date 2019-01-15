@@ -25,6 +25,7 @@ import cn.walkpast.horizon.competence.NormalActivity;
 import cn.walkpast.horizon.competence.PatternlessActivity;
 import cn.walkpast.horizon.competence.PaymentActivity;
 import cn.walkpast.horizon.competence.ThemeSwitchActivity;
+import cn.walkpast.horizon.competence.VideoPlayActivity;
 import cn.walkpast.horizon.listener.RecyclerItemClickListener;
 
 /**
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         List<String> mData = new ArrayList<>();
         mData.add("Activity中基础功能 演示");
         mData.add("Fragment中基础功能 演示");
+        mData.add("视频全屏播放 演示");
         mData.add("地图定位 演示");
         mData.add("文件下载 演示");
         mData.add("文件上传 演示");
@@ -93,7 +95,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
                 mIntent = new Intent(this, NormalActivity.class);
 
                 break;
-            case "地图定位 演示":
+            case "视频全屏播放 演示":
+
+                mIntent = new Intent(this, VideoPlayActivity.class);
+
+                break;
+                case "地图定位 演示":
 
                 mIntent = new Intent(this, MapActivity.class);
 
