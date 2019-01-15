@@ -42,6 +42,8 @@
         <!-- -->
         <activity android:name=".competence.BasicFunActivity"></activity>
 
+        <activity android:name=".competence.CallupNormalActivity"></activity>
+
         <!-- -->
         <activity android:name=".AboutUsActivity"></activity>
 

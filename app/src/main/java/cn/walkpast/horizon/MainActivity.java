@@ -17,9 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
 import cn.walkpast.horizon.competence.BasicFunActivity;
+import cn.walkpast.horizon.competence.CallupNormalActivity;
 import cn.walkpast.horizon.competence.DeeplinkActivity;
 import cn.walkpast.horizon.competence.FileDownloadActivity;
-import cn.walkpast.horizon.competence.ImageDownloadActivity;
 import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
 import cn.walkpast.horizon.competence.PatternlessActivity;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
                 break;
             case "打电话/发短信/发邮件 演示":
 
-                mIntent = new Intent(this, ImageDownloadActivity.class);
+                mIntent = new Intent(this, CallupNormalActivity.class);
 
                 break;
             case "支付宝/微信/财付通支付 演示":
