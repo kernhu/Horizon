@@ -2,13 +2,12 @@ package cn.walkpast.core;
 
 import android.Manifest;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.util.Log;
 import android.webkit.DownloadListener;
 
 import cn.walkpast.core.constant.NetworkType;
 import cn.walkpast.core.dialog.CommonDialog;
-import cn.walkpast.download.DownLoadService;
+import cn.walkpast.core.download.DownLoadHelper;
 import cn.walkpast.utils.NetworkUtils;
 import cn.walkpast.utils.permission.PermissionUtil;
 import cn.walkpast.utils.permission.callback.PermissionResultCallBack;
@@ -28,11 +27,13 @@ public class HorizonDownloadFileListener implements DownloadListener {
     }
 
     @Override
-    public void onDownloadStart(final String url, String userAgent, final String contentDisposition, String mimetype, long contentLength) {
+    public void onDownloadStart(final String url, String userAgent, final String contentDisposition, final String mimetype, final long contentLength) {
 
-        mHorizon.getHorizonClient().onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
+        }
 
-        if(mHorizon.getDownloadConfig()==null){
+        if (mHorizon.getDownloadConfig() == null) {
             return;
         }
         //权限申请一次
@@ -62,13 +63,22 @@ public class HorizonDownloadFileListener implements DownloadListener {
                             }
                         });
 
-        Log.e("sos", "onDownloadStart---url=" + url + ";;;userAgent=" + userAgent + ";;;contentDisposition=" + contentDisposition + ";;;mimetype=" + mimetype + ";;;contentLength=" + contentLength);
-
+        Log.e("sos", "onDownloadStart---url=" + url + ";;;contentDisposition=" + contentDisposition + ";;;mimetype=" + mimetype + ";;;contentLength=" + contentLength);
 
         if (mHorizon.getDownloadConfig().getNetworkType() == NetworkType.TYPE_JUST_WIFI) {
 
             if (!NetworkUtils.is4G()) {
-                startDownloadService(url, contentDisposition, contentDisposition);
+
+                DownLoadHelper
+                        .getInstance()
+                        .setActivity(mHorizon.getActivity())
+                        .setDownloadUrl(url)
+                        .setContentDisposition(contentDisposition)
+                        .setMimetype(mimetype)
+                        .setContentLength(contentLength)
+                        .setStoragePath(mHorizon.getDownloadConfig().getStoragePath())
+                        .justDoIt();
+
             }
 
         } else if (mHorizon.getDownloadConfig().getNetworkType() == NetworkType.TYPE_BOTH_GPRS_WIFI) {
@@ -86,7 +96,15 @@ public class HorizonDownloadFileListener implements DownloadListener {
                                                  @Override
                                                  public void onClick(DialogInterface dialog, int which) {
 
-                                                     startDownloadService(url, contentDisposition, contentDisposition);
+                                                     DownLoadHelper
+                                                             .getInstance()
+                                                             .setActivity(mHorizon.getActivity())
+                                                             .setDownloadUrl(url)
+                                                             .setContentDisposition(contentDisposition)
+                                                             .setMimetype(mimetype)
+                                                             .setContentLength(contentLength)
+                                                             .setStoragePath(mHorizon.getDownloadConfig().getStoragePath())
+                                                             .justDoIt();
 
                                                  }
                                              }
@@ -95,26 +113,19 @@ public class HorizonDownloadFileListener implements DownloadListener {
 
             } else {
 
-                startDownloadService(url, contentDisposition, contentDisposition);
+                DownLoadHelper
+                        .getInstance()
+                        .setActivity(mHorizon.getActivity())
+                        .setDownloadUrl(url)
+                        .setContentDisposition(contentDisposition)
+                        .setMimetype(mimetype)
+                        .setContentLength(contentLength)
+                        .setStoragePath(mHorizon.getDownloadConfig().getStoragePath())
+                        .justDoIt();
 
             }
         }
 
     }
 
-
-    private void startDownloadService(String url, String contentDisposition, String mimetype) {
-
-        String filename = "";
-        if (contentDisposition.contains("filename")) {
-            filename = contentDisposition.split("filename")[1]
-                    .replaceAll("\"", "").replace("=", "");
-        }
-        Intent service = new Intent(mHorizon.getActivity(), DownLoadService.class);
-        service.putExtra(DownLoadService.KEY_URL, url);
-        service.putExtra(DownLoadService.KEY_FILENAME, filename);
-        service.putExtra(DownLoadService.KEY_MIME_TYPE, mimetype);
-        service.putExtra(DownLoadService.KEY_DOWNLOAD_PATH, mHorizon.getDownloadConfig().getStoragePath());
-        mHorizon.getActivity().startService(service);
-    }
 }

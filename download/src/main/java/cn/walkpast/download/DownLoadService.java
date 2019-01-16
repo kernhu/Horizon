@@ -1,5 +1,6 @@
 package cn.walkpast.download;
 
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -17,12 +18,9 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
 import java.io.File;
 
-import cn.walkpast.download.mime.MimeTools;
-import cn.walkpast.utils.NetworkUtils;
 import cn.walkpast.utils.ToastUtils;
 
 /**
@@ -33,7 +31,9 @@ import cn.walkpast.utils.ToastUtils;
 
 public class DownLoadService extends Service {
 
-    public static final String KEY_DOWNLOAD_PATH = "download_path";
+    private static final String STORAGE_PATH = "/download/horizon/";
+
+    public static final String KEY_STORAGE_PATH = "storage_path";
     public static final String KEY_URL = "download_url";
     public static final String KEY_FILENAME = "download_filename";
     public static final String KEY_MIME_TYPE = "download_mime_type";
@@ -43,56 +43,70 @@ public class DownLoadService extends Service {
     private String url;
     private String filename;
     private String mimetype;
-    private String DOWNLOADPATH = "/download/";
+    private String storagePath;
 
-    private void initDownManager() {
+    public static void startDownloadService(Activity activity, String downloadUrl, String filename, String mimetype, String storagePath) {
+
+        if (activity == null) {
+            throw new NullPointerException("Activity can't be null in DownLoadService");
+        }
+
+        if (downloadUrl == null || filename == null || mimetype == null) {
+            throw new NullPointerException("downloadUrl or filename or mimetype is null");
+        }
+
+        Intent service = new Intent(activity, DownLoadService.class);
+        service.putExtra(DownLoadService.KEY_URL, downloadUrl);
+        service.putExtra(DownLoadService.KEY_FILENAME, filename);
+        service.putExtra(DownLoadService.KEY_MIME_TYPE, mimetype);
+        service.putExtra(DownLoadService.KEY_STORAGE_PATH, storagePath);
+        activity.startService(service);
+
+    }
+
+
+    private void download() {
+
         manager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         receiver = new DownloadCompleteReceiver();
         DownloadManager.Request down = new DownloadManager.Request(Uri.parse(url));
-        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE
-                | DownloadManager.Request.NETWORK_WIFI);
-        //是否允许漫游状态下，执行下载操作
+        down.allowScanningByMediaScanner();
+        down.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
         down.setAllowedOverRoaming(false);
-        //是否允许“计量式的网络连接”执行下载操作；默认是允许的
         down.setAllowedOverMetered(true);
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         String mimeString = (!TextUtils.isEmpty(mimetype)) ? mimetype : mimeTypeMap.getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(url));
         down.setMimeType(mimeString);
-        Log.e("sos", "mimeString===" + mimeString + ";;filename=" + filename);
-        //设置通知栏标题
-        down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        down.setTitle("下载");
-        down.setDescription(filename);
+        down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        down.setTitle(filename);
+        down.setDescription("文件下载");
         down.setVisibleInDownloadsUi(true);
-        down.setDestinationInExternalPublicDir(DOWNLOADPATH, filename);
+        down.setDestinationInExternalPublicDir(STORAGE_PATH, filename);
         manager.enqueue(down);
         registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        ToastUtils.showShort(getApplication().getResources().getString(R.string.download_hint));
-
         url = intent.getStringExtra(KEY_URL);
         filename = intent.getStringExtra(KEY_FILENAME);
         mimetype = intent.getStringExtra(KEY_MIME_TYPE);
-//        DOWNLOADPATH = intent.getStringExtra(KEY_DOWNLOAD_PATH);
-//        DOWNLOADPATH = DOWNLOADPATH == null ? "/horizon/download/" : DOWNLOADPATH;
-        //filename = TextUtils.isEmpty(filename) ? String.valueOf(System.currentTimeMillis()) : filename;
-        filename = TextUtils.isEmpty(filename) ? "app.apk" : filename;
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + DOWNLOADPATH + filename;
-        Log.e("sos", "filename===" + filename);
-        File file = new File(path);
-        if (file.exists()) {
-            deleteFileWithPath(path);
+        storagePath = intent.getStringExtra(KEY_STORAGE_PATH);
+        Log.e("sos", "onStartCommand====url==" + url + ";;;;filename=" + filename + ";;;;mimetype=" + mimetype);
+        if (!TextUtils.isEmpty(url) && !TextUtils.isEmpty(filename) && !TextUtils.isEmpty(mimetype)) {
+
+            ToastUtils.showLong(getApplication().getResources().getString(R.string.download_hint));
+
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + STORAGE_PATH + filename;
+            File file = new File(path);
+            if (file.exists()) {
+                deleteFileWithPath(path);
+            }
+            download();
         }
-        try {
-            initDownManager();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("sos", "Exception=" + e.toString());
-        }
+
         return Service.START_NOT_STICKY;
     }
 
