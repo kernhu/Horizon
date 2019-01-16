@@ -3,7 +3,6 @@ package cn.walkpast.horizon.competence;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -30,6 +29,8 @@ public class VideoPlayActivity extends HorizonBaseActivity {
     @BindView(R.id.frame_container)
     public FrameLayout mFrameContainer;
 
+    private String mLoadUrl = "http://m.youku.com/video/id_XNzU2OTgyMzAw.html?sharefrom=iphone&from=timeline&source=";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +39,12 @@ public class VideoPlayActivity extends HorizonBaseActivity {
         ButterKnife.bind(this);
         mTitle.setText(getIntent().getStringExtra("title"));
 
-
         getHorizon()
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("http://m.iqiyi.com/v_19rqp72x94.html")
+                .setOriginalUrl(mLoadUrl)
                 .load();
-
     }
 
     HorizonClient mHorizonClient = new HorizonClient() {

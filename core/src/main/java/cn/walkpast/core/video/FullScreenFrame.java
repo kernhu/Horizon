@@ -1,6 +1,9 @@
 package cn.walkpast.core.video;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -13,9 +16,21 @@ import android.widget.FrameLayout;
 
 public class FullScreenFrame extends FrameLayout {
 
-    public FullScreenFrame(Context ctx) {
-        super(ctx);
-        setBackgroundColor(ctx.getResources().getColor(android.R.color.black));
+    private static final int BOTTOM_PADDING = 0;
+
+    public FullScreenFrame(Context context) {
+        this(context, null);
+    }
+
+    public FullScreenFrame(@NonNull Context context, @Nullable AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public FullScreenFrame(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+
+        setBackgroundColor(context.getResources().getColor(android.R.color.black));
+        setPadding(0, 0, 0, BOTTOM_PADDING);
     }
 
     @Override
