@@ -20,6 +20,7 @@ import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CacheConfig;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
+import cn.walkpast.core.constant.CaptureStrategy;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.EventPoint;
 import cn.walkpast.utils.LogUtils;
@@ -44,6 +45,9 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private CoreConfig mCoreConfig = null;
     private DownloadConfig mDownloadConfig = null;
     private ProgressConfig mProgressConfig = null;
+
+    private CaptureStrategy mCaptureStrategy = CaptureStrategy.NEVER;
+
 
     private HorizonClient mHorizonClient;
 
@@ -129,6 +133,16 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return this;
     }
 
+
+    public CaptureStrategy getCaptureStrategy() {
+        return mCaptureStrategy;
+    }
+
+    public Horizon setCaptureStrategy(CaptureStrategy captureStrategy) {
+        mCaptureStrategy = captureStrategy;
+        return this;
+    }
+
     public HorizonClient getHorizonClient() {
         return mHorizonClient;
     }
@@ -164,6 +178,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     public String getOriginalUr() {
         return mOriginalUrl;
     }
+
 
     /*****************************************/
 

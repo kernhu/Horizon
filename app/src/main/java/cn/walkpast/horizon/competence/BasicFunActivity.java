@@ -17,6 +17,7 @@ import cn.walkpast.core.Horizon;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
+import cn.walkpast.core.constant.CaptureStrategy;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
@@ -73,7 +74,6 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setAdblockPlusEnable(true)
                         .setGeolocationEnalbe(true)
                         .setThemeEnable(true)
-                        .setCaptureEnable(false)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
                         .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
@@ -87,6 +87,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
                         .config()
                 )
+                .setCaptureStrategy(CaptureStrategy.START_FINISH)
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mBfContainer)
                 .setWebView(new WebView(this))

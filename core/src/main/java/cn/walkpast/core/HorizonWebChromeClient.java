@@ -18,6 +18,7 @@ import android.webkit.WebStorage;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
+import cn.walkpast.core.constant.CaptureStrategy;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 import cn.walkpast.core.dialog.CommonDialog;
@@ -85,24 +86,46 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
             view.getSettings().setBlockNetworkImage(true);
         }
 
-        if (mHorizon.getCoreConfig().isCaptureEnable()) {
+        /********************************************************************************/
+        if (newProgress == 10) {
 
-            if (newProgress == 10) {
+            if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_FINISH.ordinal()
+                    || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
 
                 CaptureHelper
                         .getInstance()
                         .setWebView(view)
                         .setCaptureListener(this)
                         .capture();
-            } else {
+
+            }
+
+        } else if (newProgress == 50) {
+            if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
+
                 CaptureHelper
                         .getInstance()
                         .setWebView(view)
                         .setCaptureListener(this)
                         .capture();
+
+            }
+        } else if (newProgress == 100) {
+
+            if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.FINISH.ordinal()
+                    || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_FINISH.ordinal()
+                    || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
+
+                CaptureHelper
+                        .getInstance()
+                        .setWebView(view)
+                        .setCaptureListener(this)
+                        .capture();
+
             }
 
         }
+        /********************************************************************************/
 
         super.onProgressChanged(view, newProgress);
         mHorizon.getHorizonClient().onProgressChanged(view, newProgress);
@@ -218,7 +241,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
         VideoPlayer
                 .getInstance()
                 .setActivity(mHorizon.getActivity())
-                .showCustomView(view,callback);
+                .showCustomView(view, callback);
 
     }
 

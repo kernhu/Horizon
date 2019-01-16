@@ -45,7 +45,7 @@ public class FileDownloadActivity extends HorizonBaseActivity {
 
         getHorizon()
                 .setDownloadConfig(DownloadConfig.with(this)
-                        .setStoragePath("download")
+                        .setStoragePath("/download/horizon1/")
                         .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
                         .config()
                 )

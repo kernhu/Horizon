@@ -81,7 +81,7 @@ public class DownLoadService extends Service {
         down.setTitle(filename);
         down.setDescription("文件下载");
         down.setVisibleInDownloadsUi(true);
-        down.setDestinationInExternalPublicDir(STORAGE_PATH, filename);
+        down.setDestinationInExternalPublicDir(TextUtils.isEmpty(storagePath)?STORAGE_PATH:storagePath, filename);
         manager.enqueue(down);
         registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
@@ -99,7 +99,7 @@ public class DownLoadService extends Service {
 
             ToastUtils.showLong(getApplication().getResources().getString(R.string.download_hint));
 
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + STORAGE_PATH + filename;
+            String path = Environment.getExternalStorageDirectory().getAbsolutePath() + (TextUtils.isEmpty(storagePath) ? STORAGE_PATH : storagePath) + filename;
             File file = new File(path);
             if (file.exists()) {
                 deleteFileWithPath(path);

@@ -29,8 +29,6 @@ public class CoreConfig {
 
     private boolean mThemeEnable = false;
 
-    private boolean mCaptureEnable = false;
-
     private int mFontSize = 16;
 
     private boolean mAdblockPlusEnable = false;
@@ -92,14 +90,6 @@ public class CoreConfig {
         return mHardwareAccelerated;
     }
 
-    public boolean isCaptureEnable() {
-        return mCaptureEnable;
-    }
-
-    public CoreConfig setCaptureEnable(boolean captureEnable) {
-        mCaptureEnable = captureEnable;
-        return this;
-    }
 
     public CoreConfig setHardwareAccelerated(boolean hardwareAccelerated) {
         mHardwareAccelerated = hardwareAccelerated;
