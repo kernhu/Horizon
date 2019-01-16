@@ -13,6 +13,11 @@ import cn.walkpast.download.DownLoadService;
 
 public class DownLoadHelper {
 
+    private static final String SPECHARS_FILENAME = "filename=";
+    private static final String SPECHARS_DOUBLE_QUOTE = "\"";
+    private static final String SPECHARS_BACKSLASH = "/";
+    private static final String SPECHARS_QUESTION_MARK = "[?]";
+
     private Activity mActivity;
     private String downloadUrl;
     private String contentDisposition;
@@ -83,10 +88,10 @@ public class DownLoadHelper {
     public void justDoIt() {
 
         String filename;
-        if (getContentDisposition().contains("filename=")) {
-            filename = getContentDisposition().split("filename=")[1].replace("\"", "");
+        if (getContentDisposition().contains(SPECHARS_FILENAME)) {
+            filename = getContentDisposition().split(SPECHARS_FILENAME)[1].replace(SPECHARS_DOUBLE_QUOTE, "");
         } else {
-            filename = getDownloadUrl().substring(getDownloadUrl().lastIndexOf("/") + 1).split("[?]")[0];
+            filename = getDownloadUrl().substring(getDownloadUrl().lastIndexOf(SPECHARS_BACKSLASH) + 1).split(SPECHARS_QUESTION_MARK)[0];
         }
         Log.e("sos", "justDoIt====url==" + getDownloadUrl() + ";;;;filename=" + filename + ";;;;mimetype=" + mimetype);
         DownLoadService
