@@ -29,6 +29,10 @@ import android.webkit.WebView;
 public class HorizonClient {
 
 
+    public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+        return false;
+    }
+
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         return false;
     }
@@ -49,7 +53,15 @@ public class HorizonClient {
     public void onReceivedTouchIconUrl(WebView view, String url, boolean precomposed) {
     }
 
+    public void onGeolocationPermissionsHidePrompt() {
+
+    }
+
     public void onPermissionRequest(PermissionRequest request) {
+    }
+
+    public void onPermissionRequestCanceled(PermissionRequest request) {
+
     }
 
 
@@ -117,10 +129,6 @@ public class HorizonClient {
         return false;
     }
 
-    public void onHideCustomView() {
-
-    }
-
 
     public void onPageFinished(WebView view, String url) {
     }
@@ -142,10 +150,13 @@ public class HorizonClient {
     public void doUpdateVisitedHistory(WebView view, String url, boolean isReload) {
     }
 
-    public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-        return null;
+    public void shouldInterceptRequest(WebView view, String url) {
+
     }
 
+    public void shouldInterceptRequest(WebView view, WebResourceRequest request) {
+
+    }
 
     public boolean shouldOverrideKeyEvent(WebView view, KeyEvent event) {
 
@@ -163,6 +174,12 @@ public class HorizonClient {
     public void onCaptured(Bitmap bitmap) {
 
 
+    }
+
+    public void onShowCustomView(View view, WebChromeClient.CustomViewCallback callback) {
+    }
+
+    public void onHideCustomView() {
     }
 
 }

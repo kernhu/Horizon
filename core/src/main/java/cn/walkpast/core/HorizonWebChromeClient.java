@@ -39,6 +39,9 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     private Horizon mHorizon;
 
     public HorizonWebChromeClient(Horizon horizon) {
+        if (horizon == null) {
+            throw new NullPointerException("Horizon can't be null in HorizonWebChromeClient");
+        }
         mHorizon = horizon;
     }
 
@@ -165,6 +168,9 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onGeolocationPermissionsHidePrompt() {
         super.onGeolocationPermissionsHidePrompt();
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onGeolocationPermissionsHidePrompt();
+        }
     }
 
     @Override
@@ -178,6 +184,9 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onPermissionRequestCanceled(PermissionRequest request) {
         super.onPermissionRequestCanceled(request);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onPermissionRequestCanceled(request);
+        }
     }
 
 
@@ -193,38 +202,59 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
 
-        return mHorizon.getHorizonClient().onJsPrompt(view, url, message, defaultValue, result);
+        if (mHorizon.getHorizonClient() != null) {
+            return mHorizon.getHorizonClient().onJsPrompt(view, url, message, defaultValue, result);
+        }
+        return false;
     }
 
     @Override
     public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
 
-        return mHorizon.getHorizonClient().onJsConfirm(view, url, message, result);
+        if (mHorizon.getHorizonClient() != null) {
+            return mHorizon.getHorizonClient().onJsConfirm(view, url, message, result);
+        }
+        return false;
     }
 
     @Override
     public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
 
-        return mHorizon.getHorizonClient().onJsAlert(view, url, message, result);
+        if (mHorizon.getHorizonClient() != null) {
+            return mHorizon.getHorizonClient().onJsAlert(view, url, message, result);
+        }
+        return false;
+
     }
 
     @Override
     public boolean onJsBeforeUnload(WebView view, String url, String message, JsResult result) {
 
-        return mHorizon.getHorizonClient().onJsBeforeUnload(view, url, message, result);
+        if (mHorizon.getHorizonClient() != null) {
+            return mHorizon.getHorizonClient().onJsBeforeUnload(view, url, message, result);
+        }
+        return false;
+
     }
 
     @Override
     public boolean onCreateWindow(WebView view, boolean isDialog, boolean isUserGesture, Message resultMsg) {
 
-        return mHorizon.getHorizonClient().onCreateWindow(view, isDialog, isUserGesture, resultMsg);
-    }
+        if (mHorizon.getHorizonClient() != null) {
+            return mHorizon.getHorizonClient().onCreateWindow(view, isDialog, isUserGesture, resultMsg);
+        }
+        return false;
 
+    }
 
     @Override
     public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
 
-        return mHorizon.getHorizonClient().onShowFileChooser(webView, filePathCallback, fileChooserParams);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onShowFileChooser(webView, filePathCallback, fileChooserParams);
+        }
+
+        return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
     }
 
     @Override
@@ -251,6 +281,10 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     public void onShowCustomView(View view, CustomViewCallback callback) {
         super.onShowCustomView(view, callback);
 
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onShowCustomView(view, callback);
+        }
+
         VideoPlayer
                 .getInstance()
                 .setActivity(mHorizon.getActivity())
@@ -262,12 +296,14 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     public void onHideCustomView() {
         super.onHideCustomView();
 
-        VideoPlayer
-                .getInstance()
-                .hideCustomView();
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onHideCustomView();
         }
+
+        VideoPlayer
+                .getInstance()
+                .hideCustomView();
+
     }
 
 
@@ -354,7 +390,10 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsTimeout() {
 
-        return mHorizon.getHorizonClient().onJsTimeout();
+        if (mHorizon.getHorizonClient() != null) {
+            return mHorizon.getHorizonClient().onJsTimeout();
+        }
+        return false;
     }
 
     @Override
@@ -384,7 +423,11 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
 
-        return mHorizon.getHorizonClient().onConsoleMessage(consoleMessage);
+        if (mHorizon.getHorizonClient() != null) {
+            return mHorizon.getHorizonClient().onConsoleMessage(consoleMessage);
+        }
+        return false;
+
     }
 
     @Override
@@ -393,4 +436,5 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
             mHorizon.getHorizonClient().onCaptured(bitmap);
         }
     }
+
 }
