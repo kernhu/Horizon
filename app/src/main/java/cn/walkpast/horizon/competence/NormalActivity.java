@@ -16,6 +16,7 @@ import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.CaptureStrategy;
+import cn.walkpast.core.constant.NotificationType;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
@@ -80,7 +81,9 @@ public class NormalActivity extends AppCompatActivity {
                 .setDownloadConfig(DownloadConfig
                         .with(this)
                         .setStoragePath("/download/horizon/")
-                        .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
+                        .setNetworkType(NetworkType.NETWORK_MOBILE_AND_WIFI)
+                        .setNotificationType(NotificationType.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        .setTooltipEnable(true)
                         .config()
                 )
                 .setCaptureStrategy(CaptureStrategy.NEVER)

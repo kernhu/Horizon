@@ -17,6 +17,7 @@ import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
+import cn.walkpast.core.constant.NotificationType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
@@ -78,7 +79,9 @@ public class CallupNormalActivity extends AppCompatActivity {
                 .setDownloadConfig(DownloadConfig
                         .with(this)
                         .setStoragePath("download")
-                        .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
+                        .setNetworkType(NetworkType.NETWORK_MOBILE_AND_WIFI)
+                        .setNotificationType(NotificationType.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                        .setTooltipEnable(true)
                         .config()
                 )
                 .setHorizonClient(mHorizonClient)

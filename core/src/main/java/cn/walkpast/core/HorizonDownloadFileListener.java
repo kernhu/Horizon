@@ -2,7 +2,6 @@ package cn.walkpast.core;
 
 import android.Manifest;
 import android.content.DialogInterface;
-import android.util.Log;
 import android.webkit.DownloadListener;
 
 import cn.walkpast.core.constant.NetworkType;
@@ -29,13 +28,18 @@ public class HorizonDownloadFileListener implements DownloadListener {
     @Override
     public void onDownloadStart(final String url, String userAgent, final String contentDisposition, final String mimetype, final long contentLength) {
 
+        if (mHorizon == null) {
+            throw new NullPointerException("Horizon can't be null in HorizonDownloadFileListener");
+        }
+
+        if (mHorizon.getDownloadConfig() == null) {
+            throw new NullPointerException("DownloadConfig can't be null in HorizonDownloadFileListener");
+        }
+
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onDownloadStart(url, userAgent, contentDisposition, mimetype, contentLength);
         }
 
-        if (mHorizon.getDownloadConfig() == null) {
-            return;
-        }
         //权限申请一次
         PermissionUtil
                 .getInstance()
@@ -63,9 +67,7 @@ public class HorizonDownloadFileListener implements DownloadListener {
                             }
                         });
 
-        Log.e("sos", "onDownloadStart---url=" + url + ";;;contentDisposition=" + contentDisposition + ";;;mimetype=" + mimetype + ";;;contentLength=" + contentLength);
-
-        if (mHorizon.getDownloadConfig().getNetworkType() == NetworkType.TYPE_JUST_WIFI) {
+        if (mHorizon.getDownloadConfig().getNetworkType() == NetworkType.NETWORK_ONLY_WIFI) {
 
             if (!NetworkUtils.is4G()) {
 
@@ -77,13 +79,15 @@ public class HorizonDownloadFileListener implements DownloadListener {
                         .setMimetype(mimetype)
                         .setContentLength(contentLength)
                         .setStoragePath(mHorizon.getDownloadConfig().getStoragePath())
+                        .setNetworkType(mHorizon.getDownloadConfig().getNetworkType().ordinal())
+                        .setNotificationType(mHorizon.getDownloadConfig().getNotificationType().ordinal())
                         .justDoIt();
 
             }
 
-        } else if (mHorizon.getDownloadConfig().getNetworkType() == NetworkType.TYPE_BOTH_GPRS_WIFI) {
+        } else if (mHorizon.getDownloadConfig().getNetworkType() == NetworkType.NETWORK_MOBILE_AND_WIFI) {
 
-            if (NetworkUtils.is4G()) {
+            if (NetworkUtils.is4G() && mHorizon.getDownloadConfig().isTooltipEnable()) {
 
                 CommonDialog
                         .getInstance()
@@ -104,13 +108,14 @@ public class HorizonDownloadFileListener implements DownloadListener {
                                                              .setMimetype(mimetype)
                                                              .setContentLength(contentLength)
                                                              .setStoragePath(mHorizon.getDownloadConfig().getStoragePath())
+                                                             .setNetworkType(mHorizon.getDownloadConfig().getNetworkType().ordinal())
+                                                             .setNotificationType(mHorizon.getDownloadConfig().getNotificationType().ordinal())
                                                              .justDoIt();
 
                                                  }
                                              }
                         )
                         .show();
-
             } else {
 
                 DownLoadHelper
@@ -121,11 +126,13 @@ public class HorizonDownloadFileListener implements DownloadListener {
                         .setMimetype(mimetype)
                         .setContentLength(contentLength)
                         .setStoragePath(mHorizon.getDownloadConfig().getStoragePath())
+                        .setNetworkType(mHorizon.getDownloadConfig().getNetworkType().ordinal())
+                        .setNotificationType(mHorizon.getDownloadConfig().getNotificationType().ordinal())
                         .justDoIt();
 
             }
         }
-
     }
 
 }
+

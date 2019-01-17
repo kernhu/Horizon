@@ -9,6 +9,6 @@ package cn.walkpast.core.constant;
 
 public enum NetworkType {
 
-    TYPE_BOTH_GPRS_WIFI,
-    TYPE_JUST_WIFI
+    NETWORK_ONLY_WIFI,
+    NETWORK_MOBILE_AND_WIFI,
 }

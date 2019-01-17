@@ -3,6 +3,7 @@ package cn.walkpast.core.config;
 import android.app.Activity;
 
 import cn.walkpast.core.constant.NetworkType;
+import cn.walkpast.core.constant.NotificationType;
 
 /**
  * author: Kern Hu
@@ -15,7 +16,9 @@ public class DownloadConfig {
 
     private Activity mActivity;
     private String mStoragePath = "/horizon/download/";
-    private NetworkType mNetworkType = NetworkType.TYPE_JUST_WIFI;
+    private NetworkType mNetworkType = NetworkType.NETWORK_ONLY_WIFI;
+    private NotificationType mNotificationType = NotificationType.VISIBILITY_VISIBLE_NOTIFY_COMPLETED;
+    private boolean mTooltipEnable = true;
 
     public DownloadConfig(Activity activity) {
         mActivity = activity;
@@ -45,6 +48,24 @@ public class DownloadConfig {
 
     public DownloadConfig setNetworkType(NetworkType networkType) {
         mNetworkType = networkType;
+        return this;
+    }
+
+    public NotificationType getNotificationType() {
+        return mNotificationType;
+    }
+
+    public DownloadConfig setNotificationType(NotificationType notificationType) {
+        mNotificationType = notificationType;
+        return this;
+    }
+
+    public boolean isTooltipEnable() {
+        return mTooltipEnable;
+    }
+
+    public DownloadConfig setTooltipEnable(boolean tooltipEnable) {
+        mTooltipEnable = tooltipEnable;
         return this;
     }
 

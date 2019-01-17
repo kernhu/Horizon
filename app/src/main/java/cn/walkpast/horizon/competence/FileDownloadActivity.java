@@ -3,7 +3,6 @@ package cn.walkpast.horizon.competence;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -13,6 +12,7 @@ import butterknife.ButterKnife;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.NetworkType;
+import cn.walkpast.core.constant.NotificationType;
 import cn.walkpast.horizon.R;
 
 /**
@@ -46,7 +46,9 @@ public class FileDownloadActivity extends HorizonBaseActivity {
         getHorizon()
                 .setDownloadConfig(DownloadConfig.with(this)
                         .setStoragePath("/download/horizon1/")
-                        .setNetworkType(NetworkType.TYPE_BOTH_GPRS_WIFI)
+                        .setNetworkType(NetworkType.NETWORK_MOBILE_AND_WIFI)
+                        .setNotificationType(NotificationType.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION)
+                        .setTooltipEnable(true)
                         .config()
                 )
                 .setHorizonClient(mHorizonClient)

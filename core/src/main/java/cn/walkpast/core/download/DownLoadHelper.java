@@ -1,9 +1,9 @@
 package cn.walkpast.core.download;
 
 import android.app.Activity;
-import android.util.Log;
 
 import cn.walkpast.download.DownLoadService;
+import cn.walkpast.utils.LogUtils;
 
 /**
  * Author: Kern
@@ -24,6 +24,8 @@ public class DownLoadHelper {
     private String mimetype;
     private long contentLength;
     private String storagePath;
+    private int networkType;
+    private int notificationType;
 
 
     public Activity getActivity() {
@@ -80,6 +82,24 @@ public class DownLoadHelper {
         return this;
     }
 
+    public int getNetworkType() {
+        return networkType;
+    }
+
+    public DownLoadHelper setNetworkType(int networkType) {
+        this.networkType = networkType;
+        return this;
+    }
+
+    public int getNotificationType() {
+        return notificationType;
+    }
+
+    public DownLoadHelper setNotificationType(int notificationType) {
+        this.notificationType = notificationType;
+        return this;
+    }
+
     public static DownLoadHelper getInstance() {
 
         return new DownLoadHelper();
@@ -93,12 +113,15 @@ public class DownLoadHelper {
         } else {
             filename = getDownloadUrl().substring(getDownloadUrl().lastIndexOf(SPECHARS_BACKSLASH) + 1).split(SPECHARS_QUESTION_MARK)[0];
         }
-        Log.e("sos", "justDoIt====url==" + getDownloadUrl() + ";;;;filename=" + filename + ";;;;mimetype=" + mimetype);
+        LogUtils.i("download_sos", "justDoIt====url==" + getDownloadUrl() + ";;;;filename=" + filename + ";;;;mimetype=" + mimetype);
+
         DownLoadService
                 .startDownloadService(getActivity(),
                         getDownloadUrl(),
                         filename,
                         getMimetype(),
-                        getStoragePath());
+                        getStoragePath(),
+                        getNetworkType(),
+                        getNotificationType());
     }
 }
