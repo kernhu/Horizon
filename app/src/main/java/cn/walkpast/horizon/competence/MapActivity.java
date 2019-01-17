@@ -3,7 +3,6 @@ package cn.walkpast.horizon.competence;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -46,7 +45,7 @@ public class MapActivity extends HorizonBaseActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://map.baidu.com/mobile/webapp/index/index/?third_party=hao123")
-                .load();
+                .preview();
 
     }
 

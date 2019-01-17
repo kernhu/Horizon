@@ -45,38 +45,38 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private CoreConfig mCoreConfig = null;
     private DownloadConfig mDownloadConfig = null;
     private ProgressConfig mProgressConfig = null;
-
-    private CaptureStrategy mCaptureStrategy = CaptureStrategy.NEVER;
-
-
     private HorizonClient mHorizonClient;
 
+    private CaptureStrategy mCaptureStrategy = CaptureStrategy.NEVER;
     private WebView mWebView;
     private ViewGroup mViewContainer;
-
     private String mOriginalUrl;
-
     private GestureDetector mGestureDetector;
 
-    private boolean mInitiated = false;
-
+    /*********************** 构造方法 ***********************/
     public Horizon(Activity activity) {
-        mActivity = activity;
-        mHorizonMap.put(activity, this);
+        this.mActivity = activity;
+        this.mHorizonMap.put(activity, this);
+
+        this.mWebView = new WebView(activity);
     }
 
     public Horizon(Context context) {
 
-        mContext = context;
-        mHorizonMap.put(context, this);
+        this.mContext = context;
+        this.mHorizonMap.put(context, this);
+
+        this.mWebView = new WebView(context);
     }
 
     public Horizon(Fragment fragment) {
-        mFragment = fragment;
-        mHorizonMap.put(fragment, this);
+        this.mFragment = fragment;
+        this.mHorizonMap.put(fragment, this);
+
+        this.mWebView = new WebView(fragment.getActivity());
     }
 
-    /*******************************************/
+    /*********************** 实例化Horizon ***********************/
     public static Horizon with(Activity activity) {
 
         return new Horizon(activity);
@@ -92,11 +92,10 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return new Horizon(fragment);
     }
 
-
+    /*********************** 参数get and set ***********************/
     public Activity getActivity() {
         return mActivity;
     }
-
 
     public Context getContext() {
         return mContext;
@@ -132,7 +131,6 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         mProgressConfig = progressConfig;
         return this;
     }
-
 
     public CaptureStrategy getCaptureStrategy() {
         return mCaptureStrategy;
@@ -180,41 +178,33 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     }
 
 
-    /*****************************************/
+    /*********************** 加载 ***********************/
+    public Horizon preview() {
 
-    public Horizon load() {
-
-        if (!mInitiated) {
-            //Ⅰ
-            if (getWebView() == null) {
-                mWebView = new WebView(getActivity());
-            }
-            DefaultWebSettings.getInstance()
-                    .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig(getActivity())
-                            .config())
-                    .setWebView(getWebView())
-                    .build();
-
-            getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
-            getWebView().setWebViewClient(new HorizonWebViewClient(this));
-
-            loadUrl(getOriginalUr());
-
-            getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-            if (getViewContainer() == null) {
-                throw new NullPointerException("ViewContainer can't be null,because horizon need a view container for adding webview.");
-            }
-
-            getViewContainer().addView(getWebView());
-            getWebView().setDownloadListener(new HorizonDownloadFileListener(this));
-            getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
-            getWebView().setOnKeyListener(this);
-            getWebView().setOnTouchListener(this);
-            mGestureDetector = new GestureDetector(getActivity(), mSimpleOnGestureListener);
-            getViewContainer().addView(mProgressConfig.getIndicator());
-
-            mInitiated = true;
+        if (getViewContainer() == null) {
+            throw new NullPointerException("ViewContainer can't be null,because horizon need a view container for adding webview.");
         }
+        // Ⅰ
+        DefaultWebSettings.getInstance()
+                .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig(getActivity()).config())
+                .setWebView(getWebView())
+                .build();
+        // Ⅱ
+        getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
+        getWebView().setWebViewClient(new HorizonWebViewClient(this));
+        // Ⅲ
+        loadUrl(getOriginalUr());
+        // Ⅳ
+        getWebView().setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+
+        // Ⅴ
+        getViewContainer().addView(getWebView());
+        getWebView().setDownloadListener(new HorizonDownloadFileListener(this));
+        getWebView().setOnLongClickListener(new HorizonOnLongClickListener(this));
+        getWebView().setOnKeyListener(this);
+        getWebView().setOnTouchListener(this);
+        mGestureDetector = new GestureDetector(getActivity(), mSimpleOnGestureListener);
+        getViewContainer().addView(mProgressConfig.getIndicator());
 
         return this;
     }

@@ -51,7 +51,6 @@ public class NormalActivity extends AppCompatActivity {
 
         mTitle.setText(getIntent().getStringExtra("title"));
 
-
         Horizon.with(this)
                 .setProgressConfig(ProgressConfig
                         .with(this)
@@ -91,32 +90,33 @@ public class NormalActivity extends AppCompatActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://www.hao123.com/")
-                .load();
+                .preview()
+                .loadUrl("https://www.hao123.com/");
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // Horizon.getInstance().onPause();
+        Horizon.with(this).onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //Horizon.getInstance().onResume();
+        Horizon.with(this).onResume();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        ///Horizon.getInstance().onStop();
+        Horizon.with(this).onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Horizon.getInstance().onDestroy();
+        Horizon.with(this).onDestroy();
     }
 
     @Override
@@ -126,12 +126,11 @@ public class NormalActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //Horizon.getInstance().onKeyDown(keyCode, event);
+        Horizon.with(this).onKeyDown(keyCode, event);
         return super.onKeyDown(keyCode, event);
     }
 
     HorizonClient mHorizonClient = new HorizonClient() {
-
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {

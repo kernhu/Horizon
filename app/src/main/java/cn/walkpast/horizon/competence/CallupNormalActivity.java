@@ -88,7 +88,7 @@ public class CallupNormalActivity extends AppCompatActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("file:///android_asset/callup_normal.html")
-                .load();
+                .preview();
 
     }
 

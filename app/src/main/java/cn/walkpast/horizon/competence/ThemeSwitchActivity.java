@@ -45,7 +45,7 @@ public class ThemeSwitchActivity extends HorizonBaseActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://m.image.so.com/i?src=onebox_entity&q=%E6%9E%97%E5%85%81%E5%84%BF")
-                .load();
+                .preview();
 
     }
 

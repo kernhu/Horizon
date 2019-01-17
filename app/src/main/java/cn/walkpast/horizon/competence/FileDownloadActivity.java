@@ -45,7 +45,7 @@ public class FileDownloadActivity extends HorizonBaseActivity {
 
         getHorizon()
                 .setDownloadConfig(DownloadConfig.with(this)
-                        .setStoragePath("/download/horizon1/")
+                        .setStoragePath("/horizon1/")
                         .setNetworkType(NetworkType.NETWORK_MOBILE_AND_WIFI)
                         .setNotificationType(NotificationType.VISIBILITY_VISIBLE_NOTIFY_ONLY_COMPLETION)
                         .setTooltipEnable(true)
@@ -55,7 +55,7 @@ public class FileDownloadActivity extends HorizonBaseActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("http://app.so.com/")
-                .load();
+                .preview();
 
     }
 

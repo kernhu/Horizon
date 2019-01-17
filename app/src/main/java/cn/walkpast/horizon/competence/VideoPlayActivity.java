@@ -45,11 +45,10 @@ public class VideoPlayActivity extends HorizonBaseActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl(mLoadUrl)
-                .load();
+                .preview();
     }
 
     HorizonClient mHorizonClient = new HorizonClient() {
-
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {

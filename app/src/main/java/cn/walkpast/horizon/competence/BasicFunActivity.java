@@ -95,7 +95,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                 .setViewContainer(mBfContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://www.hao123.com/")
-                .load();
+                .preview();
 
 
     }
