@@ -30,6 +30,7 @@ public class VideoPlayActivity extends HorizonBaseActivity {
     public FrameLayout mFrameContainer;
 
     private String mLoadUrl = "http://m.youku.com/video/id_XNzU2OTgyMzAw.html?sharefrom=iphone&from=timeline&source=";
+    //private String mLoadUrl = "http://www.walkpast.cn/";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

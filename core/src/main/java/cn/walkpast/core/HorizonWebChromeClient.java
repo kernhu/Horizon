@@ -128,7 +128,10 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
         /********************************************************************************/
 
         super.onProgressChanged(view, newProgress);
-        mHorizon.getHorizonClient().onProgressChanged(view, newProgress);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onProgressChanged(view, newProgress);
+        }
+
     }
 
 
@@ -136,21 +139,27 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     public void onReceivedTitle(WebView view, String title) {
         super.onReceivedTitle(view, title);
         LogUtils.d("horizon_sos", "onReceivedTitle------" + title);
-        mHorizon.getHorizonClient().onReceiveTitle(view, title);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onReceiveTitle(view, title);
+        }
     }
 
     @Override
     public void onReceivedIcon(WebView view, Bitmap icon) {
         super.onReceivedIcon(view, icon);
         LogUtils.d("horizon_sos", "onReceivedIcon------" + (icon == null));
-        mHorizon.getHorizonClient().onReceivedIcon(view, icon);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onReceivedIcon(view, icon);
+        }
     }
 
     @Override
     public void onReceivedTouchIconUrl(WebView view, String url, boolean precomposed) {
         super.onReceivedTouchIconUrl(view, url, precomposed);
         LogUtils.d("horizon_sos", "onReceivedTouchIconUrl------" + "precomposed=" + precomposed + "URL==" + url);
-        mHorizon.getHorizonClient().onReceivedTouchIconUrl(view, url, precomposed);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onReceivedTouchIconUrl(view, url, precomposed);
+        }
     }
 
     @Override
@@ -161,8 +170,9 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onPermissionRequest(PermissionRequest request) {
         super.onPermissionRequest(request);
-
-        mHorizon.getHorizonClient().onPermissionRequest(request);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onPermissionRequest(request);
+        }
     }
 
     @Override
@@ -175,7 +185,9 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
         super.onShowCustomView(view, requestedOrientation, callback);
 
-        mHorizon.getHorizonClient().onShowCustomView(view, requestedOrientation, callback);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onShowCustomView(view, requestedOrientation, callback);
+        }
     }
 
     @Override
@@ -218,8 +230,9 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onCloseWindow(WebView window) {
         super.onCloseWindow(window);
-
-        mHorizon.getHorizonClient().onCloseWindow(window);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onCloseWindow(window);
+        }
     }
 
     /*******************************************************************************************
@@ -252,8 +265,9 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
         VideoPlayer
                 .getInstance()
                 .hideCustomView();
-
-        mHorizon.getHorizonClient().onHideCustomView();
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onHideCustomView();
+        }
     }
 
 
@@ -323,15 +337,18 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
         }
 
         super.onGeolocationPermissionsShowPrompt(origin, callback);
-        mHorizon.getHorizonClient().onGeolocationPermissionsShowPrompt(origin, callback);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onGeolocationPermissionsShowPrompt(origin, callback);
+        }
 
     }
 
     @Override
     public void onRequestFocus(WebView view) {
         super.onRequestFocus(view);
-
-        mHorizon.getHorizonClient().onRequestFocus(view);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onRequestFocus(view);
+        }
     }
 
     @Override
@@ -343,20 +360,25 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onConsoleMessage(String message, int lineNumber, String sourceID) {
         super.onConsoleMessage(message, lineNumber, sourceID);
-        mHorizon.getHorizonClient().onConsoleMessage(message, lineNumber, sourceID);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onConsoleMessage(message, lineNumber, sourceID);
+        }
     }
 
     @Override
     public void onExceededDatabaseQuota(String url, String databaseIdentifier, long quota, long estimatedDatabaseSize, long totalQuota, WebStorage.QuotaUpdater quotaUpdater) {
         super.onExceededDatabaseQuota(url, databaseIdentifier, quota, estimatedDatabaseSize, totalQuota, quotaUpdater);
-        mHorizon.getHorizonClient().onExceededDatabaseQuota(url, databaseIdentifier, quota, estimatedDatabaseSize, totalQuota, quotaUpdater);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onExceededDatabaseQuota(url, databaseIdentifier, quota, estimatedDatabaseSize, totalQuota, quotaUpdater);
+        }
     }
 
     @Override
     public void onReachedMaxAppCacheSize(long requiredStorage, long quota, WebStorage.QuotaUpdater quotaUpdater) {
         super.onReachedMaxAppCacheSize(requiredStorage, quota, quotaUpdater);
-
-        mHorizon.getHorizonClient().onReachedMaxAppCacheSize(requiredStorage, quota, quotaUpdater);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onReachedMaxAppCacheSize(requiredStorage, quota, quotaUpdater);
+        }
     }
 
     @Override
@@ -367,7 +389,8 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
     @Override
     public void onCapture(Bitmap bitmap) {
-
-        mHorizon.getHorizonClient().onCaptured(bitmap);
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onCaptured(bitmap);
+        }
     }
 }

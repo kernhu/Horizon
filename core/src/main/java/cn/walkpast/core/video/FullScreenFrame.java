@@ -1,9 +1,11 @@
 package cn.walkpast.core.video;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
@@ -16,7 +18,7 @@ import android.widget.FrameLayout;
 
 public class FullScreenFrame extends FrameLayout {
 
-    private static final int BOTTOM_PADDING = 0;
+    private static final int BOTTOM_PADDING = 50;
 
     public FullScreenFrame(Context context) {
         this(context, null);
@@ -31,10 +33,31 @@ public class FullScreenFrame extends FrameLayout {
 
         setBackgroundColor(context.getResources().getColor(android.R.color.black));
         setPadding(0, 0, 0, BOTTOM_PADDING);
+
     }
+
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        Log.e("sos", "onConfigurationChanged:"+newConfig.orientation);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            setPadding(0, 0, 0, BOTTOM_PADDING);
+
+        } else if(newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+
+            setPadding(0, BOTTOM_PADDING, 0, 0);
+
+        }
+
+    }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent evt) {
         return true;
     }
+
+
 }

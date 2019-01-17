@@ -59,14 +59,12 @@ public class VideoPlayer {
     public void showCustomView(View view, WebChromeClient.CustomViewCallback callback) {
 
         if (mShowCustomView != null) {
-
             callback.onCustomViewHidden();
-
             return;
         }
 
-
         FrameLayout mDecorView = (FrameLayout) mActivity.getWindow().getDecorView();
+        mDecorView.setBackgroundColor(mActivity.getResources().getColor(android.R.color.black));
         mFullScreenFrame = new FullScreenFrame(mActivity);
         mFullScreenFrame.addView(view, COVER_SCREEN_PARAMS);
         mDecorView.addView(mFullScreenFrame, COVER_SCREEN_PARAMS);
@@ -82,10 +80,8 @@ public class VideoPlayer {
     public void hideCustomView() {
 
         if (mShowCustomView == null) {
-
             return;
         }
-
 
         setStatusBarVisibility(mActivity, true);
         FrameLayout mDecorView = (FrameLayout) mActivity.getWindow().getDecorView();
