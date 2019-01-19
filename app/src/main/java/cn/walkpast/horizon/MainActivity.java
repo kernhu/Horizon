@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         mData.add("获取网页快照 演示");
         mData.add("加载策略对比体验 演示");
         mData.add("加载进度条样式 演示");
-//        mData.add("Cookies清除");
         mData.add("关于Horizon");
         mCompetenceAdapter.updata(mData);
         mRecyclerView.setAdapter(mCompetenceAdapter);
