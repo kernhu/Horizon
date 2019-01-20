@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +11,8 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:gravity="center"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/title"
@@ -20,14 +21,16 @@
             android:layout_gravity="center"
             android:text="HORIZON"
             android:textColor="@color/TextWhite"
-            android:textSize="18sp" />
+            android:textSize="18sp"/>
 
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
     </android.support.v7.widget.RecyclerView>
 

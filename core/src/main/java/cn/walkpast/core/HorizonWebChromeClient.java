@@ -1,10 +1,10 @@
 package cn.walkpast.core;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Message;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -45,7 +45,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
         mHorizon = horizon;
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
         LogUtils.d("horizon_sos", "onProgressChanged------" + newProgress);
@@ -82,7 +81,11 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                 ThemeHelper.getInstance().injectLight(view);
             }
 
-            mHorizon.getProgressConfig().getIndicator().setProgress(newProgress, false);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                mHorizon.getProgressConfig().getIndicator().setProgress(newProgress, false);
+            } else {
+                mHorizon.getProgressConfig().getIndicator().setProgress(newProgress);
+            }
         }
 
         if (mHorizon.getCoreConfig().isPatternlessEnable()) {
