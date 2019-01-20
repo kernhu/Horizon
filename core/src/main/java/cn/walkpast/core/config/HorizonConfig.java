@@ -1,6 +1,7 @@
 package cn.walkpast.core.config;
 
 import android.app.Application;
+import android.view.View;
 
 import cn.walkpast.utils.HorizonUtils;
 import cn.walkpast.utils.LogUtils;
@@ -22,6 +23,7 @@ public class HorizonConfig {
     private int mToastBgc;
     private int mToastMsgColor;
     private boolean mLogSwitch;
+    private View mErrorPage;
 
 
     public HorizonConfig(Application application) {
@@ -65,6 +67,15 @@ public class HorizonConfig {
 
     public HorizonConfig setLogSwitch(boolean logSwitch) {
         mLogSwitch = logSwitch;
+        return this;
+    }
+
+    public View getErrorPage() {
+        return mErrorPage;
+    }
+
+    public HorizonConfig setErrorPage(View errorPage) {
+        mErrorPage = errorPage;
         return this;
     }
 

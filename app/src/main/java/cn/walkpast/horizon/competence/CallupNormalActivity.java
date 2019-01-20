@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -21,9 +22,13 @@ import cn.walkpast.core.constant.NotificationType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
+import cn.walkpast.core.error.BindEventCallback;
+import cn.walkpast.core.error.DefaultErrorPage;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.horizon.BuildConfig;
 import cn.walkpast.horizon.R;
+import cn.walkpast.horizon.errorpage.CustomErrorPage;
+import cn.walkpast.utils.ToastUtils;
 
 /**
  * Author: Kern
@@ -73,7 +78,6 @@ public class CallupNormalActivity extends AppCompatActivity {
                         .setTheme(Theme.THEME_LIGHT)
                         .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
-                        .setErrorPage("")
                         .config()
                 )
                 .setDownloadConfig(DownloadConfig
@@ -88,6 +92,34 @@ public class CallupNormalActivity extends AppCompatActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("file:///android_asset/callup_normal.html")
+                .setErrorPage(new DefaultErrorPage()
+                        .setContext(this)
+                        .setLayout(R.layout.layout_custom_error_page)
+                        .setBindEventCallback(new BindEventCallback() {
+                                                  @Override
+                                                  public void bindEvent(View view) {
+
+                                                      view.findViewById(R.id.custom_error_page_left).setOnClickListener(new View.OnClickListener() {
+                                                          @Override
+                                                          public void onClick(View v) {
+
+                                                              ToastUtils.showShort("检查网络");
+                                                          }
+                                                      });
+
+                                                      view.findViewById(R.id.custom_error_page_right).setOnClickListener(new View.OnClickListener() {
+                                                          @Override
+                                                          public void onClick(View v) {
+
+                                                              ToastUtils.showShort("重新刷新");
+                                                          }
+                                                      });
+
+                                                  }
+                                              }
+                        )
+                        .createView()
+                )
                 .preview();
 
     }

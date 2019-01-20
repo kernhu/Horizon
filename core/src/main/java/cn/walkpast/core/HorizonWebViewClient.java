@@ -5,7 +5,11 @@ import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -22,6 +26,7 @@ public class HorizonWebViewClient extends WebViewClient {
 
 
     private Horizon mHorizon;
+    private boolean mReceivedError = false;
 
     public HorizonWebViewClient(Horizon horizon) {
 
@@ -37,7 +42,8 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, request);
         }
-
+        Log.e("sos", "shouldOverrideUrlLoading-----111");
+        mReceivedError = false;
         return shouldOverrideUrlLoading(view, request.getUrl().toString());
     }
 
@@ -47,7 +53,8 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, url);
         }
-
+        Log.e("sos", "shouldOverrideUrlLoading-----222");
+        mReceivedError = false;
         return DefaultShouldOverrideUrlLoading.shouldOverrideUrlLoading(mHorizon.getActivity(), url);
     }
 
@@ -57,6 +64,8 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onPageStarted(view, url, favicon);
         }
+        Log.e("sos", "onPageStarted-----");
+        mReceivedError = false;
     }
 
 
@@ -66,14 +75,50 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onPageFinished(view, url);
         }
+
+        Log.e("sos", "onPageFinished-----");
+        /***************************************** Remove Error Page View ******************************************/
+        if (!mReceivedError) {
+            ViewGroup mViewParent = (ViewGroup) view.getParent();
+            int i = mViewParent.indexOfChild(mHorizon.getErrorPage());
+            if (i != -1) {
+                view.setVisibility(View.VISIBLE);
+                view.bringToFront();
+                mViewParent.removeView(mHorizon.getErrorPage());
+                mReceivedError = false;
+            }
+        }
+        /***************************************** Remove Error Page View ******************************************/
+
     }
 
     @Override
-    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+    public void onReceivedError(final WebView view, int errorCode, String description, String failingUrl) {
         super.onReceivedError(view, errorCode, description, failingUrl);
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onReceivedError(view, errorCode, description, failingUrl);
         }
+        Log.e("sos", "onReceivedError-----errorCode=" + errorCode + ";;;description=" + description);
+        /***************************************** Create Error Page View ******************************************/
+        mReceivedError = true;
+        ViewGroup mViewParent = (ViewGroup) view.getParent();
+        mHorizon.getErrorPage().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.reload();
+            }
+        });
+
+        int j = mViewParent.indexOfChild(view);
+        if (mViewParent.indexOfChild(mHorizon.getErrorPage()) == -1) {
+            ViewGroup.LayoutParams lp = view.getLayoutParams();
+            view.setVisibility(View.GONE);
+            mViewParent.addView(mHorizon.getErrorPage(), j, lp);
+            mHorizon.getErrorPage().setVisibility(View.VISIBLE);
+            mHorizon.getErrorPage().bringToFront();
+        }
+        /***************************************** Create Error Page View ******************************************/
+
     }
 
     @Override

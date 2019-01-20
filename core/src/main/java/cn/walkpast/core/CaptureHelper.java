@@ -1,6 +1,7 @@
 package cn.walkpast.core;
 
 import android.graphics.Bitmap;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 
 /**
@@ -41,16 +42,15 @@ public class CaptureHelper {
     public void capture() {
 
         if (getWebView() == null) {
-
             throw new NullPointerException("capture need an WebView,it can't be null");
         }
-        getWebView().setDrawingCacheEnabled(true);
-        getWebView().buildDrawingCache();//如果能够缓存图片，则创建图片缓存
+        ViewGroup mViewParent = (ViewGroup) getWebView().getParent();
+        mViewParent.buildDrawingCache();//如果能够缓存图片，则创建图片缓存
         if (getCaptureListener() != null) {
-            getCaptureListener().onCapture(getWebView().getDrawingCache());
+            getCaptureListener().onCapture(mViewParent.getDrawingCache());
         }
-        getWebView().destroyDrawingCache();//释放缓存占用的资源</code>
-        getWebView().setDrawingCacheEnabled(false);
+        mViewParent.destroyDrawingCache();//释放缓存占用的资源</code>
+        mViewParent.setDrawingCacheEnabled(false);
     }
 
     public interface OnCaptureListener {

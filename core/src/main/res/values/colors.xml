@@ -2,4 +2,11 @@
 <resources>
 
     <color name="popup_window_long_click_image_bgc">#9FCDCDCD</color>
+    <color name="video_default_bgc">#FFFFFF</color>
+
+
+    <color name="error_page_default_bgc">#CDCDCD</color>
+    <color name="error_page_default_text">#FF8E8E8E</color>
+
+
 </resources>

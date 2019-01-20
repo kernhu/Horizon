@@ -24,6 +24,7 @@
     <color name="TextDark">#FF4F5F73</color>
     <color name="TextLight">#FFFFDDE6</color>
     <color name="SplitLine">#E4EDF7</color>
+    <color name="ErrorPageBgc">#FFF5F7FA</color>
 
 
 </resources>

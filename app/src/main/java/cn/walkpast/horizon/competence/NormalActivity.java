@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -17,6 +18,8 @@ import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.CaptureStrategy;
 import cn.walkpast.core.constant.NotificationType;
+import cn.walkpast.core.error.BindEventCallback;
+import cn.walkpast.core.error.DefaultErrorPage;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
@@ -25,6 +28,8 @@ import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 import cn.walkpast.horizon.BuildConfig;
 import cn.walkpast.horizon.R;
+import cn.walkpast.horizon.errorpage.CustomErrorPage;
+import cn.walkpast.utils.ToastUtils;
 
 /**
  * author: Kern Hu
@@ -74,7 +79,6 @@ public class NormalActivity extends AppCompatActivity {
                         .setTheme(Theme.THEME_LIGHT)
                         .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
-                        .setErrorPage("")
                         .config()
                 )
                 .setDownloadConfig(DownloadConfig
@@ -90,8 +94,37 @@ public class NormalActivity extends AppCompatActivity {
                 .setViewContainer(mFrameContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://www.hao123.com/")
+                .setErrorPage(new DefaultErrorPage()
+                        .setContext(this)
+                        .setLayout(R.layout.layout_default_error_page)
+                        .setBindEventCallback(new BindEventCallback() {
+                                                  @Override
+                                                  public void bindEvent(View view) {
+
+                                                      view.findViewById(R.id.default_error_page_check).setOnClickListener(new View.OnClickListener() {
+                                                          @Override
+                                                          public void onClick(View v) {
+
+                                                              ToastUtils.showShort("检查网络");
+                                                          }
+                                                      });
+
+                                                      view.findViewById(R.id.default_error_page_reload).setOnClickListener(new View.OnClickListener() {
+                                                          @Override
+                                                          public void onClick(View v) {
+
+                                                              ToastUtils.showShort("重新刷新");
+                                                          }
+                                                      });
+
+                                                  }
+                                              }
+                        )
+                        .createView()
+                )
                 .preview()
                 .loadUrl("https://www.hao123.com/");
+
 
     }
 

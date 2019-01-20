@@ -43,8 +43,6 @@ public class CoreConfig {
 
     private String[] mFilterList;
 
-    private String mErrorPage;
-
     public CoreConfig(Activity activity) {
         mActivity = activity;
     }
@@ -171,15 +169,6 @@ public class CoreConfig {
 
     public FilterType getFilterType() {
         return mFilterType;
-    }
-
-    public String getErrorPage() {
-        return mErrorPage;
-    }
-
-    public CoreConfig setErrorPage(String errorPage) {
-        mErrorPage = errorPage;
-        return this;
     }
 
     public CoreConfig config() {

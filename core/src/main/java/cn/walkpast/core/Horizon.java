@@ -51,6 +51,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private WebView mWebView;
     private ViewGroup mViewContainer;
     private String mOriginalUrl;
+    private View mErrorPage;
     private GestureDetector mGestureDetector;
 
     /*********************** 构造方法 ***********************/
@@ -177,6 +178,14 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return mOriginalUrl;
     }
 
+    public View getErrorPage() {
+        return mErrorPage;
+    }
+
+    public Horizon setErrorPage(View errorPage) {
+        mErrorPage = errorPage;
+        return this;
+    }
 
     /*********************** 加载 ***********************/
     public Horizon preview() {

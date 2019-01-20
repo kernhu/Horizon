@@ -7,6 +7,8 @@ import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.widget.FrameLayout;
 
+import cn.walkpast.core.R;
+
 /**
  * author: Kern Hu
  * email: sky580@126.com
@@ -62,7 +64,7 @@ public class VideoPlayer {
             callback.onCustomViewHidden();
             return;
         }
-
+        //view.setBackgroundColor(mActivity.getResources().getColor(R.color.video_default_bgc));
         FrameLayout mDecorView = (FrameLayout) mActivity.getWindow().getDecorView();
         mDecorView.setBackgroundColor(mActivity.getResources().getColor(android.R.color.black));
         mFullScreenFrame = new FullScreenFrame(mActivity);
