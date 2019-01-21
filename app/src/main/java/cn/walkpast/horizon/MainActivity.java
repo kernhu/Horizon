@@ -39,9 +39,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
     @BindView(R.id.recycler_view)
     public RecyclerView mRecyclerView;
-
     private CompetenceAdapter mCompetenceAdapter;
-
     private Intent mIntent;
 
     @Override

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- long click popup window -->
     <color name="popup_window_long_click_image_bgc">#9FCDCDCD</color>
+
+    <!-- video player-->
     <color name="video_default_bgc">#FFFFFF</color>
 
-
-    <color name="error_page_default_bgc">#CDCDCD</color>
-    <color name="error_page_default_text">#FF8E8E8E</color>
-
+    <!-- error page -->
+    <color name="default_error_page_color">#FF838383</color>
+    <color name="default_error_page_bgc">#FFFFFDFD</color>
+    <color name="default_error_page_text">#FF8E8E8E</color>
+    <color name="default_error_page_btn_bgc">#FFAEADAD</color>
 
 </resources>

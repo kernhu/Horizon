@@ -18,15 +18,15 @@ import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.CaptureStrategy;
-import cn.walkpast.core.constant.NotificationType;
-import cn.walkpast.core.error.BindEventCallback;
-import cn.walkpast.core.error.DefaultErrorPage;
-import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.constant.NetworkType;
+import cn.walkpast.core.constant.NotificationType;
 import cn.walkpast.core.constant.ProgressStyle;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
+import cn.walkpast.core.error.BindEventCallback;
+import cn.walkpast.core.error.DefaultErrorPage;
+import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.horizon.BuildConfig;
 import cn.walkpast.horizon.R;
 import cn.walkpast.horizon.widget.PopupWindowTools;
@@ -98,12 +98,13 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                 .setOriginalUrl("https://www.hao123.com/")
                 .setErrorPage(new DefaultErrorPage()
                         .setContext(this)
-                        .setLayout(R.layout.layout_custom_error_page)
+                        .setLayout(R.layout.layout_default_error_page)
                         .setBindEventCallback(new BindEventCallback() {
                                                   @Override
                                                   public void bindEvent(View view) {
 
-                                                      view.findViewById(R.id.custom_error_page_left).setOnClickListener(new View.OnClickListener() {
+
+                                                      view.findViewById(R.id.default_error_page_check).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
 
@@ -111,7 +112,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                                                           }
                                                       });
 
-                                                      view.findViewById(R.id.custom_error_page_right).setOnClickListener(new View.OnClickListener() {
+                                                      view.findViewById(R.id.default_error_page_reload).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
 

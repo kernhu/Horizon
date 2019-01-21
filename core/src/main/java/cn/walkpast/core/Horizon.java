@@ -2,6 +2,8 @@ package cn.walkpast.core;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.GestureDetector;
@@ -21,8 +23,10 @@ import cn.walkpast.core.config.CacheConfig;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.CaptureStrategy;
-import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.core.constant.EventPoint;
+import cn.walkpast.core.error.BindEventCallback;
+import cn.walkpast.core.error.DefaultErrorPage;
+import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.utils.LogUtils;
 
 /**
@@ -198,6 +202,15 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
                 .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig(getActivity()).config())
                 .setWebView(getWebView())
                 .build();
+        //
+        if (getErrorPage() == null) {
+            setErrorPage(new DefaultErrorPage()
+                    .setContext(getActivity())
+                    .setLayout(R.layout.layout_default_error_page)
+                    .setBindEventCallback(mBindEventCallback)
+                    .createView());
+        }
+
         // Ⅱ
         getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
         getWebView().setWebViewClient(new HorizonWebViewClient(this));
@@ -217,6 +230,34 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
 
         return this;
     }
+
+
+    /**
+     *
+     */
+    BindEventCallback mBindEventCallback = new BindEventCallback() {
+        @Override
+        public void bindEvent(View view) {
+
+            view.findViewById(R.id.default_error_page_check).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    getActivity().startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+
+                }
+            });
+
+            view.findViewById(R.id.default_error_page_reload).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    getWebView().reload();
+
+                }
+            });
+        }
+    };
 
     public void loadUrl(String loadUrl) {
         if (!TextUtils.isEmpty(loadUrl)) {
