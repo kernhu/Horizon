@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -14,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.walkpast.core.Horizon;
+import cn.walkpast.core.capture.CaptureUtils;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
@@ -102,32 +104,25 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setBindEventCallback(new BindEventCallback() {
                                                   @Override
                                                   public void bindEvent(View view) {
-
-
                                                       view.findViewById(R.id.default_error_page_check).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
-
                                                               ToastUtils.showShort("检查网络");
                                                           }
                                                       });
-
                                                       view.findViewById(R.id.default_error_page_reload).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
-
                                                               ToastUtils.showShort("重新刷新");
                                                           }
                                                       });
-
                                                   }
                                               }
                         )
                         .createView()
                 )
-                .preview();
-
-
+                .preview()
+                .loadUrl(null);
     }
 
 
@@ -163,6 +158,13 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
             super.onReceiveTitle(view, title);
 
             mBfTitle.setText(title);
+        }
+
+        @Override
+        public void onCaptured(Bitmap bitmap) {
+            super.onCaptured(bitmap);
+
+            Log.e("sos", "onCaptured--->>>" + CaptureUtils.getBitmapSize(bitmap));
         }
     };
 }

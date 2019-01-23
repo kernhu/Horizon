@@ -3,6 +3,8 @@ package cn.walkpast.core;
 import android.graphics.Bitmap;
 import android.webkit.WebView;
 
+import cn.walkpast.core.capture.CaptureUtils;
+
 /**
  * author: Kern Hu
  * email: sky580@126.com
@@ -40,22 +42,9 @@ public class CaptureHelper {
 
     public void capture() {
 
-//        if (getWebView() == null) {
-//            throw new NullPointerException("capture need an WebView,it can't be null");
-//        }
-//        ViewGroup mViewParent = (ViewGroup) getWebView().getParent();
-//        mViewParent.buildDrawingCache();//如果能够缓存图片，则创建图片缓存
-//        if (getCaptureListener() != null) {
-//            getCaptureListener().onCapture(mViewParent.getDrawingCache());
-//        }
-//        mViewParent.destroyDrawingCache();//释放缓存占用的资源</code>
-//        mViewParent.setDrawingCacheEnabled(false);
-
-
-//        mCapture = Bitmap.createBitmap(mMainView.getWidth(), mMainView.getHeight(), Bitmap.Config.RGB_565);
-//        Canvas canvas = new Canvas(mCapture);
-//        mMainView.draw(canvas);
-
+        if (getCaptureListener() != null) {
+            getCaptureListener().onCapture(CaptureUtils.capture(mWebView));
+        }
     }
 
     public interface OnCaptureListener {
