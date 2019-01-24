@@ -52,7 +52,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <ImageView
         android:id="@+id/basic_fun_capture"
         android:layout_width="match_parent"

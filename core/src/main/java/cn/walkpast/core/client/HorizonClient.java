@@ -154,10 +154,6 @@ public class HorizonClient {
 
     }
 
-    public void shouldInterceptRequest(WebView view, WebResourceRequest request) {
-
-    }
-
     public boolean shouldOverrideKeyEvent(WebView view, KeyEvent event) {
 
         return false;

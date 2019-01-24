@@ -3,8 +3,6 @@ package cn.walkpast.core;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,6 +13,8 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.io.ByteArrayInputStream;
+
 import cn.walkpast.core.constant.CaptureStrategy;
 
 /**
@@ -23,7 +23,7 @@ import cn.walkpast.core.constant.CaptureStrategy;
  * Description: This is..
  */
 
-public class HorizonWebViewClient extends WebViewClient implements CaptureHelper.OnCaptureListener {
+public class HorizonWebViewClient extends WebViewClient {
 
 
     private Horizon mHorizon;
@@ -54,7 +54,7 @@ public class HorizonWebViewClient extends WebViewClient implements CaptureHelper
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, url);
         }
-        Log.e("sos", "shouldOverrideUrlLoading-----222");
+        Log.e("sos", "shouldOverrideUrlLoading-----222" + url);
         mReceivedError = false;
         return DefaultShouldOverrideUrlLoading.shouldOverrideUrlLoading(mHorizon.getActivity(), url);
     }
@@ -75,7 +75,7 @@ public class HorizonWebViewClient extends WebViewClient implements CaptureHelper
             CaptureHelper
                     .getInstance()
                     .setWebView(view)
-                    .setCaptureListener(this)
+                    .setCaptureListener(mCaptureListener)
                     .capture();
         }
         /***************************************** capture bitmap ******************************************/
@@ -112,7 +112,7 @@ public class HorizonWebViewClient extends WebViewClient implements CaptureHelper
             CaptureHelper
                     .getInstance()
                     .setWebView(view)
-                    .setCaptureListener(this)
+                    .setCaptureListener(mCaptureListener)
                     .capture();
         }
         /***************************************** capture bitmap ******************************************/
@@ -144,6 +144,23 @@ public class HorizonWebViewClient extends WebViewClient implements CaptureHelper
             mHorizon.getErrorPage().bringToFront();
         }
         /***************************************** Create Error Page View ******************************************/
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.FINISH.ordinal()
+                        || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_FINISH.ordinal()
+                        || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
+
+                    CaptureHelper
+                            .getInstance()
+                            .setWebView(view)
+                            .setCaptureListener(mCaptureListener)
+                            .capture();
+                }
+
+            }
+        }, 80);
 
     }
 
@@ -182,27 +199,30 @@ public class HorizonWebViewClient extends WebViewClient implements CaptureHelper
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-        if (mHorizon.getHorizonClient() != null) {
-            mHorizon.getHorizonClient().shouldInterceptRequest(view, request);
-        }
-        return shouldInterceptRequest(view, request.getUrl().toString());
-    }
-
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().shouldInterceptRequest(view, url);
         }
-        if (mHorizon.getCoreConfig().getFilterList() == null
-                || !FilterHelper.isNeedFilter(mHorizon.getCoreConfig().getFilterType(), mHorizon.getCoreConfig().getFilterList(), url)) {
-            return super.shouldInterceptRequest(view, url);
-        } else {
-            return new WebResourceResponse(null, null, null);
+
+        Log.e("sos", "shouldInterceptRequest===" + url);
+        if (mHorizon.getCoreConfig().getFilterList() != null && mHorizon.getCoreConfig().getFilterList().length != 0) {
+            if (FilterHelper.isNeedFilter(mHorizon.getCoreConfig().getFilterType(), mHorizon.getCoreConfig().getFilterList(), url)) {
+                String replaceUrl;
+                if (mHorizon.getCoreConfig().getFilterReplaceUrl() != null && !mHorizon.getCoreConfig().getFilterReplaceUrl().isEmpty()) {
+
+                    replaceUrl = FilterHelper.getUrlToString(mHorizon.getCoreConfig().getFilterReplaceUrl());
+
+                } else {
+
+                    replaceUrl = FilterHelper.DEFAULT_REPLACE_URL;
+
+                }
+                return new WebResourceResponse("text/html", "utf-8", new ByteArrayInputStream(replaceUrl.getBytes()));
+            }
         }
 
+        return super.shouldInterceptRequest(view, url);
     }
 
     @Override
@@ -214,10 +234,12 @@ public class HorizonWebViewClient extends WebViewClient implements CaptureHelper
         return super.shouldOverrideKeyEvent(view, event);
     }
 
-    @Override
-    public void onCapture(Bitmap bitmap) {
-        if (mHorizon.getHorizonClient() != null) {
-            mHorizon.getHorizonClient().onCaptured(bitmap);
+    CaptureHelper.OnCaptureListener mCaptureListener = new CaptureHelper.OnCaptureListener() {
+        @Override
+        public void onCapture(Bitmap bitmap) {
+            if (mHorizon.getHorizonClient() != null) {
+                mHorizon.getHorizonClient().onCaptured(bitmap);
+            }
         }
-    }
+    };
 }

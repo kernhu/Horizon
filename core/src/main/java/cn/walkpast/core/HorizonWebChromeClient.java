@@ -76,7 +76,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                 view.getSettings().setBlockNetworkImage(true);
             }
 
-
             if (mHorizon.getCoreConfig().isThemeEnable() && mHorizon.getCoreConfig().getTheme() == Theme.THEME_DARK) {
                 ThemeHelper.getInstance().injectDark(view);
             } else if (mHorizon.getCoreConfig().isThemeEnable() && mHorizon.getCoreConfig().getTheme() == Theme.THEME_DARK) {
@@ -289,7 +288,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
     @Override
     public void onGeolocationPermissionsShowPrompt(final String origin, final GeolocationPermissions.Callback callback) {
-
 
         if (mHorizon.getCoreConfig().isGeolocationEnalbe()) {
 

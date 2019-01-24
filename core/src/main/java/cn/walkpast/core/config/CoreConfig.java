@@ -43,6 +43,8 @@ public class CoreConfig {
 
     private String[] mFilterList;
 
+    private String mFilterReplaceUrl;
+
     public CoreConfig(Activity activity) {
         mActivity = activity;
     }
@@ -161,14 +163,19 @@ public class CoreConfig {
         return mFilterList;
     }
 
-    public CoreConfig setFilterList(FilterType type, String... filterList) {
+    public CoreConfig setFilterList(FilterType type, String replaceUrl, String... filterList) {
         mFilterType = type;
         mFilterList = filterList;
+        mFilterReplaceUrl = replaceUrl;
         return this;
     }
 
     public FilterType getFilterType() {
         return mFilterType;
+    }
+
+    public String getFilterReplaceUrl() {
+        return mFilterReplaceUrl;
     }
 
     public CoreConfig config() {

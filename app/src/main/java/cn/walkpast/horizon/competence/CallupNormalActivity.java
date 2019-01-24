@@ -27,7 +27,6 @@ import cn.walkpast.core.error.DefaultErrorPage;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.horizon.BuildConfig;
 import cn.walkpast.horizon.R;
-import cn.walkpast.horizon.errorpage.CustomErrorPage;
 import cn.walkpast.utils.ToastUtils;
 
 /**
@@ -76,7 +75,7 @@ public class CallupNormalActivity extends AppCompatActivity {
                         .setThemeEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
+                        .setFilterList(FilterType.TYPE_MATCH_HOST, "http://www.walkpast.cn/", "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .config()
                 )
