@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -15,7 +14,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.walkpast.core.Horizon;
-import cn.walkpast.core.capture.CaptureUtils;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
@@ -51,6 +49,8 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
     public ImageView mBfMenu;
     @BindView(R.id.basic_fun_container)
     public FrameLayout mBfContainer;
+    @BindView(R.id.basic_fun_capture)
+    public ImageView mBfCapture;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -164,7 +164,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
         public void onCaptured(Bitmap bitmap) {
             super.onCaptured(bitmap);
 
-            Log.e("sos", "onCaptured--->>>" + CaptureUtils.getBitmapSize(bitmap));
+            mBfCapture.setImageBitmap(bitmap);
         }
     };
 }

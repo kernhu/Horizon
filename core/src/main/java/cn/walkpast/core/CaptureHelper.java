@@ -22,10 +22,6 @@ public class CaptureHelper {
         return new CaptureHelper();
     }
 
-    public WebView getWebView() {
-        return mWebView;
-    }
-
     public CaptureHelper setWebView(WebView webView) {
         mWebView = webView;
         return this;

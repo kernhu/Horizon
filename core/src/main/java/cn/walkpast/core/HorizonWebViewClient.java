@@ -9,12 +9,13 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import cn.walkpast.core.constant.CaptureStrategy;
 
 /**
  * Author: Kern
@@ -22,7 +23,7 @@ import android.webkit.WebViewClient;
  * Description: This is..
  */
 
-public class HorizonWebViewClient extends WebViewClient {
+public class HorizonWebViewClient extends WebViewClient implements CaptureHelper.OnCaptureListener {
 
 
     private Horizon mHorizon;
@@ -66,6 +67,18 @@ public class HorizonWebViewClient extends WebViewClient {
         }
         Log.e("sos", "onPageStarted-----");
         mReceivedError = false;
+
+        /***************************************** capture bitmap ******************************************/
+        if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_FINISH.ordinal()
+                || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
+
+            CaptureHelper
+                    .getInstance()
+                    .setWebView(view)
+                    .setCaptureListener(this)
+                    .capture();
+        }
+        /***************************************** capture bitmap ******************************************/
     }
 
 
@@ -90,6 +103,19 @@ public class HorizonWebViewClient extends WebViewClient {
         }
         /***************************************** Remove Error Page View ******************************************/
 
+
+        /***************************************** capture bitmap ******************************************/
+        if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.FINISH.ordinal()
+                || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_FINISH.ordinal()
+                || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
+
+            CaptureHelper
+                    .getInstance()
+                    .setWebView(view)
+                    .setCaptureListener(this)
+                    .capture();
+        }
+        /***************************************** capture bitmap ******************************************/
     }
 
     @Override
@@ -186,5 +212,12 @@ public class HorizonWebViewClient extends WebViewClient {
             mHorizon.getHorizonClient().shouldOverrideKeyEvent(view, event);
         }
         return super.shouldOverrideKeyEvent(view, event);
+    }
+
+    @Override
+    public void onCapture(Bitmap bitmap) {
+        if (mHorizon.getHorizonClient() != null) {
+            mHorizon.getHorizonClient().onCaptured(bitmap);
+        }
     }
 }

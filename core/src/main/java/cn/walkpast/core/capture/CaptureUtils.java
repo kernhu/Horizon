@@ -6,6 +6,8 @@ import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 
+import cn.walkpast.utils.DensityUtil;
+
 /**
  * Author: Kern
  * Time: 2019/1/22 13:58
@@ -40,7 +42,9 @@ public class CaptureUtils {
     public static Bitmap capture(View view) {
 
         ViewGroup mViewParent = (ViewGroup) view.getParent();
-        Bitmap mCapture = Bitmap.createBitmap(mViewParent.getWidth(), mViewParent.getHeight(), Bitmap.Config.RGB_565);
+        Bitmap mCapture = Bitmap.createBitmap(mViewParent.getWidth() == 0 ? DensityUtil.getScreenSize()[0] : mViewParent.getWidth()
+                , mViewParent.getHeight() == 0 ? DensityUtil.getScreenSize()[1] : mViewParent.getHeight()
+                , Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(mCapture);
         mViewParent.draw(canvas);
 
