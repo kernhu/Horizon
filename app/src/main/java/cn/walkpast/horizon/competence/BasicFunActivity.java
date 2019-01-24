@@ -81,7 +81,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setThemeEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList(FilterType.TYPE_CONTAINS_URL, "www.hao123.com", "hao123.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
+                        .setFilterList(FilterType.TYPE_CONTAINS_URL, "http://www.walkpast.cn/", "www.hao123.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .config()
                 )

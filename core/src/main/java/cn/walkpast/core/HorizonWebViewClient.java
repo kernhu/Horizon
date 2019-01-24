@@ -205,18 +205,15 @@ public class HorizonWebViewClient extends WebViewClient {
             mHorizon.getHorizonClient().shouldInterceptRequest(view, url);
         }
 
-        Log.e("sos", "shouldInterceptRequest===" + url);
+        /***************************************** Intercept Request Url ******************************************/
         if (mHorizon.getCoreConfig().getFilterList() != null && mHorizon.getCoreConfig().getFilterList().length != 0) {
             if (FilterHelper.isNeedFilter(mHorizon.getCoreConfig().getFilterType(), mHorizon.getCoreConfig().getFilterList(), url)) {
                 String replaceUrl;
                 if (mHorizon.getCoreConfig().getFilterReplaceUrl() != null && !mHorizon.getCoreConfig().getFilterReplaceUrl().isEmpty()) {
-
                     replaceUrl = FilterHelper.getUrlToString(mHorizon.getCoreConfig().getFilterReplaceUrl());
-
+                    replaceUrl = replaceUrl == null ? FilterHelper.DEFAULT_REPLACE_URL : replaceUrl;
                 } else {
-
                     replaceUrl = FilterHelper.DEFAULT_REPLACE_URL;
-
                 }
                 return new WebResourceResponse("text/html", "utf-8", new ByteArrayInputStream(replaceUrl.getBytes()));
             }
