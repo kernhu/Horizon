@@ -52,6 +52,9 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.basic_fun_capture)
     public ImageView mBfCapture;
 
+
+    private Horizon mHorizon;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +63,8 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
         ButterKnife.bind(this);
 
 
-        Horizon.with(this)
+        mHorizon = Horizon.with(this)
+                .setTag("horizon_1")
                 .setProgressConfig(ProgressConfig
                         .with(this)
                         .setBackgroundColor(R.color.ProgressBackground)
@@ -121,10 +125,43 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         )
                         .createView()
                 )
-                .preview()
-                .loadUrl(null);
+                .preview();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mHorizon != null) {
+            mHorizon.onResume();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mHorizon != null) {
+            mHorizon.onPause();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mHorizon != null) {
+            mHorizon.onStop();
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mHorizon != null) {
+            mHorizon.onDestroy();
+        }
+    }
 
     @OnClick(R.id.basic_fun_menu)
     @Override

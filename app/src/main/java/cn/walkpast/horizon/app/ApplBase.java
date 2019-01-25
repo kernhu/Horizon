@@ -88,6 +88,7 @@ public class ApplBase extends Application {
                 .setToastBgc(R.color.ToastBgc)
                 .setToastMsgColor(R.color.ToastTextColor)
                 .setLogSwitch(BuildConfig.DEBUG)
+                .setMaxCount(20)
                 .config();
     }
 

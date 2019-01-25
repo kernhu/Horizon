@@ -26,6 +26,7 @@ import cn.walkpast.core.constant.CaptureStrategy;
 import cn.walkpast.core.constant.EventPoint;
 import cn.walkpast.core.error.BindEventCallback;
 import cn.walkpast.core.error.DefaultErrorPage;
+import cn.walkpast.core.except.HorizonException;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.utils.LogUtils;
 
@@ -51,6 +52,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private ProgressConfig mProgressConfig = null;
     private HorizonClient mHorizonClient;
 
+    private String mTag;
     private CaptureStrategy mCaptureStrategy = CaptureStrategy.NEVER;
     private WebView mWebView;
     private ViewGroup mViewContainer;
@@ -59,26 +61,21 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private GestureDetector mGestureDetector;
 
     /*********************** 构造方法 ***********************/
-    public Horizon(Activity activity) {
-        this.mActivity = activity;
-        this.mHorizonMap.put(activity, this);
+    public Horizon(Object obj) {
 
-        this.mWebView = new WebView(activity);
-    }
+        if (obj instanceof Activity) {
+            this.mActivity = (Activity) obj;
+            this.mContext = mActivity;
+        } else if (obj instanceof Context) {
+            this.mContext = (Context) obj;
+            this.mActivity = (Activity) mContext;
+        } else if (obj instanceof Fragment) {
+            this.mFragment = (Fragment) obj;
+            this.mActivity = mFragment.getActivity();
+            this.mContext = mActivity;
+        }
 
-    public Horizon(Context context) {
-
-        this.mContext = context;
-        this.mHorizonMap.put(context, this);
-
-        this.mWebView = new WebView(context);
-    }
-
-    public Horizon(Fragment fragment) {
-        this.mFragment = fragment;
-        this.mHorizonMap.put(fragment, this);
-
-        this.mWebView = new WebView(fragment.getActivity());
+        this.mWebView = new WebView(mActivity);
     }
 
     /*********************** 实例化Horizon ***********************/
@@ -110,6 +107,15 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return mFragment;
     }
 
+    public String getTag() {
+        return mTag;
+    }
+
+    public Horizon setTag(String tga) {
+        mTag = tga;
+        return this;
+    }
+
     public CoreConfig getCoreConfig() {
         return mCoreConfig;
     }
@@ -136,6 +142,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         mProgressConfig = progressConfig;
         return this;
     }
+
 
     public CaptureStrategy getCaptureStrategy() {
         return mCaptureStrategy;
@@ -228,6 +235,20 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         mGestureDetector = new GestureDetector(getActivity(), mSimpleOnGestureListener);
         getViewContainer().addView(mProgressConfig.getIndicator());
 
+
+        if (TextUtils.isEmpty(getTag())) {
+            if (getFragment() != null) {
+                mHorizonMap.put(getFragment(), this);
+            } else {
+                mHorizonMap.put(getActivity(), this);
+            }
+        } else {
+            if (mHorizonMap.containsKey(getTag())) {
+                throw new HorizonException("the tag is already existed in horizon");
+            } else {
+                mHorizonMap.put(getTag(), this);
+            }
+        }
         return this;
     }
 
