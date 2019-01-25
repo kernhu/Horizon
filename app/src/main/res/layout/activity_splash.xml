@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/Transparent">
+
+    <FrameLayout
+        android:id="@+id/splash_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50pt">
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/splash_skip"
+        android:layout_width="25pt"
+        android:layout_height="15pt"
+        android:layout_gravity="top|right"
+        android:layout_marginRight="5pt"
+        android:layout_marginTop="15pt"
+        android:background="@drawable/shape_splash_skip_bg"
+        android:gravity="center"
+        android:textSize="12sp"/>
+
+</FrameLayout>

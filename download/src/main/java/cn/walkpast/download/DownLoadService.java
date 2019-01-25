@@ -216,7 +216,7 @@ public class DownLoadService extends Service {
         var2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         var2.setAction(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri uriForFile = FileProvider.getUriForFile(var1, var1.getApplicationContext().getPackageName() + ".provider", var0);
+            Uri uriForFile = FileProvider.getUriForFile(var1, var1.getApplicationContext().getPackageName() + ".fileprovider", var0);
             var2.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             var2.setDataAndType(uriForFile, var1.getContentResolver().getType(uriForFile));
         } else {

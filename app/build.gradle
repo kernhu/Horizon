@@ -113,10 +113,16 @@ dependencies {
     //注解
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     //bugly
     compile 'com.tencent.bugly:crashreport:latest.release'
+    //umeng
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:utdid:1.1.5.3'
+    //gdt
+    implementation files('libs/GDTUnionSDK.4.22.584.min.jar')
 
+    /*******************************************************************/
+    //core
     implementation project(':core')
 
 }
