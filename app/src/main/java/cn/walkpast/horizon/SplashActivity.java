@@ -40,7 +40,6 @@ import cn.walkpast.utils.ToastUtils;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int DELAYED_TIME = 4000;
     private static final String SKIP_TEXT = "点击 %d";
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
@@ -60,7 +59,6 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-
 
         /*******************************************  权限 ************************************************/
         if (Build.VERSION.SDK_INT >= 23) {
@@ -155,11 +153,9 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             lackedPermission.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
-        // 权限都已经有了，那么直接调用SDK
         if (lackedPermission.size() == 0) {
             fetchSplashAD(this, mSplashContainer, mSplashSkip, GdtAd.APP_ID, GdtAd.SPLASH_POS_ID, mSplashADListener, 0);
         } else {
-            // 请求所缺少的权限，在onRequestPermissionsResult中再看是否获得权限，如果获得权限就可以调用SDK，否则不要调用SDK。
             String[] requestPermissions = new String[lackedPermission.size()];
             lackedPermission.toArray(requestPermissions);
             requestPermissions(requestPermissions, 1024);
@@ -168,7 +164,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
     /***********************************************************************************************************************/
     private void fetchSplashAD(Activity activity, ViewGroup adContainer, View skipContainer, String appId, String posId, SplashADListener adListener, int fetchDelay) {
-      //  mSplashAD = new SplashAD(activity, adContainer, skipContainer, appId, posId, adListener, fetchDelay);
+        mSplashAD = new SplashAD(activity, adContainer, skipContainer, appId, posId, adListener, fetchDelay);
     }
 
     SplashADListener mSplashADListener = new SplashADListener() {

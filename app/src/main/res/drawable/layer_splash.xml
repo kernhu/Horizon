@@ -3,10 +3,11 @@
 
     <item android:drawable="@color/ThemeSplash"></item>
 
-    <item android:bottom="5pt">
+    <item>
         <bitmap
-            android:gravity="bottom|center_horizontal"
-            android:src="@drawable/icon_splash"></bitmap>
+            android:gravity="center"
+            android:src="@drawable/image_splash"
+            android:tintMode="screen"></bitmap>
     </item>
 
 </layer-list>
