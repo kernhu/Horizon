@@ -14,15 +14,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="40pt"
+            android:layout_height="40pt"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/icon_logo"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/logo_larger"
-            android:text="Horizon Provider By WebView"/>
+            android:text="Horizon base on WebView"/>
 
         <TextView
+            android:id="@+id/about_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

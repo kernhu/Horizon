@@ -192,6 +192,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public void onADPresent() {
+            mSplashSkip.setVisibility(View.VISIBLE);
+            mSplashContainer.setVisibility(View.VISIBLE);
             Log.i("AD_DEMO", "SplashADPresent");
         }
 
