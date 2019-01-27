@@ -6,7 +6,7 @@ package cn.walkpast.core.except;
  * Description: This is..
  */
 
-public class HorizonException extends Exception {
+public class HorizonException extends RuntimeException {
 
 
     public HorizonException(String message) {

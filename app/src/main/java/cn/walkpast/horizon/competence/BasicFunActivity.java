@@ -49,6 +49,11 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
     public ImageView mBfMenu;
     @BindView(R.id.basic_fun_container)
     public FrameLayout mBfContainer;
+    @BindView(R.id.basic_fun_capture)
+    public ImageView mBfCapture;
+
+
+    private Horizon mHorizon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +63,8 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
         ButterKnife.bind(this);
 
 
-        Horizon.with(this)
+        mHorizon = Horizon.with(this)
+                .setTag("horizon_1")
                 .setProgressConfig(ProgressConfig
                         .with(this)
                         .setBackgroundColor(R.color.ProgressBackground)
@@ -79,7 +85,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setThemeEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList(FilterType.TYPE_MATCH_HOST, "www.qq.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
+                        .setFilterList(FilterType.TYPE_CONTAINS_URL, "http://www.walkpast.cn/", "www.hao123.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .config()
                 )
@@ -102,34 +108,60 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setBindEventCallback(new BindEventCallback() {
                                                   @Override
                                                   public void bindEvent(View view) {
-
-
                                                       view.findViewById(R.id.default_error_page_check).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
-
                                                               ToastUtils.showShort("检查网络");
                                                           }
                                                       });
-
                                                       view.findViewById(R.id.default_error_page_reload).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
-
                                                               ToastUtils.showShort("重新刷新");
                                                           }
                                                       });
-
                                                   }
                                               }
                         )
                         .createView()
                 )
                 .preview();
-
-
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mHorizon != null) {
+            mHorizon.onResume();
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mHorizon != null) {
+            mHorizon.onPause();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mHorizon != null) {
+            mHorizon.onStop();
+        }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mHorizon != null) {
+            mHorizon.onDestroy();
+        }
+    }
 
     @OnClick(R.id.basic_fun_menu)
     @Override
@@ -163,6 +195,13 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
             super.onReceiveTitle(view, title);
 
             mBfTitle.setText(title);
+        }
+
+        @Override
+        public void onCaptured(Bitmap bitmap) {
+            super.onCaptured(bitmap);
+
+            mBfCapture.setImageBitmap(bitmap);
         }
     };
 }

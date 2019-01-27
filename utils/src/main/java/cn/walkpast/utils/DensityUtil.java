@@ -1,6 +1,7 @@
 package cn.walkpast.utils;
 
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 /**
@@ -40,4 +41,18 @@ public class DensityUtil {
         return (pxVal / Resources.getSystem().getDisplayMetrics().scaledDensity);
     }
 
+
+    /**
+     * @return  return screen  width and height
+     */
+    public static int[] getScreenSize() {
+
+        int[] size = new int[2];
+        //通过Resources获取
+        DisplayMetrics dm = HorizonUtils.getApp().getResources().getDisplayMetrics();
+        size[0] = dm.widthPixels;
+        size[1] = dm.heightPixels;
+
+        return size;
+    }
 }

@@ -4,17 +4,12 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -25,7 +20,7 @@ import cn.walkpast.utils.ToastUtils;
 /**
  * Author: Kern
  * Time: 2018/9/21 17:44
- * Description: This is..  下载管理类
+ * Description: This is..  download service
  */
 
 public class DownLoadService extends Service {
@@ -104,7 +99,7 @@ public class DownLoadService extends Service {
             down.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         }
         down.setTitle(filename);
-        down.setDescription("文件下载");
+        down.setDescription(getApplication().getResources().getString(R.string.download_description));
         down.setVisibleInDownloadsUi(true);
         down.setDestinationInExternalPublicDir(TextUtils.isEmpty(storagePath) ? STORAGE_PATH : storagePath, filename);
         manager.enqueue(down);
@@ -129,7 +124,7 @@ public class DownLoadService extends Service {
             String path = Environment.getExternalStorageDirectory().getAbsolutePath() + (TextUtils.isEmpty(storagePath) ? STORAGE_PATH : storagePath) + filename;
             File file = new File(path);
             if (file.exists()) {
-                deleteFileWithPath(path);
+                FileTools.deleteFileWithPath(path);
             }
             download();
         }
@@ -160,7 +155,7 @@ public class DownLoadService extends Service {
             if (intent.getAction().equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
                 long downId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
                 if (manager.getUriForDownloadedFile(downId) != null) {
-                    installAPK(context, getRealFilePath(context, manager.getUriForDownloadedFile(downId)));
+                    installAPK(context, FileTools.getRealFilePath(context, manager.getUriForDownloadedFile(downId)));
                 } else {
                     ToastUtils.showShort(getBaseContext().getResources().getString(R.string.download_failed));
                 }
@@ -171,89 +166,10 @@ public class DownLoadService extends Service {
         private void installAPK(Context context, String path) {
             File file = new File(path);
             if (file.exists()) {
-                openFile(file, context);
+                FileTools.openFile(file, context);
             } else {
                 ToastUtils.showShort(getBaseContext().getResources().getString(R.string.download_failed));
             }
         }
-    }
-
-    /**
-     * @param context
-     * @param uri
-     * @return
-     */
-    public String getRealFilePath(Context context, Uri uri) {
-        if (null == uri) return null;
-        final String scheme = uri.getScheme();
-        String data = null;
-        if (scheme == null)
-            data = uri.getPath();
-        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
-            data = uri.getPath();
-        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
-            Cursor cursor = context.getContentResolver().query(uri, new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
-            if (null != cursor) {
-                if (cursor.moveToFirst()) {
-                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                    if (index > -1) {
-                        data = cursor.getString(index);
-                    }
-                }
-                cursor.close();
-            }
-        }
-        return data;
-    }
-
-
-    /**
-     * @param var0
-     * @param var1
-     */
-    public void openFile(File var0, Context var1) {
-        Intent var2 = new Intent();
-        var2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        var2.setAction(Intent.ACTION_VIEW);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri uriForFile = FileProvider.getUriForFile(var1, var1.getApplicationContext().getPackageName() + ".provider", var0);
-            var2.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            var2.setDataAndType(uriForFile, var1.getContentResolver().getType(uriForFile));
-        } else {
-            var2.setDataAndType(Uri.fromFile(var0), getMIMEType(var0));
-        }
-        try {
-            var1.startActivity(var2);
-        } catch (Exception var5) {
-            var5.printStackTrace();
-            ToastUtils.showShort(getBaseContext().getResources().getString(R.string.download_open_mode_error));
-        }
-    }
-
-    /**
-     * @param var0
-     * @return
-     */
-    public String getMIMEType(File var0) {
-        String var1 = "";
-        String var2 = var0.getName();
-        String var3 = var2.substring(var2.lastIndexOf(".") + 1, var2.length()).toLowerCase();
-        var1 = MimeTypeMap.getSingleton().getMimeTypeFromExtension(var3);
-        return var1;
-    }
-
-    /**
-     * @param filePath
-     * @return
-     */
-    public static boolean deleteFileWithPath(String filePath) {
-        SecurityManager checker = new SecurityManager();
-        File f = new File(filePath);
-        checker.checkDelete(filePath);
-        if (f.isFile()) {
-            f.delete();
-            return true;
-        }
-        return false;
     }
 }

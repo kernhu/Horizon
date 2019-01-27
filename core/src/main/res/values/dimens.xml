@@ -11,4 +11,7 @@
     <dimen name="default_error_page_btn_padding_right">5pt</dimen>
     <dimen name="default_error_page_btn_padding_top">10pt</dimen>
     <dimen name="default_error_page_btn_padding_bottom">10pt</dimen>
+
+    <!-- progress -->
+    <dimen name="default_progress_height">3dp</dimen>
 </resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Horizon</string>
+
+    <!--  function -->
+    <string name="item_horizon_in_activity">Activity中基础功能 演示</string>
+    <string name="item_horizon_in_fragment">Fragment中基础功能 演示</string>
+    <string name="item_video_fullscreen_play">视频全屏播放 演示</string>
+    <string name="item_map_location">地图定位 演示</string>
+    <string name="item_file_download">文件下载 演示</string>
+    <string name="item_file_uploading">文件上传 演示</string>
+    <string name="item_tel_sms_email">打电话/发短信/发邮件 演示</string>
+    <string name="item_payment">支付宝/微信/财付通支付 演示</string>
+    <string name="item_switch_theme">js实现夜间模式切换 演示</string>
+    <string name="item_js_callback">js回调 演示</string>
+    <string name="item_url_intercept">url拦截 演示</string>
+    <string name="item_capture_snapshoot">获取网页快照 演示</string>
+    <string name="item_about_horizon">About Horizon</string>
+
+    <!-- about us -->
+    <string name="about_developer">Developer List</string>
+    <string name="about_sponsor">Sponsor List</string>
+    <string name="about_thanks">Thanks</string>
+    <string name="about_title">About</string>
+</resources>

@@ -36,7 +36,9 @@ import cn.walkpast.utils.permission.callback.PermissionResultCallBack;
 
 public class HorizonWebChromeClient extends WebChromeClient implements CaptureHelper.OnCaptureListener {
 
+    private static final int CAPTURE_PROGRESS_MIDDLE = 65;
     private Horizon mHorizon;
+    private boolean isCaptured = false;
 
     public HorizonWebChromeClient(Horizon horizon) {
         if (horizon == null) {
@@ -74,7 +76,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                 view.getSettings().setBlockNetworkImage(true);
             }
 
-
             if (mHorizon.getCoreConfig().isThemeEnable() && mHorizon.getCoreConfig().getTheme() == Theme.THEME_DARK) {
                 ThemeHelper.getInstance().injectDark(view);
             } else if (mHorizon.getCoreConfig().isThemeEnable() && mHorizon.getCoreConfig().getTheme() == Theme.THEME_DARK) {
@@ -92,46 +93,18 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
             view.getSettings().setBlockNetworkImage(true);
         }
 
-        /********************************************************************************/
-        if (newProgress == 10) {
-
-            if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_FINISH.ordinal()
-                    || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
-
+        /***************************************** capture bitmap ******************************************/
+        if (newProgress >= CAPTURE_PROGRESS_MIDDLE) {
+            if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal() && !isCaptured) {
+                isCaptured = true;
                 CaptureHelper
                         .getInstance()
                         .setWebView(view)
                         .setCaptureListener(this)
                         .capture();
-
             }
-
-        } else if (newProgress == 50) {
-            if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
-
-                CaptureHelper
-                        .getInstance()
-                        .setWebView(view)
-                        .setCaptureListener(this)
-                        .capture();
-
-            }
-        } else if (newProgress == 100) {
-
-            if (mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.FINISH.ordinal()
-                    || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_FINISH.ordinal()
-                    || mHorizon.getCaptureStrategy().ordinal() == CaptureStrategy.START_MIDDLE_FINISH.ordinal()) {
-
-                CaptureHelper
-                        .getInstance()
-                        .setWebView(view)
-                        .setCaptureListener(this)
-                        .capture();
-
-            }
-
         }
-        /********************************************************************************/
+        /***************************************** capture bitmap ******************************************/
 
         super.onProgressChanged(view, newProgress);
         if (mHorizon.getHorizonClient() != null) {
@@ -315,7 +288,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
     @Override
     public void onGeolocationPermissionsShowPrompt(final String origin, final GeolocationPermissions.Callback callback) {
-
 
         if (mHorizon.getCoreConfig().isGeolocationEnalbe()) {
 

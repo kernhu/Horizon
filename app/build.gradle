@@ -110,13 +110,21 @@ dependencies {
     implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:percent:$rootProject.supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    compile 'com.android.support:percent:22.2.0'
+
     //注解
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
     //bugly
     compile 'com.tencent.bugly:crashreport:latest.release'
+    //umeng
+    compile 'com.umeng.sdk:common:latest.integration'
+    compile 'com.umeng.sdk:utdid:1.1.5.3'
+    //gdt
+    implementation files('libs/GDTUnionSDK.4.22.584.min.jar')
 
+    /*******************************************************************/
+    //core
     implementation project(':core')
 
 }

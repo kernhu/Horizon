@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
+    <!-- Horizon Core And Download -->
     <external-path
         name="files_root"
         path="Android/data/cn.walkpast.horizon/"/>
     <external-path
         name="external_storage_root"
         path="."/>
+
+    <!-- GDT -->
+    <external-path
+        name="gdt_sdk_download_path"
+        path="GDTDOWNLOAD"/>
 </paths>

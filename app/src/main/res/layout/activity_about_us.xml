@@ -1,123 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10pt"
-    android:orientation="vertical"
-    android:paddingBottom="10pt"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/about_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_back"/>
+
+            <ImageView
+                android:id="@+id/about_right"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/about_right"
+                android:layout_toRightOf="@id/about_back"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/about_title"
+                android:textColor="@color/TextWhite"
+                android:textSize="18sp"/>
+
+        </RelativeLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:drawablePadding="5dp"
-            android:drawableTop="@mipmap/logo_larger"
-            android:text="Horizon Provider By WebView"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10pt"
-            android:text="Version 1.0.0"
-            android:textSize="18sp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/TextGray"/>
-
-        <!-- 开发者榜单 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="开发者榜单"
-            android:textColor="@color/Text"
-            android:textSize="18sp"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kern Hu   ----->>>    "
-                android:textColor="@color/TextDark"
+                android:orientation="vertical"
+                android:paddingBottom="10pt"
+                android:paddingTop="10pt">
+
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5pt"
+                    android:src="@drawable/icon_logo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Horizon base on WebView"/>
+
+                <TextView
+                    android:id="@+id/about_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10pt"
+                    android:text="Version 1.0.0"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+
+            <!-- 开发者榜单 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20pt"
+                android:background="@color/TextGray"
+                android:gravity="center_horizontal"
+                android:padding="5pt"
+                android:text="@string/about_developer"
+                android:textColor="@color/Text"
                 android:textSize="15sp"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30pt"
+                android:orientation="horizontal"
+                android:padding="6pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kern Hu "
+                    android:textColor="@color/TextDark"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10pt"
+                    android:text="https://github.com/KernHu"
+                    android:textColor="@color/TextDark"
+                    android:textIsSelectable="true"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+
+            <!-- 赞助者榜单 -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="https://github.com/KernHu"
-                android:textColor="@color/TextDark"
-                android:textIsSelectable="true"
+                android:id="@+id/about_sponsor"
+                android:layout_width="match_parent"
+                android:layout_height="20pt"
+                android:background="@color/TextGray"
+                android:drawableRight="@mipmap/ic_arrow"
+                android:gravity="center"
+                android:padding="5pt"
+                android:text="@string/about_sponsor"
+                android:textColor="@color/Text"
                 android:textSize="15sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30pt"
+                android:orientation="horizontal"
+                android:padding="6pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="easyicon"
+                    android:textColor="@color/TextDark"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="ali"
+                    android:textColor="@color/TextDark"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/TextDark"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+
+            <!-- 致谢 -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20pt"
+                android:background="@color/TextGray"
+                android:gravity="center_horizontal"
+                android:padding="5pt"
+                android:text="@string/about_thanks"
+                android:textColor="@color/Text"
+                android:textSize="15sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30pt"
+                android:orientation="horizontal"
+                android:padding="6pt">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Iconfont"
+                    android:textColor="@color/TextDark"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Koobee"
+                    android:textColor="@color/TextDark"
+                    android:textSize="15sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="@color/TextDark"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/TextGray"/>
-
-        <!-- 赞助者榜单 -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="赞助者榜单"
-            android:textColor="@color/Text"
-            android:textSize="18sp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="阿里素材"
-                android:textColor="@color/TextDark"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="阿里素材"
-                android:textColor="@color/TextDark"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="阿里素材"
-                android:textColor="@color/TextDark"
-                android:textSize="15sp"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+    </ScrollView>
+</LinearLayout>

@@ -51,7 +51,7 @@ public class HorizonBaseActivity extends AppCompatActivity {
                         .setThemeEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList(FilterType.TYPE_MATCH_HOST, "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
+                        .setFilterList(FilterType.TYPE_MATCH_HOST, "http://www.walkpast.cn/","www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .config()
                 )

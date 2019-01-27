@@ -24,6 +24,7 @@ public class HorizonConfig {
     private int mToastMsgColor;
     private boolean mLogSwitch;
     private View mErrorPage;
+    private int mMaxCount;
 
 
     public HorizonConfig(Application application) {
@@ -78,6 +79,16 @@ public class HorizonConfig {
         mErrorPage = errorPage;
         return this;
     }
+
+    public int getMaxCount() {
+        return mMaxCount;
+    }
+
+    public HorizonConfig setMaxCount(int maxCount) {
+        mMaxCount = maxCount;
+        return this;
+    }
+
 
     public void config() {
 

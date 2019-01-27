@@ -3,4 +3,5 @@
     <string name="download_hint">已添加下载队列</string>
     <string name="download_failed">下载失败</string>
     <string name="download_open_mode_error">没有找到打开此类文件的程序</string>
+    <string name="download_description">文件下载</string>
 </resources>
