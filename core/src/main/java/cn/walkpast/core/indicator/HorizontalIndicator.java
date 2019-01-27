@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
+import cn.walkpast.indicator.HorizontalProgressBar;
+
 /**
  * Author: Kern
  * Time: 2019/1/11 20:38
@@ -25,7 +27,7 @@ public class HorizontalIndicator implements Indicator {
     @Override
     public ProgressBar createProgress() {
 
-        mProgressBar = new ProgressBar(mConfig.getActivity(), null, android.R.attr.progressBarStyleHorizontal);
+        mProgressBar = new HorizontalProgressBar(mConfig.getActivity(), null, android.R.attr.progressBarStyleHorizontal);
         ProgressBarUtils.getInstance().setColors(mProgressBar, mConfig.getBackgroundColor(), mConfig.getProgressColor());
         mProgressBar.setIndeterminate(false);//must false
         mProgressBar.setMax(100);

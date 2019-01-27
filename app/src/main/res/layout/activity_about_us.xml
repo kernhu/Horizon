@@ -43,7 +43,7 @@
                 android:ellipsize="end"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="关  于"
+                android:text="@string/about_title"
                 android:textColor="@color/TextWhite"
                 android:textSize="18sp"/>
 
@@ -61,38 +61,46 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="40pt"
-                android:layout_height="40pt"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="5pt"
-                android:src="@drawable/icon_logo"/>
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Horizon base on WebView"/>
+                android:orientation="vertical"
+                android:paddingBottom="10pt"
+                android:paddingTop="10pt">
 
-            <TextView
-                android:id="@+id/about_version"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10pt"
-                android:text="Version 1.0.0"
-                android:textSize="18sp"/>
+                <ImageView
+                    android:layout_width="40pt"
+                    android:layout_height="40pt"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="5pt"
+                    android:src="@drawable/icon_logo"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Horizon base on WebView"/>
+
+                <TextView
+                    android:id="@+id/about_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10pt"
+                    android:text="Version 1.0.0"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
 
 
             <!-- 开发者榜单 -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20pt"
-                android:layout_marginTop="10pt"
                 android:background="@color/TextGray"
                 android:gravity="center_horizontal"
                 android:padding="5pt"
-                android:text="开发者榜单"
+                android:text="@string/about_developer"
                 android:textColor="@color/Text"
                 android:textSize="15sp"/>
 
@@ -130,7 +138,7 @@
                 android:drawableRight="@mipmap/ic_arrow"
                 android:gravity="center"
                 android:padding="5pt"
-                android:text="赞助者榜单"
+                android:text="@string/about_sponsor"
                 android:textColor="@color/Text"
                 android:textSize="15sp"/>
 
@@ -145,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="阿里素材"
+                    android:text="easyicon"
                     android:textColor="@color/TextDark"
                     android:textSize="15sp"/>
 
@@ -154,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="阿里素材"
+                    android:text="ali"
                     android:textColor="@color/TextDark"
                     android:textSize="15sp"/>
 
@@ -163,7 +171,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="阿里素材"
                     android:textColor="@color/TextDark"
                     android:textSize="15sp"/>
 
@@ -177,7 +184,7 @@
                 android:background="@color/TextGray"
                 android:gravity="center_horizontal"
                 android:padding="5pt"
-                android:text="致谢"
+                android:text="@string/about_thanks"
                 android:textColor="@color/Text"
                 android:textSize="15sp"/>
 

@@ -24,6 +24,7 @@ import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
 import cn.walkpast.horizon.competence.PatternlessActivity;
 import cn.walkpast.horizon.competence.PaymentActivity;
+import cn.walkpast.horizon.competence.SnapshotActivity;
 import cn.walkpast.horizon.competence.ThemeSwitchActivity;
 import cn.walkpast.horizon.competence.VideoPlayActivity;
 import cn.walkpast.horizon.listener.RecyclerItemClickListener;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     private CompetenceAdapter mCompetenceAdapter;
     private Intent mIntent;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,23 +57,19 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
         mCompetenceAdapter = new CompetenceAdapter(this, this);
         List<String> mData = new ArrayList<>();
-        mData.add("Activity中基础功能 演示");
-        mData.add("Fragment中基础功能 演示");
-        mData.add("视频全屏播放 演示");
-        mData.add("地图定位 演示");
-        mData.add("文件下载 演示");
-        mData.add("文件上传 演示");
-        mData.add("相机调用 演示");
-        mData.add("打电话/发短信/发邮件 演示");
-        mData.add("支付宝/微信/财付通支付 演示");
-        mData.add("js实现夜间模式切换 演示");
-        mData.add("js回调 演示");
-        mData.add("广告url拦截 演示");
-        mData.add("js去广告 演示");
-        mData.add("获取网页快照 演示");
-        mData.add("加载策略对比体验 演示");
-        mData.add("加载进度条样式 演示");
-        mData.add("关于Horizon");
+        mData.add(getString(R.string.item_horizon_in_activity));
+        mData.add(getString(R.string.item_horizon_in_fragment));
+        mData.add(getString(R.string.item_video_fullscreen_play));
+        mData.add(getString(R.string.item_map_location));
+        mData.add(getString(R.string.item_file_download));
+        mData.add(getString(R.string.item_file_uploading));
+        mData.add(getString(R.string.item_tel_sms_email));
+        mData.add(getString(R.string.item_payment));
+        mData.add(getString(R.string.item_switch_theme));
+        mData.add(getString(R.string.item_js_callback));
+        mData.add(getString(R.string.item_url_intercept));
+        mData.add(getString(R.string.item_capture_snapshoot));
+        mData.add(getString(R.string.item_about_horizon));
         mCompetenceAdapter.updata(mData);
         mRecyclerView.setAdapter(mCompetenceAdapter);
     }
@@ -79,70 +77,74 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
     @Override
     public void onItemClick(View view, int position) {
 
-        switch (mCompetenceAdapter.getCurrentItem(position)) {
+        switch (position) {
 
-            case "Activity中基础功能 演示":
+            case 0:
 
                 mIntent = new Intent(this, BasicFunActivity.class);
 
                 break;
-            case "Fragment中基础功能 演示":
+            case 1:
 
                 mIntent = new Intent(this, NormalActivity.class);
 
                 break;
-            case "视频全屏播放 演示":
+            case 2:
 
                 mIntent = new Intent(this, VideoPlayActivity.class);
 
                 break;
-                case "地图定位 演示":
+            case 3:
 
                 mIntent = new Intent(this, MapActivity.class);
 
                 break;
-            case "文件下载 演示":
+            case 4:
 
                 mIntent = new Intent(this, FileDownloadActivity.class);
 
                 break;
-            case "打电话/发短信/发邮件 演示":
+            case 5:
 
                 mIntent = new Intent(this, CallupNormalActivity.class);
 
                 break;
-            case "支付宝/微信/财付通支付 演示":
-
+            case 6:
 
 
                 break;
 
-            case "deeplink拉活":
+            case 7:
 
                 mIntent = new Intent(this, DeeplinkActivity.class);
 
                 break;
 
-            case "支付宝/微信/财付通支付":
+            case 8:
 
                 mIntent = new Intent(this, PaymentActivity.class);
 
                 break;
 
 
-            case "js实现夜间模式":
+            case 9:
 
                 mIntent = new Intent(this, ThemeSwitchActivity.class);
 
                 break;
 
 
-            case "无图模式":
+            case 10:
 
                 mIntent = new Intent(this, PatternlessActivity.class);
 
                 break;
-                case "关于Horizon":
+            case 11:
+
+                mIntent = new Intent(this, SnapshotActivity.class);
+
+                break;
+            case 12:
 
                 mIntent = new Intent(this, AboutUsActivity.class);
 

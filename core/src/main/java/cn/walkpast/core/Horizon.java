@@ -293,6 +293,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     }
 
 
+
     /*****************************************/
     @Override
     public void onPause() {

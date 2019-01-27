@@ -58,6 +58,7 @@
 
         <activity android:name=".competence.CallupNormalActivity"></activity>
 
+        <activity android:name=".competence.SnapshotActivity"></activity>
         <!-- -->
         <activity android:name=".AboutUsActivity"></activity>
 

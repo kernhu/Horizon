@@ -35,7 +35,7 @@ public class AboutUsActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_about_us);
         ButterKnife.bind(this);
 
-        mAboutVersion.setText(BuildConfig.VERSION_NAME);
+        mAboutVersion.setText(String.format("version %s", BuildConfig.VERSION_NAME));
     }
 
     @OnClick({R.id.about_back, R.id.about_sponsor})

@@ -13,4 +13,9 @@
     <color name="default_error_page_text">#FF8E8E8E</color>
     <color name="default_error_page_btn_bgc">#FFAEADAD</color>
 
+
+    <!-- progress -->
+    <color name="default_progress_color">#00BE7E</color>
+    <color name="default_progress_background">#FFFFFF</color>
+
 </resources>
