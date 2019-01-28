@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
 import cn.walkpast.horizon.competence.BasicFunActivity;
-import cn.walkpast.horizon.competence.CallupNormalActivity;
+import cn.walkpast.horizon.competence.CallupActivity;
 import cn.walkpast.horizon.competence.DeeplinkActivity;
 import cn.walkpast.horizon.competence.FileDownloadActivity;
 import cn.walkpast.horizon.competence.InterceptOrReplaceActivity;
@@ -106,11 +106,12 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
                 break;
             case 5:
 
-                mIntent = new Intent(this, CallupNormalActivity.class);
+
 
                 break;
             case 6:
 
+                mIntent = new Intent(this, CallupActivity.class);
 
                 break;
 

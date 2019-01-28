@@ -206,6 +206,10 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
         if (getViewContainer() == null) {
             throw new NullPointerException("ViewContainer can't be null,because horizon need a view container for adding webview.");
         }
+        if (getWebView() == null) {
+            throw new NullPointerException("WebView can't be null");
+        }
+
         // Ⅰ
         DefaultWebSettings.getInstance()
                 .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig(getActivity()).config())
