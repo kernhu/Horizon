@@ -29,6 +29,7 @@ public class FilterHelper {
             case TYPE_MATCH_HOST:
 
                 Uri uri = Uri.parse(targetUrl);
+                LogUtils.d("sos", "url-host=" + uri.getHost());
                 for (String filter : filterList) {
                     if (uri.getHost().equals(filter)) {
                         return true;
@@ -36,7 +37,7 @@ public class FilterHelper {
                 }
 
                 return false;
-            case TYPE_MATCH_FULL_HOST:
+            case TYPE_START_WITH:
 
                 for (String filter : filterList) {
                     if (targetUrl.startsWith(filter)) {

@@ -71,6 +71,13 @@ public class WebHorizonActivity extends AppCompatActivity {
                 .setWebView(null);
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (mHorizon != null) {
+            mHorizon.onTrimMemory(level);
+        }
+    }
 
     @Override
     protected void onResume() {

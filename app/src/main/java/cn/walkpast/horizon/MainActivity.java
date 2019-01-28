@@ -20,9 +20,9 @@ import cn.walkpast.horizon.competence.BasicFunActivity;
 import cn.walkpast.horizon.competence.CallupNormalActivity;
 import cn.walkpast.horizon.competence.DeeplinkActivity;
 import cn.walkpast.horizon.competence.FileDownloadActivity;
+import cn.walkpast.horizon.competence.InterceptOrReplaceActivity;
 import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
-import cn.walkpast.horizon.competence.PatternlessActivity;
 import cn.walkpast.horizon.competence.PaymentActivity;
 import cn.walkpast.horizon.competence.SnapshotActivity;
 import cn.walkpast.horizon.competence.ThemeSwitchActivity;
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
             case 10:
 
-                mIntent = new Intent(this, PatternlessActivity.class);
+                mIntent = new Intent(this, InterceptOrReplaceActivity.class);
 
                 break;
             case 11:
