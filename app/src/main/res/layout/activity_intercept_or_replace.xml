@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/snapshot_icon"
+                android:id="@+id/ior_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentLeft="true"
@@ -26,7 +26,7 @@
                 android:src="@mipmap/ic_website"/>
 
             <ImageView
-                android:id="@+id/snapshot_menu"
+                android:id="@+id/ior_menu"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
@@ -36,12 +36,12 @@
                 android:src="@mipmap/ic_menu"/>
 
             <TextView
-                android:id="@+id/snapshot_title"
+                android:id="@+id/ior_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/snapshot_icon"
-                android:layout_toRightOf="@id/snapshot_menu"
+                android:layout_toLeftOf="@id/ior_menu"
+                android:layout_toRightOf="@id/ior_icon"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textColor="@color/TextWhite"
@@ -57,24 +57,37 @@
 
 
         <FrameLayout
-            android:id="@+id/snapshot_container"
+            android:id="@+id/ior_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <FrameLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom"
+            android:layout_margin="10pt"
             android:background="@color/WidgetBgc"
+            android:orientation="vertical"
             android:padding="5dp">
 
-            <ImageView
-                android:id="@+id/snapshot_image"
-                android:layout_width="100pt"
-                android:layout_height="140pt"
-                android:scaleType="centerInside"/>
 
-        </FrameLayout>
+            <EditText
+                android:id="@+id/ior_intercept_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ior_edit_intercept_url"
+                android:textColor="@color/TextDark"
+                android:textColorHint="@color/Text"/>
+
+            <EditText
+                android:id="@+id/ior_replace_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ior_edit_replace_url"
+                android:textColor="@color/TextDark"
+                android:textColorHint="@color/Text"/>
+
+        </LinearLayout>
 
     </FrameLayout>
 

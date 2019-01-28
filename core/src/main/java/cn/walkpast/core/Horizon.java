@@ -1,8 +1,10 @@
 package cn.walkpast.core;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -37,7 +39,7 @@ import cn.walkpast.utils.LogUtils;
  * describe: This is...
  */
 
-public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchListener {
+public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.OnTouchListener, CaptureHelper.OnCaptureListener {
 
     private static String TAG = "Horizon";
 
@@ -60,7 +62,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
     private View mErrorPage;
     private GestureDetector mGestureDetector;
 
-    /*********************** 构造方法 ***********************/
+    /********************************** 构造方法 **************************************/
     public Horizon(Object obj) {
 
         if (obj instanceof Activity) {
@@ -78,7 +80,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         this.mWebView = new WebView(mActivity);
     }
 
-    /*********************** 实例化Horizon ***********************/
+    /********************************** 实例化Horizon **************************************/
     public static Horizon with(Activity activity) {
 
         return new Horizon(activity);
@@ -94,7 +96,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return new Horizon(fragment);
     }
 
-    /*********************** 参数get and set ***********************/
+    /************************************ 参数get and set **************************************/
     public Activity getActivity() {
         return mActivity;
     }
@@ -198,12 +200,16 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return this;
     }
 
-    /*********************** 加载 ***********************/
+    /***************************************** 加载 *********************************************/
     public Horizon preview() {
 
         if (getViewContainer() == null) {
             throw new NullPointerException("ViewContainer can't be null,because horizon need a view container for adding webview.");
         }
+        if (getWebView() == null) {
+            throw new NullPointerException("WebView can't be null");
+        }
+
         // Ⅰ
         DefaultWebSettings.getInstance()
                 .setConfig(getCoreConfig() != null ? getCoreConfig() : new CoreConfig(getActivity()).config())
@@ -252,6 +258,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return this;
     }
 
+    /***********************************************************************************************/
 
     /**
      *
@@ -280,6 +287,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         }
     };
 
+    /***********************************************************************************************/
     public void loadUrl(String loadUrl) {
         if (!TextUtils.isEmpty(loadUrl)) {
             if (getWebView() != null) {
@@ -292,9 +300,102 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         }
     }
 
+    @Override
+    public void loadUrl(String url, Map<String, String> additionalHttpHeaders) {
+        if (getWebView() != null) {
+            getWebView().loadUrl(url, additionalHttpHeaders);
+        }
+    }
+
+    @Override
+    public void loadData(String data, String mimeType, String encoding) {
+        if (getWebView() != null) {
+            getWebView().loadData(data, mimeType, encoding);
+        }
+    }
+
+    @Override
+    public void loadDataWithBaseURL(String baseUrl, String data, String mimeType, String encoding, String historyUrl) {
+        if (getWebView() != null) {
+            getWebView().loadDataWithBaseURL(baseUrl, data, mimeType, encoding, historyUrl);
+        }
+    }
+
+    @Override
+    public void sysnCapture() {
+
+        if (getWebView() != null) {
+            CaptureHelper
+                    .getInstance()
+                    .setWebView(getWebView())
+                    .setCaptureListener(this)
+                    .capture();
+        }
+    }
+
+    @Override
+    public boolean canGoBack() {
+        return getWebView() != null ? getWebView().canGoBack() : false;
+    }
+
+    @Override
+    public boolean canGoForward() {
+        return getWebView() != null ? getWebView().canGoForward() : false;
+    }
+
+    @Override
+    public void goBack() {
+        if (getWebView() != null && canGoBack()) {
+            getWebView().goBack();
+        }
+    }
+
+    @Override
+    public void goForward() {
+        if (getWebView() != null && canGoForward()) {
+            getWebView().canGoForward();
+        }
+    }
+
+    @Override
+    public void reload() {
+        if (getWebView() != null) {
+            getWebView().stopLoading();
+            getWebView().reload();
+        }
+    }
+
+    @Override
+    public void stopLoading() {
+        if (getWebView() != null) {
+            getWebView().stopLoading();
+        }
+    }
+
+    @Override
+    public void resumeTimers() {
+        if (getWebView() != null) {
+            getWebView().resumeTimers();
+        }
+    }
+
+    @SuppressLint("JavascriptInterface")
+    @Override
+    public void addJavascriptInterface(Object object, String name) {
+        if (getWebView() != null) {
+            getWebView().addJavascriptInterface(object, name);
+        }
+    }
+
+    @Override
+    public void clearHistory() {
+        if (getWebView() != null) {
+            getWebView().clearHistory();
+        }
+    }
 
 
-    /*****************************************/
+    /***********************************************************************************************/
     @Override
     public void onPause() {
 
@@ -376,7 +477,7 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
         return false;
     }
 
-    /*****************************************/
+    /***********************************************************************************************/
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -393,5 +494,17 @@ public class Horizon implements ILifecycle, View.OnKeyListener, View.OnTouchList
             EventPoint.downY = (int) e.getY();
         }
     };
-    /*****************************************/
+
+    /***********************************************************************************************/
+
+    @Override
+    public void onCapture(Bitmap bitmap) {
+
+        if (this.getHorizonClient() != null) {
+            this.getHorizonClient().onCaptured(bitmap);
+        }
+    }
+
+    /***********************************************************************************************/
+
 }

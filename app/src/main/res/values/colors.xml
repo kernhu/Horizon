@@ -27,5 +27,6 @@
     <color name="TextLight">#FFFFDDE6</color>
     <color name="SplitLine">#E4EDF7</color>
     <color name="ErrorPageBgc">#FFF5F7FA</color>
+    <color name="WidgetBgc">#dbdbdb</color>
 
 </resources>

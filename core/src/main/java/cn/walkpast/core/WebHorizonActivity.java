@@ -67,10 +67,16 @@ public class WebHorizonActivity extends AppCompatActivity {
                         .setTooltipEnable(true)
                         .config()
                 )
-                .setCaptureStrategy(CaptureStrategy.START_FINISH)
-                .setWebView(null);
+                .setCaptureStrategy(CaptureStrategy.START_FINISH);
     }
 
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (mHorizon != null) {
+            mHorizon.onTrimMemory(level);
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -79,7 +85,6 @@ public class WebHorizonActivity extends AppCompatActivity {
             mHorizon.onResume();
         }
     }
-
 
     @Override
     protected void onPause() {

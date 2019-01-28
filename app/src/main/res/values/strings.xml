@@ -13,16 +13,21 @@
     <string name="item_payment">支付宝/微信/财付通支付 演示</string>
     <string name="item_switch_theme">js实现夜间模式切换 演示</string>
     <string name="item_js_callback">js回调 演示</string>
-    <string name="item_url_intercept">url拦截 演示</string>
+    <string name="item_url_intercept">url拦截或替换 演示</string>
     <string name="item_capture_snapshoot">获取网页快照 演示</string>
     <string name="item_about_horizon">关于Horizon</string>
 
-    <!-- about us -->
 
+    <!-- intercept or  replace -->
+    <string name="ior_edit_intercept_url">输入需要拦截的url</string>
+    <string name="ior_edit_replace_url">输入替换的</string>
+
+    <!-- about us -->
     <string name="about_developer">开发者榜单</string>
     <string name="about_sponsor">赞助者榜单</string>
     <string name="about_thanks">致谢</string>
     <string name="about_title">关 于</string>
+    <string name="ior_toast_edit_empty">拦截url必须填写，替换url选填。</string>
 
 
 </resources>

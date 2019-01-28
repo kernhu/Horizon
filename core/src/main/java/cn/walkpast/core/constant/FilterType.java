@@ -10,7 +10,7 @@ package cn.walkpast.core.constant;
 public enum FilterType {
 
     TYPE_MATCH_HOST,
-    TYPE_MATCH_FULL_HOST,
+    TYPE_START_WITH,
     TYPE_MATCH_URL,
     TYPE_CONTAINS_URL
 

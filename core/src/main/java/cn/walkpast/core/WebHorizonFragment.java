@@ -70,8 +70,7 @@ public class WebHorizonFragment extends Fragment {
                         .setTooltipEnable(true)
                         .config()
                 )
-                .setCaptureStrategy(CaptureStrategy.START_FINISH)
-                .setWebView(null);
+                .setCaptureStrategy(CaptureStrategy.START_FINISH);
 
 
         return super.onCreateView(inflater, container, savedInstanceState);
