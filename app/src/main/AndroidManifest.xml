@@ -44,7 +44,7 @@
         <activity android:name=".competence.BasicFunActivity"></activity>
 
 
-        <activity android:name=".competence.NormalActivity"></activity>
+        <activity android:name=".competence.BasicFunFragmentActivity"></activity>
 
         <!-- video play-->
         <activity

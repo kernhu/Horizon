@@ -23,7 +23,7 @@ import cn.walkpast.horizon.competence.FileUploadActivity;
 import cn.walkpast.horizon.competence.InterceptOrReplaceActivity;
 import cn.walkpast.horizon.competence.MapActivity;
 import cn.walkpast.horizon.competence.NativeJsInteractActivity;
-import cn.walkpast.horizon.competence.NormalActivity;
+import cn.walkpast.horizon.competence.BasicFunFragmentActivity;
 import cn.walkpast.horizon.competence.PaymentActivity;
 import cn.walkpast.horizon.competence.SnapshotActivity;
 import cn.walkpast.horizon.competence.VideoPlayActivity;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
                 break;
             case 1:
 
-                mIntent = new Intent(this, NormalActivity.class);
+                mIntent = new Intent(this, BasicFunFragmentActivity.class);
 
                 break;
             case 2:

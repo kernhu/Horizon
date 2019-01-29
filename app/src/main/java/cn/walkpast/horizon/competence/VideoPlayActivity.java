@@ -23,12 +23,10 @@ public class VideoPlayActivity extends WebHorizonActivity {
 
     private static final String TAG = "VideoPlayActivity";
 
-    @BindView(R.id.title)
-    public TextView mTitle;
-    @BindView(R.id.subheading)
-    public TextView mSubheading;
-    @BindView(R.id.frame_container)
-    public FrameLayout mFrameContainer;
+    @BindView(R.id.video_play_title)
+    public TextView mVideoPlayTitle;
+    @BindView(R.id.video_play_container)
+    public FrameLayout mVideoPlayContainer;
 
     private String mLoadUrl = "http://m.youku.com/video/id_XNzU2OTgyMzAw.html?sharefrom=iphone&from=timeline&source=";
     //private String mLoadUrl = "http://www.walkpast.cn/";
@@ -37,12 +35,12 @@ public class VideoPlayActivity extends WebHorizonActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.activity_video_play);
         ButterKnife.bind(this);
 
         getHorizon()
                 .setHorizonClient(mHorizonClient)
-                .setViewContainer(mFrameContainer)
+                .setViewContainer(mVideoPlayContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl(mLoadUrl)
                 .preview();
@@ -59,7 +57,7 @@ public class VideoPlayActivity extends WebHorizonActivity {
         public void onReceiveTitle(WebView view, String title) {
             super.onReceiveTitle(view, title);
 
-            mSubheading.setText(title);
+            mVideoPlayTitle.setText(title);
 
         }
 
