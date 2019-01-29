@@ -1,6 +1,7 @@
 package cn.walkpast.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
@@ -63,5 +64,12 @@ public class NetworkUtils {
         }
 
         return false;
+    }
+
+
+    public static void settingNetwork(Context context) {
+
+        Intent mIntent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+        context.startActivity(mIntent);
     }
 }

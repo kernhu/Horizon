@@ -87,7 +87,7 @@ public class FileDownloadActivity extends WebHorizonActivity implements View.OnC
                 .getInstance()
                 .setActivity(this)
                 .setTargetView(mDownloadMenu)
-                .setItems("应用下载", "图片下载", "音视频下载", "压缩包下载", "NOTIFY_ONLY_COMPLETION", "NOTIFY_ONLY_COMPLETION", "MOBILE_AND_WIFI", "NETWORK_ONLY_WIFI")
+                .setItems("应用下载", "图片下载", "音视频下载", "压缩包下载", "NOTIFY_ONLY_COMPLETION", "NOTIFY_ONLY_COMPLETION", "NETWORK_MOBILE_AND_WIFI", "NETWORK_ONLY_WIFI")
                 .setItemClickListener(new PopupWindowTools.PopupWindowItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -106,7 +106,7 @@ public class FileDownloadActivity extends WebHorizonActivity implements View.OnC
                                 break;
                             case 2:
 
-                                getHorizon().loadUrl("http://app.so.com/");
+                                getHorizon().loadUrl("http://www.pingguodj.com/index.php/dance/down/id/87262");
 
                                 break;
                             case 3:

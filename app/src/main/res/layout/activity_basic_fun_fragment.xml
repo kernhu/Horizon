@@ -1,10 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/bff_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/bff_bottom_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="25pt"
+        android:layout_alignParentBottom="true"
+        android:background="@color/WidgetBgc"
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/bff_bottom_nav_first"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="11111"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/White"/>
+
+        <TextView
+            android:id="@+id/bff_bottom_nav_second"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="11111"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/bff_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bff_bottom_nav_bar"/>
+
+
+</RelativeLayout>
