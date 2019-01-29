@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.walkpast.core.WebHorizonActivity;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.NetworkType;
@@ -22,7 +23,7 @@ import cn.walkpast.horizon.R;
  * describe: This is...
  */
 
-public class FileDownloadActivity extends HorizonBaseActivity {
+public class FileDownloadActivity extends WebHorizonActivity {
 
 
     private static final String TAG = "FileDownloadActivity";
@@ -40,8 +41,6 @@ public class FileDownloadActivity extends HorizonBaseActivity {
 
         setContentView(R.layout.activity_normal);
         ButterKnife.bind(this);
-        mTitle.setText(getIntent().getStringExtra("title"));
-
 
         getHorizon()
                 .setDownloadConfig(DownloadConfig.with(this)

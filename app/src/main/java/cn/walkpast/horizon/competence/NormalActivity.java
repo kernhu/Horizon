@@ -49,8 +49,6 @@ public class NormalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_normal);
         ButterKnife.bind(this);
 
-        mTitle.setText(getIntent().getStringExtra("title"));
-
         Horizon.with(this)
                 .setProgressConfig(ProgressConfig
                         .with(this)

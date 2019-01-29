@@ -39,33 +39,57 @@
         <activity android:name=".MainActivity">
         </activity>
 
+
+        <!-- -->
+        <activity android:name=".competence.BasicFunActivity"></activity>
+
+
         <activity android:name=".competence.NormalActivity"></activity>
-        <activity android:name=".competence.RedirectedActivity"></activity>
+
+        <!-- video play-->
         <activity
             android:name=".competence.VideoPlayActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:hardwareAccelerated="true">
         </activity>
-        <activity android:name=".competence.MapActivity"></activity>
-        <activity android:name=".competence.ImageDownloadActivity"></activity>
-        <activity android:name=".competence.FileDownloadActivity"></activity>
-        <activity android:name=".competence.DeeplinkActivity"></activity>
-        <activity android:name=".competence.PaymentActivity"></activity>
-        <activity android:name=".competence.PatternlessActivity"></activity>
 
-        <!-- -->
-        <activity android:name=".competence.BasicFunActivity"></activity>
+        <!-- location -->
+        <activity android:name=".competence.MapActivity">
+        </activity>
 
-        <activity android:name=".competence.CallupActivity"></activity>
+        <!-- download file -->
+        <activity android:name=".competence.FileDownloadActivity">
+        </activity>
 
-        <!-- -->
-        <activity android:name=".competence.InterceptOrReplaceActivity"></activity>
-        <!-- -->
-        <activity android:name=".competence.SnapshotActivity"></activity>
-        <!-- -->
-        <activity android:name=".AboutUsActivity"></activity>
+        <!-- file update-->
+        <activity android:name=".competence.FileUploadActivity">
+        </activity>
 
+        <!-- call up -->
+        <activity android:name=".competence.CallupActivity">
+        </activity>
 
+        <!-- paymenty -->
+        <activity android:name=".competence.PaymentActivity">
+        </activity>
+
+        <!-- native js interact -->
+        <activity android:name=".competence.NativeJsInteractActivity">
+        </activity>
+
+        <!-- intercept or replace url -->
+        <activity android:name=".competence.InterceptOrReplaceActivity">
+        </activity>
+
+        <!--capture snapshot -->
+        <activity android:name=".competence.SnapshotActivity">
+        </activity>
+
+        <!-- about horizon-->
+        <activity android:name=".AboutUsActivity">
+        </activity>
+
+        <!-- download seavice -->
         <service
             android:name="cn.walkpast.download.DownLoadService"
             android:process=":download"></service>

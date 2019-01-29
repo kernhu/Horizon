@@ -40,7 +40,6 @@ import cn.walkpast.utils.ToastUtils;
 
 public class BasicFunActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     @BindView(R.id.basic_fun_icon)
     public ImageView mBfIcon;
     @BindView(R.id.basic_fun_title)
@@ -51,7 +50,6 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
     public FrameLayout mBfContainer;
     @BindView(R.id.basic_fun_capture)
     public ImageView mBfCapture;
-
 
     private Horizon mHorizon;
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>打电话、发短信、发邮件、调QQ演示</title>
@@ -23,7 +23,6 @@
         }
 
 
-
     </style>
 
     <script>
@@ -42,6 +41,7 @@
             return document.getElementById("user_email").value == "" ? "mailto:mailteam@qq.com" : ("mailto:" + document.getElementById("user_email").value);
         }
 
+
     </script>
 
 </head>
@@ -50,29 +50,22 @@
 <div>
     <br>
     <br>
-    你也可以输入自己的手机号码或者邮箱进行测试！！！
     <br>
     <br>
     <br>
-    Tel: <input style="width:260px; height:60px;font-size:28px;" type="tel" id="user_tel"
-                value="13603088080"/>
-    <a href="javascript:;" onclick="location ='queryAction!query.action?curP='+document.getElementById('user_tel').value;">拨打号码,点我试一试</a>
+    <a href="tel:10086">拨打号码,点我试一试！ </a>
     <br>
     <br>
 
     <br>
     <br>
-    Tel: <input style="width:260px; height:60px;font-size:28px;" type="tel" name="user_sms"
-                value="13603088080"/>
-    <a href="sms:$(user_sms)">JS一键发送短信，点我试一试！ </a>
+    <a href="sms:10086">发送短信，点我试一试！ </a>
     <br>
     <br>
 
     <br>
     <br>
-    E-mail: <input style="width:260px; height:60px;font-size:28px;" type="email" name="user_email"
-                   value="100001qq.com"/>
-    <a href="mailto:$(user_email)">JS一键发送邮件，点我试一试！</a>
+    <a href="mailto:45457847545@qq.com">发送邮件，点我试一试！</a>
     <br>
     <br>
 

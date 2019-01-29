@@ -124,6 +124,7 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
 
     public Horizon setCoreConfig(CoreConfig coreConfig) {
         mCoreConfig = coreConfig;
+
         return this;
     }
 

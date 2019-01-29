@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.walkpast.core.WebHorizonActivity;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.horizon.R;
 
@@ -19,7 +20,7 @@ import cn.walkpast.horizon.R;
  * describe: This is...
  */
 
-public class PaymentActivity extends HorizonBaseActivity {
+public class PaymentActivity extends WebHorizonActivity {
 
 
     private static final String TAG = "ImageDownloadActivity";
@@ -37,8 +38,6 @@ public class PaymentActivity extends HorizonBaseActivity {
 
         setContentView(R.layout.activity_normal);
         ButterKnife.bind(this);
-        mTitle.setText(getIntent().getStringExtra("title"));
-
 
         getHorizon()
                 .setHorizonClient(mHorizonClient)

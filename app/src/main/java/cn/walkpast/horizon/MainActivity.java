@@ -18,14 +18,14 @@ import butterknife.ButterKnife;
 import cn.walkpast.horizon.adapter.CompetenceAdapter;
 import cn.walkpast.horizon.competence.BasicFunActivity;
 import cn.walkpast.horizon.competence.CallupActivity;
-import cn.walkpast.horizon.competence.DeeplinkActivity;
 import cn.walkpast.horizon.competence.FileDownloadActivity;
+import cn.walkpast.horizon.competence.FileUploadActivity;
 import cn.walkpast.horizon.competence.InterceptOrReplaceActivity;
 import cn.walkpast.horizon.competence.MapActivity;
+import cn.walkpast.horizon.competence.NativeJsInteractActivity;
 import cn.walkpast.horizon.competence.NormalActivity;
 import cn.walkpast.horizon.competence.PaymentActivity;
 import cn.walkpast.horizon.competence.SnapshotActivity;
-import cn.walkpast.horizon.competence.ThemeSwitchActivity;
 import cn.walkpast.horizon.competence.VideoPlayActivity;
 import cn.walkpast.horizon.listener.RecyclerItemClickListener;
 
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         mData.add(getString(R.string.item_file_uploading));
         mData.add(getString(R.string.item_tel_sms_email));
         mData.add(getString(R.string.item_payment));
-        mData.add(getString(R.string.item_switch_theme));
         mData.add(getString(R.string.item_js_callback));
         mData.add(getString(R.string.item_url_intercept));
         mData.add(getString(R.string.item_capture_snapshoot));
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
                 break;
             case 5:
 
-
+                mIntent = new Intent(this, FileUploadActivity.class);
 
                 break;
             case 6:
@@ -117,35 +116,27 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
 
             case 7:
 
-                mIntent = new Intent(this, DeeplinkActivity.class);
+                mIntent = new Intent(this, PaymentActivity.class);
 
                 break;
 
             case 8:
 
-                mIntent = new Intent(this, PaymentActivity.class);
+                mIntent = new Intent(this, NativeJsInteractActivity.class);
 
                 break;
-
 
             case 9:
-
-                mIntent = new Intent(this, ThemeSwitchActivity.class);
-
-                break;
-
-
-            case 10:
 
                 mIntent = new Intent(this, InterceptOrReplaceActivity.class);
 
                 break;
-            case 11:
+            case 10:
 
                 mIntent = new Intent(this, SnapshotActivity.class);
 
                 break;
-            case 12:
+            case 11:
 
                 mIntent = new Intent(this, AboutUsActivity.class);
 
@@ -153,7 +144,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerItemClick
         }
         if (mIntent != null) {
 
-            mIntent.putExtra("title", mCompetenceAdapter.getCurrentItem(position));
             startActivity(mIntent);
 
         }
