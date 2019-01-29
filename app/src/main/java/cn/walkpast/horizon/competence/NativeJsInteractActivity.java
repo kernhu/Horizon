@@ -31,7 +31,7 @@ import cn.walkpast.horizon.widget.PopupWindowTools;
  * Description: This is..
  */
 
-public class JsInteractActivity extends AppCompatActivity implements View.OnClickListener{
+public class NativeJsInteractActivity extends AppCompatActivity implements View.OnClickListener{
 
 
     @BindView(R.id.ior_icon)

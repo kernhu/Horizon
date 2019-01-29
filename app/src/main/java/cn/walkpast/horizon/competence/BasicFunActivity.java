@@ -30,7 +30,7 @@ import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.horizon.BuildConfig;
 import cn.walkpast.horizon.R;
 import cn.walkpast.horizon.widget.PopupWindowTools;
-import cn.walkpast.utils.ToastUtils;
+import cn.walkpast.utils.NetworkUtils;
 
 /**
  * Author: Kern
@@ -40,7 +40,6 @@ import cn.walkpast.utils.ToastUtils;
 
 public class BasicFunActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     @BindView(R.id.basic_fun_icon)
     public ImageView mBfIcon;
     @BindView(R.id.basic_fun_title)
@@ -49,9 +48,6 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
     public ImageView mBfMenu;
     @BindView(R.id.basic_fun_container)
     public FrameLayout mBfContainer;
-    @BindView(R.id.basic_fun_capture)
-    public ImageView mBfCapture;
-
 
     private Horizon mHorizon;
 
@@ -64,7 +60,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
 
 
         mHorizon = Horizon.with(this)
-                .setTag("horizon_1")
+                .setTag(BasicFunActivity.class.toString())
                 .setProgressConfig(ProgressConfig
                         .with(this)
                         .setBackgroundColor(R.color.ProgressBackground)
@@ -85,13 +81,13 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setThemeEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
-                        .setFilterList(FilterType.TYPE_CONTAINS_URL, "http://www.walkpast.cn/", "www.hao123.com", "www.bbbb.com", "www.bbbb.com", "www.bbbb.com")
+                        .setFilterList(FilterType.TYPE_CONTAINS_URL, "http://www.walkpast.cn/", "www.123.com", "www.126.com", "www.qq.com", "www.wechat.com")
                         .setStrategy(Strategy.CORE_BOTH_TEXT_IMAGE)
                         .config()
                 )
                 .setDownloadConfig(DownloadConfig
                         .with(this)
-                        .setStoragePath("download")
+                        .setStoragePath("/download/")
                         .setNetworkType(NetworkType.NETWORK_MOBILE_AND_WIFI)
                         .setNotificationType(NotificationType.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                         .setTooltipEnable(true)
@@ -111,13 +107,13 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                                                       view.findViewById(R.id.default_error_page_check).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
-                                                              ToastUtils.showShort("检查网络");
+                                                              NetworkUtils.settingNetwork(BasicFunActivity.this);
                                                           }
                                                       });
                                                       view.findViewById(R.id.default_error_page_reload).setOnClickListener(new View.OnClickListener() {
                                                           @Override
                                                           public void onClick(View v) {
-                                                              ToastUtils.showShort("重新刷新");
+                                                              mHorizon.reload();
                                                           }
                                                       });
                                                   }
@@ -197,11 +193,5 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
             mBfTitle.setText(title);
         }
 
-        @Override
-        public void onCaptured(Bitmap bitmap) {
-            super.onCaptured(bitmap);
-
-            mBfCapture.setImageBitmap(bitmap);
-        }
     };
 }

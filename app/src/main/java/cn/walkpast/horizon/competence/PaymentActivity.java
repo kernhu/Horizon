@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.walkpast.core.WebHorizonActivity;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.horizon.R;
 
@@ -19,30 +20,25 @@ import cn.walkpast.horizon.R;
  * describe: This is...
  */
 
-public class PaymentActivity extends HorizonBaseActivity {
+public class PaymentActivity extends WebHorizonActivity {
 
+    private static final String TAG = "PaymentActivity";
 
-    private static final String TAG = "ImageDownloadActivity";
-
-    @BindView(R.id.title)
-    public TextView mTitle;
-    @BindView(R.id.subheading)
-    public TextView mSubheading;
-    @BindView(R.id.frame_container)
-    public FrameLayout mFrameContainer;
+    @BindView(R.id.payment_title)
+    public TextView mPaymentTitle;
+    @BindView(R.id.payment_container)
+    public FrameLayout mPaymentContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.activity_payment);
         ButterKnife.bind(this);
-        mTitle.setText(getIntent().getStringExtra("title"));
-
 
         getHorizon()
                 .setHorizonClient(mHorizonClient)
-                .setViewContainer(mFrameContainer)
+                .setViewContainer(mPaymentContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://m.image.so.com/i?src=onebox_entity&q=%E6%9E%97%E5%85%81%E5%84%BF")
                 .preview();
@@ -61,7 +57,7 @@ public class PaymentActivity extends HorizonBaseActivity {
         public void onReceiveTitle(WebView view, String title) {
             super.onReceiveTitle(view, title);
 
-            mSubheading.setText(title);
+            mPaymentTitle.setText(title);
 
         }
 

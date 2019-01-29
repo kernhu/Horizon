@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.walkpast.core.WebHorizonActivity;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.horizon.R;
 
@@ -19,30 +20,26 @@ import cn.walkpast.horizon.R;
  * describe: This is...
  */
 
-public class MapActivity extends HorizonBaseActivity {
+public class MapActivity extends WebHorizonActivity {
 
 
     private static final String TAG = "MapActivity";
 
-    @BindView(R.id.title)
-    public TextView mTitle;
-    @BindView(R.id.subheading)
-    public TextView mSubheading;
-    @BindView(R.id.frame_container)
-    public FrameLayout mFrameContainer;
+    @BindView(R.id.map_title)
+    public TextView mMapTitle;
+    @BindView(R.id.map_container)
+    public FrameLayout mMapContainer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
-        mTitle.setText(getIntent().getStringExtra("title"));
-
 
         getHorizon()
                 .setHorizonClient(mHorizonClient)
-                .setViewContainer(mFrameContainer)
+                .setViewContainer(mMapContainer)
                 .setWebView(new WebView(this))
                 .setOriginalUrl("https://map.baidu.com/mobile/webapp/index/index/?third_party=hao123")
                 .preview();
@@ -50,7 +47,6 @@ public class MapActivity extends HorizonBaseActivity {
     }
 
     HorizonClient mHorizonClient = new HorizonClient() {
-
 
         @Override
         public void onReceivedIcon(WebView view, Bitmap icon) {
@@ -61,8 +57,7 @@ public class MapActivity extends HorizonBaseActivity {
         public void onReceiveTitle(WebView view, String title) {
             super.onReceiveTitle(view, title);
 
-            mSubheading.setText(title);
-
+            mMapTitle.setText(title);
         }
 
     };
