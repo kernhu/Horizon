@@ -1,5 +1,6 @@
 package cn.walkpast.core;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -33,9 +34,15 @@ public class WebHorizonFragment extends Fragment {
         return mHorizon;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         mHorizon = Horizon.with(getActivity())
                 .setTag("horizon_1")
@@ -71,6 +78,12 @@ public class WebHorizonFragment extends Fragment {
                         .config()
                 )
                 .setCaptureStrategy(CaptureStrategy.START_FINISH);
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
         return super.onCreateView(inflater, container, savedInstanceState);
