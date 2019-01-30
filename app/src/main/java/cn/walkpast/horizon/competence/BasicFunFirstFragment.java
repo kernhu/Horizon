@@ -161,6 +161,9 @@ public class BasicFunFirstFragment extends Fragment {
         }
     }
 
+    /**
+     * @param hidden
+     */
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -175,6 +178,11 @@ public class BasicFunFirstFragment extends Fragment {
         }
     }
 
+    /**
+     *
+     *  bind the
+     *
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -190,6 +198,9 @@ public class BasicFunFirstFragment extends Fragment {
         }
     }
 
+    /**
+     *
+     */
     HorizonClient mHorizonClient = new HorizonClient() {
 
         @Override

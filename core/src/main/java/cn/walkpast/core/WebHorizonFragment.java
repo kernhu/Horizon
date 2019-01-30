@@ -85,10 +85,8 @@ public class WebHorizonFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
-
 
     @Override
     public void onResume() {
@@ -141,13 +139,13 @@ public class WebHorizonFragment extends Fragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         Log.e("sos", "onHiddenChanged==" + hidden);
-        if (!hidden) {
+        if (hidden) {
             if (mHorizon != null) {
-                mHorizon.onResume();
+                mHorizon.onPause();
             }
         } else {
             if (mHorizon != null) {
-                mHorizon.onPause();
+                mHorizon.onResume();
             }
         }
     }
