@@ -51,7 +51,7 @@ public class BasicFunFragmentActivity extends AppCompatActivity implements View.
         if (v.getId() == R.id.bff_bottom_nav_first) {
 
             if (!mBasicFunFirstFragment.isAdded()) {
-                getSupportFragmentManager().beginTransaction().add(R.id.bff_frame, mBasicFunFirstFragment).hide(mBasicFunSecondFragment).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.bff_frame, mBasicFunFirstFragment).show(mBasicFunFirstFragment).hide(mBasicFunSecondFragment).commit();
             } else {
                 getSupportFragmentManager().beginTransaction().show(mBasicFunFirstFragment).hide(mBasicFunSecondFragment).commit();
             }
@@ -59,7 +59,7 @@ public class BasicFunFragmentActivity extends AppCompatActivity implements View.
         } else if (v.getId() == R.id.bff_bottom_nav_second) {
 
             if (!mBasicFunSecondFragment.isAdded()) {
-                getSupportFragmentManager().beginTransaction().add(R.id.bff_frame, mBasicFunSecondFragment).hide(mBasicFunFirstFragment).commit();
+                getSupportFragmentManager().beginTransaction().add(R.id.bff_frame, mBasicFunSecondFragment).show(mBasicFunSecondFragment).hide(mBasicFunFirstFragment).commit();
             } else {
                 getSupportFragmentManager().beginTransaction().show(mBasicFunSecondFragment).hide(mBasicFunFirstFragment).commit();
             }

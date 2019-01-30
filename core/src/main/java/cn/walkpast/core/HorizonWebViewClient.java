@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import java.io.ByteArrayInputStream;
 
 import cn.walkpast.core.constant.CaptureStrategy;
+import cn.walkpast.utils.LogUtils;
 
 /**
  * Author: Kern
@@ -25,6 +26,7 @@ import cn.walkpast.core.constant.CaptureStrategy;
 
 public class HorizonWebViewClient extends WebViewClient {
 
+    private static final String TAG = "HorizonWebViewClient";
 
     private Horizon mHorizon;
     private boolean mReceivedError = false;
@@ -43,7 +45,7 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, request);
         }
-        Log.e("sos", "shouldOverrideUrlLoading-----111");
+        LogUtils.d(TAG, "shouldOverrideUrlLoading-1=" + request.getUrl().toString());
         mReceivedError = false;
         return shouldOverrideUrlLoading(view, request.getUrl().toString());
     }
@@ -54,7 +56,7 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().shouldOverrideUrlLoading(view, url);
         }
-        Log.e("sos", "shouldOverrideUrlLoading-----222" + url);
+        LogUtils.d(TAG, "shouldOverrideUrlLoading-2=" + url);
         mReceivedError = false;
         return DefaultShouldOverrideUrlLoading.shouldOverrideUrlLoading(mHorizon.getActivity(), url);
     }
@@ -65,7 +67,7 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onPageStarted(view, url, favicon);
         }
-        Log.e("sos", "onPageStarted-----");
+        LogUtils.d(TAG, "onPageStarted-----");
         mReceivedError = false;
 
         /***************************************** capture bitmap ******************************************/
@@ -89,7 +91,7 @@ public class HorizonWebViewClient extends WebViewClient {
             mHorizon.getHorizonClient().onPageFinished(view, url);
         }
 
-        Log.e("sos", "onPageFinished-----");
+        LogUtils.d(TAG, "onPageFinished=" + url);
         /***************************************** Remove Error Page View ******************************************/
         if (!mReceivedError) {
             ViewGroup mViewParent = (ViewGroup) view.getParent();
@@ -124,7 +126,7 @@ public class HorizonWebViewClient extends WebViewClient {
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onReceivedError(view, errorCode, description, failingUrl);
         }
-        Log.e("sos", "onReceivedError-----errorCode=" + errorCode + ";;;description=" + description);
+        LogUtils.d(TAG, "onReceivedError-----errorCode=" + errorCode + ";;;description=" + description);
         /***************************************** Create Error Page View ******************************************/
         mReceivedError = true;
         ViewGroup mViewParent = (ViewGroup) view.getParent();

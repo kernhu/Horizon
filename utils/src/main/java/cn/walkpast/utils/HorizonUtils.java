@@ -11,12 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 16/12/08
- *     desc  : Utils初始化相关
- * </pre>
+ *
  */
 public final class HorizonUtils {
 
@@ -69,9 +64,9 @@ public final class HorizonUtils {
     }
 
     /**
-     * 初始化工具类
+     * init the util
      *
-     * @param app 应用
+     * @param app application
      */
     public static void init(@NonNull final Application app) {
         HorizonUtils.sApplication = app;

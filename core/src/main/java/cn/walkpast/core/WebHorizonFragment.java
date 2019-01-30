@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import cn.walkpast.core.indicator.ProgressConfig;
  */
 
 public class WebHorizonFragment extends Fragment {
-
 
     private Horizon mHorizon;
 
@@ -115,12 +115,40 @@ public class WebHorizonFragment extends Fragment {
         }
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();
         if (mHorizon != null) {
             mHorizon.onDestroy();
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (mHorizon != null) {
+                mHorizon.onResume();
+            }
+        } else {
+            if (mHorizon != null) {
+                mHorizon.onPause();
+            }
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.e("sos", "onHiddenChanged==" + hidden);
+        if (!hidden) {
+            if (mHorizon != null) {
+                mHorizon.onResume();
+            }
+        } else {
+            if (mHorizon != null) {
+                mHorizon.onPause();
+            }
         }
     }
 }

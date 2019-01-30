@@ -44,12 +44,12 @@ public class BasicFunSecondFragment extends WebHorizonFragment {
 
         ButterKnife.bind(this, view);
 
-        Log.e("sos", "getHorizon==" + (getHorizon() == null));
         getHorizon()
                 .setViewContainer(mSecondContainer)
                 .setHorizonClient(mHorizonClient)
                 .preview()
-                .loadUrl("https://www.jd.com/");
+                .loadUrl("http://m.youku.com/video/id_XNzU2OTgyMzAw.html?sharefrom=iphone&from=timeline&source=");
+//                .loadUrl("https://www.jd.com/");
 
         return view;
     }

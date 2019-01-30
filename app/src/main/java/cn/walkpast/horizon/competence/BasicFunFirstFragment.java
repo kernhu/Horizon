@@ -58,7 +58,7 @@ public class BasicFunFirstFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_basic_fun_first, null, false);
 
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
 
 
         mHorizon = Horizon.with(this)
@@ -128,6 +128,67 @@ public class BasicFunFirstFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mHorizon != null) {
+            mHorizon.onResume();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mHorizon != null) {
+            mHorizon.onPause();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mHorizon != null) {
+            mHorizon.onStop();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mHorizon != null) {
+            mHorizon.onDestroy();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            if (mHorizon != null) {
+                mHorizon.onPause();
+            }
+        } else {
+            if (mHorizon != null) {
+                mHorizon.onResume();
+            }
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+
+        if (isVisibleToUser) {
+            if (mHorizon != null) {
+                mHorizon.onResume();
+            }
+        } else {
+            if (mHorizon != null) {
+                mHorizon.onPause();
+            }
+        }
+    }
 
     HorizonClient mHorizonClient = new HorizonClient() {
 
