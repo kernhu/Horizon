@@ -17,5 +17,7 @@
     <!-- progress -->
     <color name="default_progress_color">#00BE7E</color>
     <color name="default_progress_background">#FFFFFF</color>
+    <!-- -->
+    <color name="Black">#000000</color>
 
 </resources>

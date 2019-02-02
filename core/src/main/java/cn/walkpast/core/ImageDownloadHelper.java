@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -15,12 +17,15 @@ import android.view.View;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 
 import cn.walkpast.core.constant.EventPoint;
+import cn.walkpast.core.widget.ImagePreviewDialog;
 import cn.walkpast.core.widget.ItemLongClickedPopWindow;
 import cn.walkpast.utils.DensityUtil;
 import cn.walkpast.utils.ToastUtils;
@@ -95,6 +100,9 @@ public class ImageDownloadHelper {
                     @Override
                     public void onClick(View v) {
                         itemLongClickedPopWindow.dismiss();
+
+                        new PreviewTask(getActivity(), getImageUrl()).execute();
+
                     }
                 });
         itemLongClickedPopWindow.getView(R.id.item_longclicked_saveImage)
@@ -135,7 +143,65 @@ public class ImageDownloadHelper {
                 });
     }
 
+    /****************************************************************************/
 
+    class PreviewTask extends AsyncTask<String, Void, String> {
+
+        private Activity activity;
+        private String urlpath;
+
+        public PreviewTask(Activity activity, String urlpath) {
+            this.activity = activity;
+            this.urlpath = urlpath;
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            final Bitmap bitmap = getBitMBitmap(urlpath);
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    ImagePreviewDialog dialog = new ImagePreviewDialog(activity, bitmap);
+                    dialog.show();
+
+                }
+            });
+
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+    }
+
+    /**
+     * 通过图片url生成Bitmap对象
+     *
+     * @param urlpath
+     * @return Bitmap
+     * 根据图片url获取图片对象
+     */
+    public static Bitmap getBitMBitmap(String urlpath) {
+        Bitmap map = null;
+        try {
+            URL url = new URL(urlpath);
+            URLConnection conn = url.openConnection();
+            conn.connect();
+            InputStream in;
+            in = conn.getInputStream();
+            map = BitmapFactory.decodeStream(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
+    /****************************************************************************/
     /**
      * download image
      */
