@@ -37,6 +37,9 @@
     <string name="default_error_page_message">网页打开失败，请重试...</string>
     <string name="default_error_page_btn_check">检查网络</string>
     <string name="default_error_page_btn_reload">重新加载</string>
+    <string name="share_title">分享</string>
+    <string name="save_image_success">成功保存到相册</string>
+    <string name="save_image_fail">保存失败</string>
 
 
 </resources>

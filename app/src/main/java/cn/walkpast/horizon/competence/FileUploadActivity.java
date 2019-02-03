@@ -158,7 +158,7 @@ public class FileUploadActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    @OnClick(R.id.basic_fun_menu)
+    @OnClick(R.id.file_upload_menu)
     @Override
     public void onClick(View v) {
 
