@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
@@ -22,6 +23,7 @@ import cn.walkpast.core.constant.CaptureStrategy;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 import cn.walkpast.core.dialog.CommonDialog;
+import cn.walkpast.core.dialog.Tooltip;
 import cn.walkpast.core.theme.ThemeHelper;
 import cn.walkpast.core.video.VideoPlayer;
 import cn.walkpast.utils.LogUtils;
@@ -176,8 +178,26 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     }
 
     @Override
-    public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+    public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
 
+        if(mHorizon.getCoreConfig().isJsTooltipEnable()){
+
+            Tooltip
+                    .getInstance()
+                    .setTitle("提示")
+                    .setMessage(message)
+                    .setNegativeBtn("知道了")
+                    .setNegativeListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            result.confirm();
+                        }
+                    })
+                    .show();
+
+        }
+
+        Log.e("sos", "onJsPrompt==" + message);
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsPrompt(view, url, message, defaultValue, result);
         }
@@ -185,8 +205,26 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     }
 
     @Override
-    public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+    public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
 
+        if(mHorizon.getCoreConfig().isJsTooltipEnable()){
+
+            Tooltip
+                    .getInstance()
+                    .setTitle("提示")
+                    .setMessage(message)
+                    .setNegativeBtn("知道了")
+                    .setNegativeListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            result.confirm();
+                        }
+                    })
+                    .show();
+
+        }
+
+        Log.e("sos", "onJsConfirm==" + message);
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsConfirm(view, url, message, result);
         }
@@ -194,7 +232,25 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     }
 
     @Override
-    public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+    public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
+
+        if(mHorizon.getCoreConfig().isJsTooltipEnable()){
+
+            Tooltip
+                    .getInstance()
+                    .setTitle("提示")
+                    .setMessage(message)
+                    .setNegativeBtn("知道了")
+                    .setNegativeListener(new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            result.confirm();
+                        }
+                    })
+                    .show();
+
+        }
+        Log.e("sos", "onJsAlert==" + message);
 
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsAlert(view, url, message, result);

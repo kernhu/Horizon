@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">core</string>
+
+    <!-- call up -->
+    <string name="wakeup_allow">允许</string>
+    <string name="wakeup_refuse">拒绝</string>
+    <string name="wakeup_title">提示</string>
+    <string name="deeplink_message">%s 请求唤醒 %s 应用,是否允许？</string>
+    <string name="call_tel_message">%s 请求拨号,是否允许？</string>
+    <string name="send_sms_message">%s 请求发送短信,是否允许？</string>
+    <string name="send_email_message">%s 请求发送邮件,是否允许？</string>
+    <string name="request_geo_message">%s 请求获取位置%s,是否允许？</string>
+    <string name="call_maps_message">%s 请求获取地图位置%s,是否允许？</string>
+    <string name="wakeup_unkonw">未知</string>
+
+    <!-- geolocation -->
+    <string name="geolocation_allow">允许</string>
+    <string name="geolocation_refuse">拒绝</string>
+    <string name="geolocation_title">提示</string>
+    <string name="geolocation_message">%s 请求获取你当前的位置,是否允许？</string>
+
+    <!-- download -->
+    <string name="download_tips">提示</string>
+    <string name="download_message">当前为移动网络环境，确定要下载吗？</string>
+    <string name="download_sure">确定</string>
+    <string name="download_cancel">取消</string>
+
+    <!-- save picture -->
+    <string name="image_download_tips">提示</string>
+    <string name="image_download_message">确定下载该图片吗？</string>
+    <string name="image_download_sure">确定</string>
+    <string name="image_download_cancel">取消</string>
+    <string name="image_download_success">图片已保存至：</string>
+    <string name="image_download_error">保存失败！</string>
+
+    <!-- error page -->
+    <string name="default_error_page_message">网页打开失败，请重试...</string>
+    <string name="default_error_page_btn_check">检查网络</string>
+    <string name="default_error_page_btn_reload">重新加载</string>
+    <string name="share_title">分享</string>
+    <string name="save_image_success">成功保存到相册</string>
+    <string name="save_image_fail">保存失败</string>
+
+</resources>

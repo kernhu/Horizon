@@ -1,5 +1,6 @@
 package cn.walkpast.core;
 
+import android.content.Intent;
 import android.view.KeyEvent;
 
 /**
@@ -22,5 +23,7 @@ public interface ILifecycle {
     void onTrimMemory(int level);
 
     boolean onKeyDown(int keyCode, KeyEvent event);
+
+    void onActivityResult(int requestCode, int resultCode, Intent data);
 
 }

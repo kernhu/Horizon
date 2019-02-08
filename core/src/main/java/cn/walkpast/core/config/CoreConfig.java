@@ -29,6 +29,9 @@ public class CoreConfig {
 
     private boolean mThemeEnable = false;
 
+
+    private boolean mJsTooltipEnable = false;
+
     private int mFontSize = 16;
 
     private boolean mAdblockPlusEnable = false;
@@ -156,6 +159,15 @@ public class CoreConfig {
 
     public CoreConfig setTheme(Theme theme) {
         mTheme = theme;
+        return this;
+    }
+
+    public boolean isJsTooltipEnable() {
+        return mJsTooltipEnable;
+    }
+
+    public CoreConfig setJsTooltipEnable(boolean jsTooltipEnable) {
+        mJsTooltipEnable = jsTooltipEnable;
         return this;
     }
 

@@ -79,6 +79,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                         .setAdblockPlusEnable(true)
                         .setGeolocationEnalbe(true)
                         .setThemeEnable(true)
+                        .setJsTooltipEnable(true)
                         .setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
                         .setTheme(Theme.THEME_LIGHT)
                         .setFilterList(FilterType.TYPE_CONTAINS_URL, "http://www.walkpast.cn/", "www.123.com", "www.126.com", "www.qq.com", "www.wechat.com")

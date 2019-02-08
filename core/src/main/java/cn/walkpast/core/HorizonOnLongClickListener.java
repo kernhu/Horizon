@@ -5,6 +5,7 @@ import android.view.View;
 import android.webkit.WebView;
 
 import cn.walkpast.core.wakeup.WakeupHelper;
+import cn.walkpast.utils.VibratorUtils;
 
 /**
  * Author: Kern
@@ -71,6 +72,14 @@ public class HorizonOnLongClickListener implements View.OnLongClickListener {
                         .setImageUrl(result.getExtra())
                         .load();
 
+                if (mHorizon.isVibratorEnable()) {
+
+                    VibratorUtils
+                            .getInstance()
+                            .vibrator();
+                }
+
+
                 break;
             case WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE://图片类型
 
@@ -81,6 +90,14 @@ public class HorizonOnLongClickListener implements View.OnLongClickListener {
                         .setImageUrl(result.getExtra())
                         .setDownloadPath(mHorizon.getDownloadConfig().getStoragePath())
                         .load();
+
+                if (mHorizon.isVibratorEnable()) {
+
+                    VibratorUtils
+                            .getInstance()
+                            .vibrator();
+                }
+
 
                 break;
             case WebView.HitTestResult.PHONE_TYPE: //处理拨号

@@ -60,6 +60,7 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
     private ViewGroup mViewContainer;
     private String mOriginalUrl;
     private View mErrorPage;
+    private boolean mVibratorEnable = true;
     private GestureDetector mGestureDetector;
 
     /********************************** 构造方法 **************************************/
@@ -198,6 +199,15 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
 
     public Horizon setErrorPage(View errorPage) {
         mErrorPage = errorPage;
+        return this;
+    }
+
+    public boolean isVibratorEnable() {
+        return mVibratorEnable;
+    }
+
+    public Horizon setVibratorEnable(boolean vibratorEnable) {
+        mVibratorEnable = vibratorEnable;
         return this;
     }
 
@@ -464,6 +474,11 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
 
         //mWebView.onKeyDown(keyCode, event);
         return false;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 
     @Override

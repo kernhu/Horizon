@@ -53,7 +53,7 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_intercept_or_replace);
+        setContentView(R.layout.activity_native_js_interact);
         ButterKnife.bind(this);
 
         mHorizon = Horizon.with(this)

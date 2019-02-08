@@ -1,6 +1,6 @@
 package cn.walkpast.horizon.competence;
 
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -96,7 +96,7 @@ public class FileUploadActivity extends AppCompatActivity implements View.OnClic
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFileUploadContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("https://www.hao123.com/")
+                .setOriginalUrl("file:///android_asset/upload_file.html")
                 .setErrorPage(new DefaultErrorPage()
                         .setContext(this)
                         .setLayout(R.layout.layout_default_error_page)
@@ -190,4 +190,12 @@ public class FileUploadActivity extends AppCompatActivity implements View.OnClic
         }
 
     };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mHorizon != null) {
+            mHorizon.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }
