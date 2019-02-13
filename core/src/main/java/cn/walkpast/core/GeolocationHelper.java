@@ -1,5 +1,6 @@
 package cn.walkpast.core;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
@@ -13,6 +14,7 @@ import android.provider.Settings;
 
 public class GeolocationHelper {
 
+    public static final int REQUEST_CODE_GEOLOCATION = 1024 * 2;
     public static boolean isGeolocationDialogShowing = false;
 
     /**
@@ -26,6 +28,7 @@ public class GeolocationHelper {
         LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean gpsLocationEnable = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean networkLocationEnable = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
         return gpsLocationEnable && networkLocationEnable;
     }
 
@@ -38,6 +41,7 @@ public class GeolocationHelper {
     public static void actionLocation(Context context) {
 
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        context.startActivity(intent);
+        ((Activity) context).startActivityForResult(intent, REQUEST_CODE_GEOLOCATION);
+
     }
 }

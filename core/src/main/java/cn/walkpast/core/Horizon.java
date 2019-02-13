@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -479,6 +480,21 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        Log.e("sos", "onActivityResult==" + requestCode + ";;;resultCode=" + resultCode);
+        if (resultCode == Activity.RESULT_OK) {
+
+            switch (requestCode) {
+
+                case GeolocationHelper.REQUEST_CODE_GEOLOCATION:
+
+                    if (mWebView != null) {
+                        mWebView.stopLoading();
+                        mWebView.reload();
+                    }
+
+                    break;
+            }
+        }
     }
 
     @Override
