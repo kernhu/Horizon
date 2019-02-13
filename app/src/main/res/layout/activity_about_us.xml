@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -22,7 +23,7 @@
                 android:layout_centerVertical="true"
                 android:padding="5dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_back" />
+                android:src="@mipmap/ic_back"/>
 
             <ImageView
                 android:id="@+id/about_right"
@@ -31,7 +32,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:padding="5dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -44,7 +45,7 @@
                 android:singleLine="true"
                 android:text="@string/about_title"
                 android:textColor="@color/TextWhite"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
         </RelativeLayout>
 
@@ -62,7 +63,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:paddingBottom="10pt"
                 android:paddingTop="10pt">
@@ -72,13 +73,17 @@
                     android:layout_height="40pt"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5pt"
-                    android:src="@drawable/icon_logo" />
+                    android:src="@drawable/icon_logo"/>
 
                 <TextView
+                    android:id="@+id/about_copyright"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Horizon base on WebView" />
+                    android:gravity="center_horizontal"
+                    android:text="©2019  二朵工作室"
+                    android:textColor="@color/Text"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/about_version"
@@ -87,10 +92,9 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="10pt"
                     android:text="Version 1.0.0"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
-
 
             <!-- 开发者榜单 -->
             <TextView
@@ -101,7 +105,7 @@
                 android:padding="5pt"
                 android:text="@string/about_developer"
                 android:textColor="@color/Text"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,18 +116,10 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="RDOU STUDIO"
-                    android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Kern Hu "
                     android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -135,10 +131,9 @@
                     android:text="https://github.com/KernHu"
                     android:textColor="@color/TextDark"
                     android:textIsSelectable="true"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
             </LinearLayout>
-
 
             <!-- 赞助者榜单 -->
             <TextView
@@ -151,7 +146,7 @@
                 android:padding="5pt"
                 android:text="@string/about_sponsor"
                 android:textColor="@color/Text"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,18 +159,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="easyicon"
+                    android:text=""
                     android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="ali"
+                    android:text=""
                     android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -183,10 +178,9 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
             </LinearLayout>
-
 
             <!-- 致谢 -->
             <TextView
@@ -197,7 +191,7 @@
                 android:padding="5pt"
                 android:text="@string/about_thanks"
                 android:textColor="@color/Text"
-                android:textSize="15sp" />
+                android:textSize="15sp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -212,16 +206,16 @@
                     android:gravity="center"
                     android:text="Iconfont"
                     android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Koobee"
+                    android:text="easyicon"
                     android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -229,7 +223,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textColor="@color/TextDark"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"/>
 
             </LinearLayout>
 

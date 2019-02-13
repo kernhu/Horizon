@@ -48,7 +48,9 @@ public class AboutUsActivity extends AppCompatActivity implements View.OnClickLi
 
         } else if (v.getId() == R.id.about_sponsor) {
 
-            // mIntent=new Intent(this,)
+            mIntent = new Intent(this, SponsorActivity.class);
+            startActivity(mIntent);
+
         }
     }
 }
