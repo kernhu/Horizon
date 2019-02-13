@@ -7,7 +7,6 @@ import android.view.View;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,19 +32,14 @@ import cn.walkpast.horizon.widget.PopupWindowTools;
 
 public class NativeJsInteractActivity extends AppCompatActivity implements View.OnClickListener{
 
-
-    @BindView(R.id.ior_icon)
+    @BindView(R.id.js_icon)
     public ImageView mIorIcon;
-    @BindView(R.id.ior_menu)
+    @BindView(R.id.js_menu)
     public ImageView mIorMenu;
-    @BindView(R.id.ior_title)
+    @BindView(R.id.js_title)
     public TextView mIorTitle;
-    @BindView(R.id.ior_container)
+    @BindView(R.id.js_container)
     public FrameLayout mIorContainer;
-    @BindView(R.id.ior_intercept_url)
-    public EditText mIorInterceptEdit;
-    @BindView(R.id.ior_replace_url)
-    public EditText mIorReplaceEdit;
 
     private Horizon mHorizon;
 
@@ -152,7 +146,7 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
     };
 
 
-    @OnClick(R.id.ior_menu)
+    @OnClick(R.id.js_menu)
     @Override
     public void onClick(View v) {
 
@@ -169,20 +163,14 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
 
                             case 0:
 
-
                                 break;
                             case 1:
-
-
 
                                 break;
                             case 2:
 
-
-
                                 break;
                             case 3:
-
 
                                 break;
                         }

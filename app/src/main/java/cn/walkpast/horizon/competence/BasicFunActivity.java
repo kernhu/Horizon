@@ -58,7 +58,6 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_basic_fun);
         ButterKnife.bind(this);
 
-
         mHorizon = Horizon.with(this)
                 .setTag(BasicFunActivity.class.toString())
                 .setProgressConfig(ProgressConfig
@@ -98,6 +97,7 @@ public class BasicFunActivity extends AppCompatActivity implements View.OnClickL
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mBfContainer)
                 .setWebView(new WebView(this))
+                .setVibratorEnable(true)
                 .setOriginalUrl("https://www.hao123.com/")
                 .setErrorPage(new DefaultErrorPage()
                         .setContext(this)
