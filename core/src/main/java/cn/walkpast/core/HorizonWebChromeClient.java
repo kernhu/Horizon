@@ -1,11 +1,14 @@
 package cn.walkpast.core;
 
 import android.Manifest;
+import android.content.ClipData;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
@@ -38,9 +41,12 @@ import cn.walkpast.utils.permission.callback.PermissionResultCallBack;
 
 public class HorizonWebChromeClient extends WebChromeClient implements CaptureHelper.OnCaptureListener {
 
+    private static final String TAG = "HorizonWebChromeClient";
     private static final int CAPTURE_PROGRESS_MIDDLE = 65;
     private Horizon mHorizon;
     private boolean isCaptured = false;
+    private ValueCallback<Uri> mUploadMessage;
+    private ValueCallback<Uri[]> mUploadMessageAboveL;
 
     public HorizonWebChromeClient(Horizon horizon) {
         if (horizon == null) {
@@ -51,7 +57,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
-        LogUtils.d("horizon_sos", "onProgressChanged------" + newProgress);
+        LogUtils.d(TAG, "onProgressChanged------" + newProgress);
         if (newProgress == 100) {
             mHorizon.getProgressConfig().getIndicator().setVisibility(View.GONE);
 
@@ -119,7 +125,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onReceivedTitle(WebView view, String title) {
         super.onReceivedTitle(view, title);
-        LogUtils.d("horizon_sos", "onReceivedTitle------" + title);
+        LogUtils.d(TAG, "onReceivedTitle------" + title);
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onReceiveTitle(view, title);
         }
@@ -128,7 +134,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onReceivedIcon(WebView view, Bitmap icon) {
         super.onReceivedIcon(view, icon);
-        LogUtils.d("horizon_sos", "onReceivedIcon------" + (icon == null));
+        LogUtils.d(TAG, "onReceivedIcon------" + (icon == null));
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onReceivedIcon(view, icon);
         }
@@ -137,7 +143,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public void onReceivedTouchIconUrl(WebView view, String url, boolean precomposed) {
         super.onReceivedTouchIconUrl(view, url, precomposed);
-        LogUtils.d("horizon_sos", "onReceivedTouchIconUrl------" + "precomposed=" + precomposed + "URL==" + url);
+        LogUtils.d(TAG, "onReceivedTouchIconUrl------" + "precomposed=" + precomposed + "URL==" + url);
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onReceivedTouchIconUrl(view, url, precomposed);
         }
@@ -180,7 +186,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
 
-        if(mHorizon.getCoreConfig().isJsTooltipEnable()){
+        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
 
             Tooltip
                     .getInstance()
@@ -197,7 +203,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
         }
 
-        Log.e("sos", "onJsPrompt==" + message);
+        Log.e(TAG, "onJsPrompt==" + message);
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsPrompt(view, url, message, defaultValue, result);
         }
@@ -207,7 +213,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
 
-        if(mHorizon.getCoreConfig().isJsTooltipEnable()){
+        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
 
             Tooltip
                     .getInstance()
@@ -224,7 +230,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
         }
 
-        Log.e("sos", "onJsConfirm==" + message);
+        Log.e(TAG, "onJsConfirm==" + message);
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsConfirm(view, url, message, result);
         }
@@ -234,7 +240,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
 
-        if(mHorizon.getCoreConfig().isJsTooltipEnable()){
+        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
 
             Tooltip
                     .getInstance()
@@ -250,7 +256,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                     .show();
 
         }
-        Log.e("sos", "onJsAlert==" + message);
+        Log.e(TAG, "onJsAlert==" + message);
 
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsAlert(view, url, message, result);
@@ -279,15 +285,63 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
     }
 
+    /***************************************** opne file chooser ******************************************/
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+
+        LogUtils.d(TAG, "fileChooserParams==" + fileChooserParams.getFilenameHint());
+        if (mUploadMessageAboveL != null) {
+            mUploadMessageAboveL.onReceiveValue(null);
+        }
+        mUploadMessageAboveL = filePathCallback;
+        UploadFileHelper.openFileChooser(mHorizon.getActivity());
 
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onShowFileChooser(webView, filePathCallback, fileChooserParams);
         }
-
-        return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
+        return true;
+        //return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
     }
+
+    /*****************************************  the result of upload file ********************************************/
+    public void onUploadFileReceiveResult(Intent data) {
+
+        if (null == mUploadMessage && null == mUploadMessageAboveL) return;
+
+        Uri result = data == null ? null : data.getData();
+        if (mUploadMessageAboveL != null) {
+            onUploadFileReceiveResultL(data);
+        } else if (mUploadMessage != null) {
+            mUploadMessage.onReceiveValue(result);
+            mUploadMessage = null;
+        }
+
+    }
+
+    public void onUploadFileReceiveResultL(Intent data) {
+
+        if (mUploadMessageAboveL == null) return;
+        Uri[] results = null;
+        if (data != null) {
+            String dataString = data.getDataString();
+            ClipData clipData = data.getClipData();
+            if (clipData != null) {
+                results = new Uri[clipData.getItemCount()];
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    ClipData.Item item = clipData.getItemAt(i);
+                    results[i] = item.getUri();
+                }
+            }
+            if (dataString != null)
+                results = new Uri[]{Uri.parse(dataString)};
+        }
+        mUploadMessageAboveL.onReceiveValue(results);
+        mUploadMessageAboveL = null;
+    }
+
+    /***************************************** opne file chooser  ---END ******************************************/
+
 
     @Override
     public void onCloseWindow(WebView window) {
@@ -338,10 +392,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
     }
 
-
     /*************************************************************************************/
-
-
     @Override
     public void onGeolocationPermissionsShowPrompt(final String origin, final GeolocationPermissions.Callback callback) {
 
@@ -467,5 +518,4 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
             mHorizon.getHorizonClient().onCaptured(bitmap);
         }
     }
-
 }

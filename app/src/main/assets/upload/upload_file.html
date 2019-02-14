@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Upload File</title>
+    <link rel="shortcut icon" href="../favico.ico" type="image/x-icon"/>
+    <link rel="icon" href="favico.ico" type="image/gif">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style>
+        html {
+            font-size: 20px;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!------------------------------------------------------ fit the screen --------------------------------------------------------------->
+<script>
+    (function (doc, win) {
+        var html = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = html.clientWidth;
+                if (!clientWidth) return;
+                docE1.style.fontSize = 20 * (clientWidth / 320) + 'px';
+            };
+        if (!doc.addEventListener) return;
+        win.addEventListener('DOMContentLoaded', recalc, false);  //$(window).on('resize',function(){})
+    })(document, window);
+</script>
+
+<!------------------------------------------------------- select photo -------------------------------------------------------------->
+<div class="mui-content">
+    <div class="mui-card beforecamera">
+        <div class="mui-card-header">
+            <br/>
+            <div>Please select your photo and upload it</div>
+        </div>
+    </div>
+    <br/>
+
+    <!--  select photo and upload  -->
+    <div class="mui-card">
+        <div class="mui-card-content" style="background:#797979; color:#FFF;padding: 10px">
+            <img class="camerabox" id="selectImage" src="select_photo.png" height="100" width="100"/>
+            <br/>
+            <input class="selectFileInpBtn" id="selectFileInpBtn" type="file"
+                   onchange="selectImage(this)"
+                   accept="image/*"
+                   multiple>
+        </div>
+    </div>
+</div>
+
+<script>
+    function selectImage(imgFile) {
+        alert("Path：" + window.URL.createObjectURL(imgFile.files[0]));
+        document.getElementById("selectImage").src = window.URL.createObjectURL(imgFile.files[0]);
+    }
+</script>
+
+<br/>
+<br/>
+<!------------------------------------------------------ take photo --------------------------------------------------------------->
+<div class="mui-card">
+    <div class="mui-card-content" style="background:#797979; color:#FFF;padding: 10px">
+        <img class="camerabox" id="takePhoto" src="take_photo.png" height="100" width="100"/>
+        <br/>
+        <input id="takePhotoBtn" type="file" onchange="takePhoto('#takePhotoBtn', '#img');" accept="image/*"
+               capture="camera"/>
+    </div>
+</div>
+<script>
+    var takePhoto = function (c, d) {
+        "use strict";
+        var $c = document.querySelector(c),
+            $d = document.querySelector(d),
+            file = $c.files[0],
+            reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $d.setAttribute("src", e.target.result);
+        };
+    }
+</script>
+
+</body>
+</html>

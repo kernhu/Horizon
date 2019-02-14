@@ -36,7 +36,7 @@ public class CallupActivity extends WebHorizonActivity {
         getHorizon()
                 .setViewContainer(mCallupContainer)
                 .preview()
-                .loadUrl("file:///android_asset/callup_normal.html");
+                .loadUrl("file:///android_asset/callup/callup_normal.html");
 
     }
 

@@ -96,7 +96,7 @@ public class FileUploadActivity extends AppCompatActivity implements View.OnClic
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mFileUploadContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("file:///android_asset/upload_file.html")
+                .setOriginalUrl("file:///android_asset/upload/upload_file.html")
                 .setErrorPage(new DefaultErrorPage()
                         .setContext(this)
                         .setLayout(R.layout.layout_default_error_page)
@@ -158,6 +158,14 @@ public class FileUploadActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mHorizon != null) {
+            mHorizon.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     @OnClick(R.id.file_upload_menu)
     @Override
     public void onClick(View v) {
@@ -190,12 +198,4 @@ public class FileUploadActivity extends AppCompatActivity implements View.OnClic
         }
 
     };
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (mHorizon != null) {
-            mHorizon.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 }

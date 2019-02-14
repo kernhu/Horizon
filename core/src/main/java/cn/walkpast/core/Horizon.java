@@ -63,6 +63,8 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
     private View mErrorPage;
     private boolean mVibratorEnable = true;
     private GestureDetector mGestureDetector;
+    private HorizonWebChromeClient mHorizonWebChromeClient = null;
+    private HorizonWebViewClient mHorizonWebViewClient = null;
 
     /********************************** 构造方法 **************************************/
     public Horizon(Object obj) {
@@ -237,8 +239,10 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
         }
 
         // Ⅱ
-        getWebView().setWebChromeClient(new HorizonWebChromeClient(this));
-        getWebView().setWebViewClient(new HorizonWebViewClient(this));
+        mHorizonWebChromeClient = new HorizonWebChromeClient(this);
+        getWebView().setWebChromeClient(mHorizonWebChromeClient);
+        mHorizonWebViewClient = new HorizonWebViewClient(this);
+        getWebView().setWebViewClient(mHorizonWebViewClient);
         // Ⅲ
         loadUrl(getOriginalUr());
         // Ⅳ
@@ -490,6 +494,14 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
                     if (mWebView != null) {
                         mWebView.stopLoading();
                         mWebView.reload();
+                    }
+
+                    break;
+
+                case UploadFileHelper.FILE_CHOOSER_RESULT_CODE:
+
+                    if (mHorizonWebChromeClient != null) {
+                        mHorizonWebChromeClient.onUploadFileReceiveResult(data);
                     }
 
                     break;
