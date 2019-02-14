@@ -76,25 +76,24 @@
                     android:src="@drawable/icon_logo"/>
 
                 <TextView
-                    android:id="@+id/about_copyright"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal"
-                    android:text="©2019  二朵工作室"
-                    android:textColor="@color/Text"
-                    android:textSize="12sp"/>
-
-                <TextView
                     android:id="@+id/about_version"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="10pt"
                     android:text="Version 1.0.0"
                     android:textSize="14sp"/>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/about_copyright"
+                android:layout_width="match_parent"
+                android:layout_height="30pt"
+                android:background="@color/SplitLine"
+                android:gravity="center"
+                android:text="@string/about_copyright"
+                android:textColor="@color/Text"
+                android:textSize="12sp"/>
 
             <!-- 开发者榜单 -->
             <TextView

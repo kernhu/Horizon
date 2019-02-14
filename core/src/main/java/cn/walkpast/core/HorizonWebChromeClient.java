@@ -227,7 +227,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                         }
                     })
                     .show();
-
         }
 
         Log.e(TAG, "onJsConfirm==" + message);
