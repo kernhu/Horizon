@@ -15,7 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.walkpast.core.Horizon;
-import cn.walkpast.core.bridge.CallBackFunction;
 import cn.walkpast.core.bridge.JsHandler;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
@@ -167,12 +166,9 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
 
                             case 0:
 
-                                mHorizon.registerJsHandlers(null, new JsHandler() {
-                                    @Override
-                                    public void onHandler(String handlerName, String responseData, CallBackFunction function) {
-                                        super.onHandler(handlerName, responseData, function);
+                                mHorizon.sendJs("", new JsHandler() {
 
-                                    }
+
                                 });
 
                                 break;
