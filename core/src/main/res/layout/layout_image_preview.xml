@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/Black">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/Black">
 
     <ImageView
         android:id="@+id/preview_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"/>
 
     <ImageView
         android:id="@+id/preview_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|left"
+        android:foreground="@drawable/ripple_foreground"
         android:padding="10dp"
-        android:src="@drawable/ic_close" />
+        android:src="@drawable/ic_close"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,16 +31,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:foreground="@drawable/ripple_foreground"
             android:padding="10dp"
-            android:src="@drawable/ic_download" />
+            android:src="@drawable/ic_download"/>
 
         <ImageView
             android:id="@+id/preview_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:foreground="@drawable/ripple_foreground"
             android:padding="10dp"
-            android:src="@drawable/ic_share" />
+            android:src="@drawable/ic_share"/>
 
 
     </LinearLayout>

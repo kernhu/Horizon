@@ -50,7 +50,6 @@ public class CompetenceAdapter extends RecyclerView.Adapter<CompetenceAdapter.Vi
         holder.itemView.setTag(position);
         holder.setCompetenceName(mDatas.get(position));
 
-
     }
 
     @Override

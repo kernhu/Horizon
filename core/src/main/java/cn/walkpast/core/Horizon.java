@@ -42,7 +42,7 @@ import cn.walkpast.utils.LogUtils;
 
 public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.OnTouchListener, CaptureHelper.OnCaptureListener {
 
-    private static String TAG = "Horizon";
+    private static final String TAG = "Horizon";
 
     private Map<Object, Horizon> mHorizonMap = new HashMap<>();
 
@@ -128,7 +128,6 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
 
     public Horizon setCoreConfig(CoreConfig coreConfig) {
         mCoreConfig = coreConfig;
-
         return this;
     }
 
@@ -149,7 +148,6 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
         mProgressConfig = progressConfig;
         return this;
     }
-
 
     public CaptureStrategy getCaptureStrategy() {
         return mCaptureStrategy;
@@ -256,7 +254,6 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
         getWebView().setOnTouchListener(this);
         mGestureDetector = new GestureDetector(getActivity(), mSimpleOnGestureListener);
         getViewContainer().addView(mProgressConfig.getIndicator());
-
 
         if (TextUtils.isEmpty(getTag())) {
             if (getFragment() != null) {
