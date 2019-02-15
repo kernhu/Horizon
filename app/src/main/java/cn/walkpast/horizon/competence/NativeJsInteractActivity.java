@@ -15,6 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.walkpast.core.Horizon;
+import cn.walkpast.core.bridge.CallBackFunction;
+import cn.walkpast.core.bridge.JsHandler;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
@@ -30,7 +32,7 @@ import cn.walkpast.horizon.widget.PopupWindowTools;
  * Description: This is..
  */
 
-public class NativeJsInteractActivity extends AppCompatActivity implements View.OnClickListener{
+public class NativeJsInteractActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.js_icon)
     public ImageView mIorIcon;
@@ -40,6 +42,8 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
     public TextView mIorTitle;
     @BindView(R.id.js_container)
     public FrameLayout mIorContainer;
+    @BindView(R.id.js_content)
+    public TextView mIorContent;
 
     private Horizon mHorizon;
 
@@ -162,6 +166,14 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
                         switch (position) {
 
                             case 0:
+
+                                mHorizon.registerJsHandlers(null, new JsHandler() {
+                                    @Override
+                                    public void onHandler(String handlerName, String responseData, CallBackFunction function) {
+                                        super.onHandler(handlerName, responseData, function);
+
+                                    }
+                                });
 
                                 break;
                             case 1:

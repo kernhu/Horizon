@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -14,13 +15,16 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.walkpast.core.bridge.JsHandler;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CacheConfig;
 import cn.walkpast.core.config.CoreConfig;
@@ -65,6 +69,7 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
     private GestureDetector mGestureDetector;
     private HorizonWebChromeClient mHorizonWebChromeClient = null;
     private HorizonWebViewClient mHorizonWebViewClient = null;
+    private JsHandler mJsHandler = null;
 
     /********************************** 构造方法 **************************************/
     public Horizon(Object obj) {
@@ -407,6 +412,34 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
         }
     }
 
+    @Override
+    public void sendJs(String data, JsHandler handler) {
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add(data);
+        sendJs(list, handler);
+
+    }
+
+    @Override
+    public void sendJs(ArrayList<String> data, final JsHandler handler) {
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+
+            getWebView().loadUrl("");
+
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWebView().evaluateJavascript("", new ValueCallback<String>() {
+                @Override
+                public void onReceiveValue(String value) {
+
+                    handler.onHandler(null, null, null);
+                }
+            });
+        }
+
+    }
+
 
     /***********************************************************************************************/
     @Override
@@ -473,14 +506,12 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-
         //mWebView.onKeyDown(keyCode, event);
         return false;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         Log.e("sos", "onActivityResult==" + requestCode + ";;;resultCode=" + resultCode);
         if (resultCode == Activity.RESULT_OK) {
 
@@ -494,7 +525,6 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
                     }
 
                     break;
-
                 case UploadFileHelper.FILE_CHOOSER_RESULT_CODE:
 
                     if (mHorizonWebChromeClient != null) {

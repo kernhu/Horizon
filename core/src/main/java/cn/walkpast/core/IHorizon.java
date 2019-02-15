@@ -1,6 +1,9 @@
 package cn.walkpast.core;
 
+import java.util.ArrayList;
 import java.util.Map;
+
+import cn.walkpast.core.bridge.JsHandler;
 
 /**
  * Author: Kern
@@ -38,4 +41,7 @@ public interface IHorizon {
 
     void clearHistory();
 
+    void sendJs(String data, JsHandler handler);
+
+    void sendJs(ArrayList<String> data, JsHandler handler);
 }

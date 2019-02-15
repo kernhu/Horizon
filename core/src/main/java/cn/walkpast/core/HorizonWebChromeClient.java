@@ -26,7 +26,6 @@ import cn.walkpast.core.constant.CaptureStrategy;
 import cn.walkpast.core.constant.Strategy;
 import cn.walkpast.core.constant.Theme;
 import cn.walkpast.core.dialog.CommonDialog;
-import cn.walkpast.core.dialog.Tooltip;
 import cn.walkpast.core.theme.ThemeHelper;
 import cn.walkpast.core.video.VideoPlayer;
 import cn.walkpast.utils.LogUtils;
@@ -186,22 +185,20 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, final JsPromptResult result) {
 
-        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
-
-            Tooltip
-                    .getInstance()
-                    .setTitle("提示")
-                    .setMessage(message)
-                    .setNegativeBtn("知道了")
-                    .setNegativeListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            result.confirm();
-                        }
-                    })
-                    .show();
-
-        }
+//        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
+//            Tooltip
+//                    .getInstance()
+//                    .setTitle("提示")
+//                    .setMessage(message)
+//                    .setNegativeBtn("知道了")
+//                    .setNegativeListener(new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            result.confirm();
+//                        }
+//                    })
+//                    .show();
+//        }
 
         Log.e(TAG, "onJsPrompt==" + message);
         if (mHorizon.getHorizonClient() != null) {
@@ -213,21 +210,20 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsConfirm(WebView view, String url, String message, final JsResult result) {
 
-        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
-
-            Tooltip
-                    .getInstance()
-                    .setTitle("提示")
-                    .setMessage(message)
-                    .setNegativeBtn("知道了")
-                    .setNegativeListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            result.confirm();
-                        }
-                    })
-                    .show();
-        }
+//        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
+//            Tooltip
+//                    .getInstance()
+//                    .setTitle("提示")
+//                    .setMessage(message)
+//                    .setNegativeBtn("知道了")
+//                    .setNegativeListener(new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            result.confirm();
+//                        }
+//                    })
+//                    .show();
+//        }
 
         Log.e(TAG, "onJsConfirm==" + message);
         if (mHorizon.getHorizonClient() != null) {
@@ -239,22 +235,20 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
     @Override
     public boolean onJsAlert(WebView view, String url, String message, final JsResult result) {
 
-        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
-
-            Tooltip
-                    .getInstance()
-                    .setTitle("提示")
-                    .setMessage(message)
-                    .setNegativeBtn("知道了")
-                    .setNegativeListener(new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            result.confirm();
-                        }
-                    })
-                    .show();
-
-        }
+//        if (mHorizon.getCoreConfig().isJsTooltipEnable()) {
+//            Tooltip
+//                    .getInstance()
+//                    .setTitle("提示")
+//                    .setMessage(message)
+//                    .setNegativeBtn("知道了")
+//                    .setNegativeListener(new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            result.confirm();
+//                        }
+//                    })
+//                    .show();
+//        }
         Log.e(TAG, "onJsAlert==" + message);
 
         if (mHorizon.getHorizonClient() != null) {

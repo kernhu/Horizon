@@ -62,11 +62,17 @@
             android:layout_height="match_parent"
             app:layout_heightPercent="50%"/>
 
-        <FrameLayout
-            android:id="@+id/js_frame"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_heightPercent="50%"/>
+            app:layout_heightPercent="50%">
+
+            <TextView
+                android:id="@+id/js_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </ScrollView>
 
     </android.support.percent.PercentFrameLayout>
 
