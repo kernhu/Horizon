@@ -3,10 +3,13 @@ package cn.walkpast.horizon.competence;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,15 +18,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.walkpast.core.Horizon;
+import cn.walkpast.core.bridge.CallBackFunction;
 import cn.walkpast.core.bridge.JsHandler;
 import cn.walkpast.core.client.HorizonClient;
 import cn.walkpast.core.config.CoreConfig;
 import cn.walkpast.core.config.DownloadConfig;
 import cn.walkpast.core.constant.CaptureStrategy;
-import cn.walkpast.core.constant.FilterType;
 import cn.walkpast.core.indicator.ProgressConfig;
 import cn.walkpast.horizon.R;
 import cn.walkpast.horizon.widget.PopupWindowTools;
+import cn.walkpast.utils.ToastUtils;
 
 /**
  * Author: Kern
@@ -33,16 +37,20 @@ import cn.walkpast.horizon.widget.PopupWindowTools;
 
 public class NativeJsInteractActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "NativeJsInteractActivity";
+
     @BindView(R.id.js_icon)
-    public ImageView mIorIcon;
+    public ImageView mJsIcon;
     @BindView(R.id.js_menu)
-    public ImageView mIorMenu;
+    public ImageView mJsMenu;
     @BindView(R.id.js_title)
-    public TextView mIorTitle;
+    public TextView mJsTitle;
     @BindView(R.id.js_container)
-    public FrameLayout mIorContainer;
-    @BindView(R.id.js_content)
-    public TextView mIorContent;
+    public FrameLayout mJsContainer;
+    @BindView(R.id.js_input)
+    public EditText mJsInput;
+    @BindView(R.id.js_btn_send)
+    public Button mJsBtnSend;
 
     private Horizon mHorizon;
 
@@ -60,7 +68,6 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
                 )
                 .setCoreConfig(CoreConfig
                         .with(this)
-                        .setFilterList(FilterType.TYPE_MATCH_URL, "https://www.baidu.com/", "https://www.iconfont.cn/", "https://modao.cc/signin")
                         .config()
                 )
                 .setDownloadConfig(DownloadConfig
@@ -69,8 +76,8 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
                 )
                 .setCaptureStrategy(CaptureStrategy.START_FINISH)
                 .setHorizonClient(mHorizonClient)
-                .setViewContainer(mIorContainer)
-                .setOriginalUrl("https://modao.cc/signin")
+                .setViewContainer(mJsContainer)
+                .setOriginalUrl("file:///android_asset/brigde/native_js_interact.html")
                 .preview();
     }
 
@@ -148,42 +155,73 @@ public class NativeJsInteractActivity extends AppCompatActivity implements View.
         }
     };
 
+    private JsHandler mJsHandler = new JsHandler() {
+        @Override
+        public void onHandler(String handlerName, String responseData, CallBackFunction function) {
+            super.onHandler(handlerName, responseData, function);
 
-    @OnClick(R.id.js_menu)
+            ToastUtils.showShort("ResponseData=" + responseData);
+        }
+    };
+
+    @OnClick({R.id.js_menu, R.id.js_btn_send})
     @Override
     public void onClick(View v) {
 
-        PopupWindowTools
-                .getInstance()
-                .setActivity(this)
-                .setTargetView(mIorMenu)
-                .setItems("TYPE_MATCH_HOST", "TYPE_START_WITH", "TYPE_MATCH_URL", "TYPE_CONTAINS_URL")
-                .setItemClickListener(new PopupWindowTools.PopupWindowItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
+        if (v.getId() == R.id.js_menu) {
 
-                        switch (position) {
+            PopupWindowTools
+                    .getInstance()
+                    .setActivity(this)
+                    .setTargetView(mJsMenu)
+                    .setItems("Alert", "Prompt", "Confirm", "TYPE_CONTAINS_URL")
+                    .setItemClickListener(new PopupWindowTools.PopupWindowItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
 
-                            case 0:
+                            switch (position) {
 
-                                mHorizon.sendJs("", new JsHandler() {
+                                case 0://
 
+                                    //String script1 = "javascript:" + "window.alert('hello,i'm a alert box')";
+                                    mHorizon.sendJs("javascript:callAlert()", mJsHandler);
 
-                                });
+                                    break;
+                                case 1://
 
-                                break;
-                            case 1:
+                                    //String script2 = "javascript:" + "window.prompt('please input something...')";
+                                    mHorizon.sendJs("javascript:callPrompt()", mJsHandler);
 
-                                break;
-                            case 2:
+                                    break;
+                                case 2://
 
-                                break;
-                            case 3:
+                                    String script3 = "javascript:" + "window.confirm('hello,i'm a confirm box.')";
+                                    mHorizon.sendJs(script3 /*"javascript:callConfirm()"*/, mJsHandler);
 
-                                break;
+                                    break;
+                                case 3:
+
+                                    break;
+                            }
                         }
-                    }
-                })
-                .show();
+                    })
+                    .show();
+
+        } else if (v.getId() == R.id.js_btn_send) {
+
+
+//            String script = "     var div = document.getElementById(\"div1\");\n" +
+//                    "        var br = document.createElement(\"br\");\n" +
+//                    "        div.appendChild(br);\n" +
+//                    "        var lable = document.createElement(\"label\");\n" +
+//                    "        lable.innerText = data[n].QualitativeTargetName;\n" +
+//                    "        div.appendChild(lable);";
+//
+
+            String script = "document.getElementById(\"message1\").innerText = \"" + (TextUtils.isEmpty(mJsInput.getText().toString()) ? "null" : mJsInput.getText().toString()) + "\";";
+
+            mHorizon.sendJs(script, mJsHandler);
+
+        }
     }
 }

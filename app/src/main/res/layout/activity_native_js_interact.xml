@@ -60,17 +60,43 @@
             android:id="@+id/js_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_heightPercent="50%"/>
+            app:layout_heightPercent="70%"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_heightPercent="50%">
+            android:background="@color/SplitLine"
+            app:layout_heightPercent="70%"
+            app:layout_marginTopPercent="70%">
 
-            <TextView
-                android:id="@+id/js_content"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="25pt"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/js_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:hint="请输入文字"/>
+
+                    <Button
+                        android:id="@+id/js_btn_send"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="发送"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </ScrollView>
 

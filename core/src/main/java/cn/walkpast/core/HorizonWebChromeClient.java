@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
@@ -200,7 +199,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 //                    .show();
 //        }
 
-        Log.e(TAG, "onJsPrompt==" + message);
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsPrompt(view, url, message, defaultValue, result);
         }
@@ -225,7 +223,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 //                    .show();
 //        }
 
-        Log.e(TAG, "onJsConfirm==" + message);
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsConfirm(view, url, message, result);
         }
@@ -249,7 +246,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 //                    })
 //                    .show();
 //        }
-        Log.e(TAG, "onJsAlert==" + message);
 
         if (mHorizon.getHorizonClient() != null) {
             return mHorizon.getHorizonClient().onJsAlert(view, url, message, result);

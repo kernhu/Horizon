@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NativeJsInteract</title>
+    <link rel="shortcut icon" href="../favico.ico" type="image/x-icon"/>
+    <link rel="icon" href="favico.ico" type="image/gif">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <style>
+        html {
+            font-size: 20px;
+        }
+
+        body {
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<!------------------------------------------------------ fit the screen --------------------------------------------------------------->
+<script>
+    (function (doc, win) {
+        var html = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = html.clientWidth;
+                if (!clientWidth) return;
+                docE1.style.fontSize = 20 * (clientWidth / 320) + 'px';
+            };
+        if (!doc.addEventListener) return;
+        win.addEventListener('DOMContentLoaded', recalc, false);  //$(window).on('resize',function(){})
+    })(document, window);
+
+</script>
+
+<!------------------------------------------------------ content -------------------------------------------------------->
+<div>
+    <p id="message1">hello,i am horizon</p>
+</div>
+
+<!------------------------------------------------------ js ------------------------------------------------------->
+<script>
+
+    function callAlert() {
+        alert("hello,i'm a alert box");
+    }
+
+    function callPrompt() {
+        prompt("please input something...");
+    }
+
+    function callConfirm() {
+        confirm("are you sure?");
+    }
+
+</script>
+
+</body>
+</html>

@@ -426,18 +426,22 @@ public class Horizon implements IHorizon, ILifecycle, View.OnKeyListener, View.O
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR2) {
 
-            getWebView().loadUrl("");
+            for (String script : data) {
+                getWebView().loadUrl(script);
+            }
 
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWebView().evaluateJavascript("", new ValueCallback<String>() {
-                @Override
-                public void onReceiveValue(String value) {
 
-                    handler.onHandler(null, null, null);
-                }
-            });
+            for (final String script : data) {
+                getWebView().evaluateJavascript(script, new ValueCallback<String>() {
+                    @Override
+                    public void onReceiveValue(String value) {
+                        handler.onHandler(script, value, null);
+                    }
+                });
+            }
+
         }
-
     }
 
 
