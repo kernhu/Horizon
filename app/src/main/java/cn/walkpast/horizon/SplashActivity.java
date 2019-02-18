@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.qq.e.ads.splash.SplashAD;
-
 import butterknife.BindView;
 
 /**
@@ -30,7 +28,7 @@ public class SplashActivity extends AppCompatActivity /*implements View.OnClickL
     @BindView(R.id.splash_skip)
     public TextView mSplashSkip;
 
-    private SplashAD mSplashAD;
+    //private SplashAD mSplashAD;
     private Intent mIntent;
     private boolean mCanJump = false;
 

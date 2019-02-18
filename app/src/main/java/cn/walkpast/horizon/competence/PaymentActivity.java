@@ -40,7 +40,7 @@ public class PaymentActivity extends WebHorizonActivity {
                 .setHorizonClient(mHorizonClient)
                 .setViewContainer(mPaymentContainer)
                 .setWebView(new WebView(this))
-                .setOriginalUrl("https://m.image.so.com/i?src=onebox_entity&q=%E6%9E%97%E5%85%81%E5%84%BF")
+                .setOriginalUrl("https://mst.vip.com/keS0_lNPJ_KHgau2Uxq4zg.php?client=mp&wapid=mst_3092239&extra_type=1")
                 .preview();
 
     }

@@ -18,13 +18,9 @@ import cn.walkpast.core.dialog.CommonDialog;
 
 public class WakeupHelper {
 
-
-    private static final String PAYMENT_WEIXIN = "weixin://";
-
+    private static final String PAYMENT_WEIXIN = "weixin://wap/pay?";
     private static final String PAYMENT_ALIPAY = "alipays://";
-
     private static final String PAYMENT_MQQAPI = "mqqapi://";
-
 
     public static boolean isWakeupDialogShowing = false;
     private static WakeupHelper mWakeupHelper;
@@ -33,7 +29,6 @@ public class WakeupHelper {
     private WakeupManager mWakeupManager;
 
     private boolean mSuccess = false;
-
 
     public static WakeupHelper getInstance() {
 
@@ -93,7 +88,6 @@ public class WakeupHelper {
         } else {
 
             return deeplink(getScheme());
-
         }
     }
 
@@ -261,7 +255,6 @@ public class WakeupHelper {
                         public void onClick(DialogInterface dialog, int which) {
                             WakeupHelper.isWakeupDialogShowing = false;
                             mSuccess = mWakeupManager.deeplink();
-
                         }
                     })
                     .setNegativeBtn(mActivity.getString(R.string.wakeup_refuse))

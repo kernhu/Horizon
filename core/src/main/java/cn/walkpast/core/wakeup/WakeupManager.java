@@ -1,6 +1,7 @@
 package cn.walkpast.core.wakeup;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -8,6 +9,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import cn.walkpast.utils.LogUtils;
+import cn.walkpast.utils.ToastUtils;
 
 /**
  * Author: Kern
@@ -47,10 +49,11 @@ public class WakeupManager {
                 intent.setData(Uri.parse(url));
                 mActivity.startActivity(intent);
                 return true;
-            } catch (android.content.ActivityNotFoundException e) {
+            } catch (ActivityNotFoundException e) {
+                ToastUtils.showShort("暂不支持，请先安装该应用");
+                return false;
             }
         }
-
         return false;
     }
 

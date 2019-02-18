@@ -129,7 +129,7 @@ dependencies {
     compile 'com.umeng.sdk:common:latest.integration'
     compile 'com.umeng.sdk:utdid:1.1.5.3'
     //gdt
-    implementation files('libs/GDTUnionSDK.4.22.584.min.jar')
+    //implementation files('libs/GDTUnionSDK.4.22.584.min.jar')
 
     /*******************************************************************/
     //core
