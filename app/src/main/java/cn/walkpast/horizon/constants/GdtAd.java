@@ -8,8 +8,8 @@ package cn.walkpast.horizon.constants;
 
 public class GdtAd {
 
-    public static final String APP_ID = "1101152570";
+    public static final String APP_ID = "1108219186";
 
-    public static final String SPLASH_POS_ID = "8863364436303842593";
+    public static final String SPLASH_POS_ID = "7080056551936901";
 
 }
