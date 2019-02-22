@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.GeolocationPermissions;
@@ -390,19 +391,22 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
             PermissionUtil
                     .getInstance()
                     .request(mHorizon.getActivity(),
-                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
                             new PermissionResultCallBack() {
                                 @Override
                                 public void onPermissionGranted() {
 
+                                    Log.e("sos", "onPermissionGranted1111");
                                 }
 
                                 @Override
                                 public void onPermissionGranted(String... permissions) {
+                                    Log.e("sos", "onPermissionGranted2222");
                                 }
 
                                 @Override
                                 public void onPermissionDenied(String... permissions) {
+                                    Log.e("sos", "onPermissionDenied");
 
                                     return;
                                 }
@@ -426,6 +430,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                             public void onClick(DialogInterface dialog, int which) {
                                 GeolocationHelper.isGeolocationDialogShowing = false;
                                 if (GeolocationHelper.isSystemLocationEnable(mHorizon.getActivity())) {
+                                    Log.e("sos", "onGeolocationPermissionsShowPrompt==" + origin);
                                     callback.invoke(origin, true, false);
                                 } else {
                                     GeolocationHelper.actionLocation(mHorizon.getActivity());
