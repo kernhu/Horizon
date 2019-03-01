@@ -59,36 +59,27 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
         LogUtils.d(TAG, "onProgressChanged------" + newProgress);
         if (newProgress == 100) {
             mHorizon.getProgressConfig().getIndicator().setVisibility(View.GONE);
-
             if (mHorizon.getCoreConfig().isHardwareAccelerated()) {
                 HardwareHelper.setupHwAcceleration(view, false);
             }
-
             if (mHorizon.getCoreConfig().getStrategy() == Strategy.CORE_PRIORITY_TEXT_IMAGE) {
                 view.getSettings().setBlockNetworkImage(false);
             }
-
         } else {
             if (mHorizon.getProgressConfig().getIndicator().getVisibility() == View.GONE) {
                 mHorizon.getProgressConfig().getIndicator().setVisibility(View.VISIBLE);
             }
-
-
             if (mHorizon.getCoreConfig().isHardwareAccelerated()) {
                 HardwareHelper.setupHwAcceleration(view, true);
             }
-
-
             if (mHorizon.getCoreConfig().getStrategy() == Strategy.CORE_PRIORITY_TEXT_IMAGE) {
                 view.getSettings().setBlockNetworkImage(true);
             }
-
             if (mHorizon.getCoreConfig().isThemeEnable() && mHorizon.getCoreConfig().getTheme() == Theme.THEME_DARK) {
                 ThemeHelper.getInstance().injectDark(view);
             } else if (mHorizon.getCoreConfig().isThemeEnable() && mHorizon.getCoreConfig().getTheme() == Theme.THEME_DARK) {
                 ThemeHelper.getInstance().injectLight(view);
             }
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 mHorizon.getProgressConfig().getIndicator().setProgress(newProgress, false);
             } else {
@@ -112,7 +103,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
             }
         }
         /***************************************** capture bitmap ******************************************/
-
         super.onProgressChanged(view, newProgress);
         if (mHorizon.getHorizonClient() != null) {
             mHorizon.getHorizonClient().onProgressChanged(view, newProgress);
@@ -171,7 +161,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
             mHorizon.getHorizonClient().onPermissionRequestCanceled(request);
         }
     }
-
 
     @Override
     public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
@@ -332,7 +321,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
 
     /***************************************** opne file chooser  ---END ******************************************/
 
-
     @Override
     public void onCloseWindow(WebView window) {
         super.onCloseWindow(window);
@@ -395,7 +383,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                             new PermissionResultCallBack() {
                                 @Override
                                 public void onPermissionGranted() {
-
                                     Log.e("sos", "onPermissionGranted1111");
                                 }
 
@@ -407,7 +394,6 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                                 @Override
                                 public void onPermissionDenied(String... permissions) {
                                     Log.e("sos", "onPermissionDenied");
-
                                     return;
                                 }
 
@@ -430,7 +416,7 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                             public void onClick(DialogInterface dialog, int which) {
                                 GeolocationHelper.isGeolocationDialogShowing = false;
                                 if (GeolocationHelper.isSystemLocationEnable(mHorizon.getActivity())) {
-                                    Log.e("sos", "onGeolocationPermissionsShowPrompt==" + origin);
+                                    Log.e("sos", "true-----onGeolocationPermissionsShowPrompt==" + origin);
                                     callback.invoke(origin, true, false);
                                 } else {
                                     GeolocationHelper.actionLocation(mHorizon.getActivity());
@@ -444,8 +430,11 @@ public class HorizonWebChromeClient extends WebChromeClient implements CaptureHe
                             }
                         })
                         .show();
-
             }
+        }else{
+
+            Log.e("sos", "false------onGeolocationPermissionsShowPrompt==" + origin);
+            callback.invoke(origin, true, false);
         }
 
         super.onGeolocationPermissionsShowPrompt(origin, callback);
