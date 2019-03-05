@@ -1,9 +1,5 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
 /**
  * 获取系统时间
  * */
@@ -44,16 +40,16 @@ android {
         debug {
             keyAlias 'HorizonDebug'
             keyPassword 'HORIZON'
-            //storeFile file('/Users/kern/AndroidStudioProjects/Horizon/app/keystore/horizon_debug.jks')
-            storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_debug.jks')
+            storeFile file('/Users/kern/AndroidStudioProjects/Horizon/app/keystore/horizon_debug.jks')
+            //storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_debug.jks')
             storePassword 'HORIZON'
         }
         /*正式*/
         release {
             keyAlias 'HorizonRelease'
             keyPassword 'HORIZON2019'
-            //storeFile file('/Users/kern/AndroidStudioProjects/Horizon/app/keystore/horizon_release.jks')
-            storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_release.jks')
+            storeFile file('/Users/kern/AndroidStudioProjects/Horizon/app/keystore/horizon_release.jks')
+            //storeFile file('D:/BrowserProject/Horizon/app/keystore/horizon_release.jks')
             storePassword 'HORIZON2019'
         }
     }
@@ -111,7 +107,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
@@ -119,15 +114,15 @@ dependencies {
     implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
     implementation "com.android.support:percent:$rootProject.supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    compile 'com.android.support:percent:22.2.0'
+    implementation 'com.android.support:percent:22.2.0'
     //注解
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //bugly
-    compile 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport:latest.release'
     //umeng
-    compile 'com.umeng.sdk:common:latest.integration'
-    compile 'com.umeng.sdk:utdid:1.1.5.3'
+    implementation 'com.umeng.sdk:common:latest.integration'
+    implementation 'com.umeng.sdk:utdid:1.1.5.3'
     //gdt
     implementation files('libs/GDTUnionSDK.4.22.584.min.jar')
     /** *****************************************************************/
