@@ -29,4 +29,5 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     implementation project(':download')
     implementation project(':indicator')
+    implementation project(':utils')
 }
